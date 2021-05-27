@@ -12,11 +12,11 @@ var Netzstruktur;
         console.log(form);
         let startbtn = document.getElementById("start");
         console.log(startbtn);
-        startbtn.addEventListener("click", sendOrder);
+        startbtn.addEventListener("click", sendPlayerName);
         prepareGame();
     }
-    async function sendOrder(_event) {
-        console.log("Send order");
+    async function sendPlayerName(_event) {
+        console.log("Send Player Name");
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
         let response = await fetch(url + "?" + query.toString());
