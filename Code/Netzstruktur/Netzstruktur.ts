@@ -12,12 +12,12 @@ namespace Netzstruktur {
         console.log(form);
         let startbtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
         console.log(startbtn);
-        startbtn.addEventListener("click", sendOrder);
+        startbtn.addEventListener("click", sendPlayerName);
         prepareGame();
     }
 
-    async function sendOrder(_event: Event): Promise<void> {
-        console.log("Send order");
+    async function sendPlayerName(_event: Event): Promise<void> {
+        console.log("Send Player Name");
         let formData: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         let response: Response = await fetch(url + "?" + query.toString());
