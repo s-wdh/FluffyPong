@@ -8,28 +8,33 @@ namespace Netzstruktur {
 
     async function handleLoad(_event: Event): Promise<void> {
         console.log("start");
-        form = <HTMLFormElement>document.querySelector("form");
+        form = <HTMLFormElement>document.getElementById("form");
+        console.log(form);
         let startbtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("start");
         console.log(startbtn);
-        startbtn.addEventListener("click", prepareGame);
+        startbtn.addEventListener("click", sendOrder);
+        prepareGame();
     }
 
-    async function prepareGame(_event: Event): Promise<void> {
-
-        console.log("click");
+    async function sendOrder(_event: Event): Promise<void> {
+        console.log("Send order");
         let formData: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         let response: Response = await fetch(url + "?" + query.toString());
         let responseText: string = await response.text();
         alert(responseText);
+    }
 
-        let target: Node = <Node>_event.target;
+    function prepareGame(): void {
+        console.log("click");
+
+        /* let target: Node = <Node>_event.target;
         let parent: Node = <Node>target.parentNode?.parentNode?.parentNode;
         if (!parent.lastChild)
             return;
         while (parent.firstChild) {
             parent.removeChild(parent.lastChild);
-        }
+        } */
         let position: number = X.length - 1;
         let lastPlayer: number = X[position].valueOf();
         console.log(lastPlayer);

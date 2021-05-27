@@ -5,28 +5,33 @@ var Netzstruktur;
     let X = [0, 7];
     let Y = [0, 7];
     let form;
-    let url = "http://localhost:5001";
+    let url = "https://fluffypong.herokuapp.com/";
     async function handleLoad(_event) {
         console.log("start");
-        form = document.querySelector("form");
+        form = document.getElementById("form");
+        console.log(form);
         let startbtn = document.getElementById("start");
         console.log(startbtn);
-        startbtn.addEventListener("click", prepareGame);
+        startbtn.addEventListener("click", sendOrder);
+        prepareGame();
     }
-    async function prepareGame(_event) {
-        console.log("click");
+    async function sendOrder(_event) {
+        console.log("Send order");
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
         let response = await fetch(url + "?" + query.toString());
         let responseText = await response.text();
         alert(responseText);
-        let target = _event.target;
-        let parent = target.parentNode?.parentNode?.parentNode;
+    }
+    function prepareGame() {
+        console.log("click");
+        /* let target: Node = <Node>_event.target;
+        let parent: Node = <Node>target.parentNode?.parentNode?.parentNode;
         if (!parent.lastChild)
             return;
         while (parent.firstChild) {
             parent.removeChild(parent.lastChild);
-        }
+        } */
         let position = X.length - 1;
         let lastPlayer = X[position].valueOf();
         console.log(lastPlayer);
