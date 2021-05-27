@@ -1,29 +1,44 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Http = require("http");
-const Url = require("url");
+const WebSocket = require("ws");
 var Netzstruktur;
 (function (Netzstruktur) {
-    let server = Http.createServer();
-    let port = process.env.PORT;
-    if (port == undefined)
-        port = 5001;
-    console.log("Server starting on port:" + port);
-    server.listen(port);
-    server.addListener("request", handleRequest);
-    function handleRequest(_request, _response) {
-        console.log("What's up?");
-        _response.setHeader("content-type", "text/html; charset=utf-8");
-        _response.setHeader("Access-Control-Allow-Origin", "*");
-        if (_request.url) {
-            let url = Url.parse(_request.url, true);
-            for (let key in url.query) {
-                _response.write(key + ":" + url.query[key] + "<br/>");
+    // define count to give out different client ids
+    //let clientIdCounter: number = 0;
+    // create WebSocket server with given port
+    const port = Number(process.env.PORT) || 8000;
+    const server = new WebSocket.Server({ port: port });
+    const playerNameList = [];
+    // set of connected sockets
+    const clientSockets = new Array();
+    server.on("connection", (socket) => {
+        clientSockets.push(socket);
+        socket.on("message", (message) => {
+            const carrierMessage = JSON.parse(message);
+            const selector = carrierMessage.selector;
+            const data = carrierMessage.data;
+            switch (selector) {
+                case "player": {
+                    const playerInfo = JSON.parse(data);
+                    // add message to message list
+                    playerNameList.push(playerInfo);
+                    console.log(`#${playerInfo.name}: "${playerInfo.position}"`);
+                    // broadcast message to all connected clients
+                    for (let socket of clientSockets) {
+                        socket.send(message);
+                    }
+                    break;
+                }
+                case "fluffy": {
+                    break;
+                }
             }
-            let jsonString = JSON.stringify(url.query);
-            _response.write(jsonString);
-        }
-        _response.end();
-    }
-})(Netzstruktur = exports.Netzstruktur || (exports.Netzstruktur = {}));
+        });
+        socket.on("close", () => {
+            clientSockets.splice(clientSockets.indexOf(socket));
+            /* playerNameList.splice();
+            playerPosition.splice(); */
+        });
+    }); //server.on
+})(Netzstruktur = exports.Netzstruktur || (exports.Netzstruktur = {})); //namespace
 //# sourceMappingURL=server.js.map
