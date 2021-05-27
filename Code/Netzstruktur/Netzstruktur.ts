@@ -4,7 +4,7 @@ namespace Netzstruktur {
     let X: Number[] = [0, 7];
     let Y: Number[] = [0, 7];
     let form: HTMLFormElement;
-    let url: string = "http://localhost:5001";
+    let url: string = "https://fluffypong.herokuapp.com/";
 
     async function handleLoad(_event: Event): Promise<void> {
         console.log("start");
