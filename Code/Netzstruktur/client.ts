@@ -27,8 +27,8 @@ namespace Netzstruktur {
         position: number;
     }
 
-    export let playerNameList: Player[];
-    export let playerPosition: number[] = [0];
+    let playerNameList: Player[] = [];
+    let playerPosition: number[] = [0];
 
 
     // listen to message from server

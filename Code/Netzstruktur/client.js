@@ -14,7 +14,8 @@ var Netzstruktur;
             sendName();
         });
     }
-    Netzstruktur.playerPosition = [0];
+    let playerNameList = [];
+    let playerPosition = [0];
     // listen to message from server
     socket.addEventListener("message", (event) => {
         const carrier = JSON.parse(event.data);
@@ -23,7 +24,7 @@ var Netzstruktur;
         switch (selector) {
             case "player":
                 const playerInfo = JSON.parse(data);
-                Netzstruktur.playerNameList.push(playerInfo); // add message to message list
+                playerNameList.push(playerInfo); // add message to message list
                 break;
             case "fluffy":
                 break;
@@ -31,11 +32,11 @@ var Netzstruktur;
     });
     function sendName() {
         const name = namefield.value;
-        let position = Netzstruktur.playerPosition.length - 1;
-        let lastPlayer = Netzstruktur.playerPosition[position].valueOf();
+        let position = playerPosition.length - 1;
+        let lastPlayer = playerPosition[position].valueOf();
         let createPlayerNumber = lastPlayer + 1;
-        Netzstruktur.playerPosition.push(createPlayerNumber);
-        let index = Netzstruktur.playerPosition.indexOf(createPlayerNumber);
+        playerPosition.push(createPlayerNumber);
+        let index = playerPosition.indexOf(createPlayerNumber);
         if (name !== "") {
             const playername = {
                 name: name,
