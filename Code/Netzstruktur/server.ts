@@ -69,7 +69,7 @@ export namespace Netzstruktur {
                     console.log(playerNameList);
                     for (let socket of clientSockets) {
                         const textCarrier: CarrierMessage = {
-                            selector: "player",
+                            selector: "deletePlayer",
                             data: JSON.stringify(playerElement)
                         };
                         socket.send(JSON.stringify(textCarrier));

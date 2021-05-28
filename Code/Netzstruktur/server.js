@@ -49,7 +49,7 @@ var Netzstruktur;
                     console.log(playerNameList);
                     for (let socket of clientSockets) {
                         const textCarrier = {
-                            selector: "player",
+                            selector: "deletePlayer",
                             data: JSON.stringify(playerElement)
                         };
                         socket.send(JSON.stringify(textCarrier));

@@ -27,6 +27,15 @@ var Netzstruktur;
                 playerNameList.push(playerInfo); // add message to message list
                 console.log(playerNameList);
                 break;
+            case "deletePlayer":
+                const deleteInfo = JSON.parse(data);
+                for (let playerElement of playerNameList) {
+                    if (playerElement.name == deleteInfo.name && playerElement.position == deleteInfo.position) {
+                        playerNameList.splice(playerNameList.indexOf(playerElement)); // delete player from array
+                    }
+                }
+                console.log(playerNameList);
+                break;
             case "fluffy":
                 break;
         }
