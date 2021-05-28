@@ -9,7 +9,7 @@ var Netzstruktur;
     const port = Number(process.env.PORT) || 8000;
     const server = new WebSocket.Server({ port: port });
     const playerNameList = [];
-    // set of connected sockets
+    // array of connected sockets
     const clientSockets = new Array();
     server.on("connection", (socket) => {
         clientSockets.push(socket);
@@ -20,6 +20,7 @@ var Netzstruktur;
             switch (selector) {
                 case "player": {
                     const playerInfo = JSON.parse(data);
+                    playerInfo.position = clientSockets.indexOf(socket);
                     // add message to message list
                     playerNameList.push(playerInfo);
                     console.log(`#${playerInfo.name}: "${playerInfo.position}"`);

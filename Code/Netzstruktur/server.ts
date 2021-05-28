@@ -23,7 +23,7 @@ export namespace Netzstruktur {
 
     const playerNameList: Player[] = [];
 
-    // set of connected sockets
+    // array of connected sockets
     const clientSockets: Array<WebSocket> = new Array();
 
     server.on("connection", (socket) => {
@@ -37,6 +37,7 @@ export namespace Netzstruktur {
             switch (selector) {
                 case "player": {
                     const playerInfo: Player = <Player>JSON.parse(<string>data);
+                    playerInfo.position = clientSockets.indexOf(socket);
 
                     // add message to message list
                     playerNameList.push(playerInfo);
