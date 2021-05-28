@@ -24,11 +24,11 @@ namespace Netzstruktur {
     // player name interface
     interface Player {
         name: string;
-        position: number;
+        position?: number;
     }
 
     let playerNameList: Player[] = [];
-    let playerPosition: number[] = [0];
+    //let playerPosition: number[] = [0];
 
 
     // listen to message from server
@@ -50,16 +50,16 @@ namespace Netzstruktur {
 
     function sendName(): void {
         const name: string = namefield.value;
-        let position: number = playerPosition.length - 1;
+        /* let position: number = playerPosition.length - 1;
         let lastPlayer: number = playerPosition[position].valueOf();
         let createPlayerNumber: number = lastPlayer + 1;
         playerPosition.push(createPlayerNumber);
         let index: number = playerPosition.indexOf(createPlayerNumber);
-
+ */
         if (name !== "") {
             const playername: Player = {
-                name: name,
-                position: index
+                name: name
+                //position: index
             };
 
             const textCarrier: CarrierMessage = {

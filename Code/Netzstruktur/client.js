@@ -15,7 +15,7 @@ var Netzstruktur;
         });
     }
     let playerNameList = [];
-    let playerPosition = [0];
+    //let playerPosition: number[] = [0];
     // listen to message from server
     socket.addEventListener("message", (event) => {
         const carrier = JSON.parse(event.data);
@@ -33,15 +33,16 @@ var Netzstruktur;
     });
     function sendName() {
         const name = namefield.value;
-        let position = playerPosition.length - 1;
-        let lastPlayer = playerPosition[position].valueOf();
-        let createPlayerNumber = lastPlayer + 1;
+        /* let position: number = playerPosition.length - 1;
+        let lastPlayer: number = playerPosition[position].valueOf();
+        let createPlayerNumber: number = lastPlayer + 1;
         playerPosition.push(createPlayerNumber);
-        let index = playerPosition.indexOf(createPlayerNumber);
+        let index: number = playerPosition.indexOf(createPlayerNumber);
+ */
         if (name !== "") {
             const playername = {
-                name: name,
-                position: index
+                name: name
+                //position: index
             };
             const textCarrier = {
                 selector: "player",
