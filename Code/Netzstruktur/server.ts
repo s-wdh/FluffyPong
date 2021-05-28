@@ -45,7 +45,11 @@ export namespace Netzstruktur {
 
                     // broadcast message to all connected clients
                     for (let socket of clientSockets) {
-                        socket.send(message);
+                        const textCarrier: CarrierMessage = {
+                            selector: "player",
+                            data: JSON.stringify(playerInfo)
+                        };
+                        socket.send(JSON.stringify(textCarrier));
                     }
                     break;
                 }

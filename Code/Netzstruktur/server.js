@@ -26,7 +26,11 @@ var Netzstruktur;
                     console.log(`#${playerInfo.name}: "${playerInfo.position}"`);
                     // broadcast message to all connected clients
                     for (let socket of clientSockets) {
-                        socket.send(message);
+                        const textCarrier = {
+                            selector: "player",
+                            data: JSON.stringify(playerInfo)
+                        };
+                        socket.send(JSON.stringify(textCarrier));
                     }
                     break;
                 }
