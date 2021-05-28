@@ -42,18 +42,20 @@ var Netzstruktur;
         socket.on("close", () => {
             let socketPosition = clientSockets.indexOf(socket);
             clientSockets.splice(socketPosition);
-            for (let element of playerNameList) {
-                if (element.position == socketPosition) {
-                    console.log(element);
-                    playerNameList.splice(playerNameList.indexOf(element));
+            for (let playerElement of playerNameList) {
+                if (playerElement.position == socketPosition) {
+                    console.log(playerElement);
+                    playerNameList.splice(playerNameList.indexOf(playerElement));
                     console.log(playerNameList);
-                }
-                else {
-                    console.log("player not found");
+                    for (let socket of clientSockets) {
+                        const textCarrier = {
+                            selector: "player",
+                            data: JSON.stringify(playerElement)
+                        };
+                        socket.send(JSON.stringify(textCarrier));
+                    }
                 }
             }
-            /* playerNameList.splice();
-            playerPosition.splice(); */
         });
     }); //server.on
 })(Netzstruktur = exports.Netzstruktur || (exports.Netzstruktur = {})); //namespace
