@@ -25,6 +25,7 @@ var Netzstruktur;
             case "player":
                 const playerInfo = JSON.parse(data);
                 playerNameList.push(playerInfo); // add message to message list
+                console.log(playerNameList);
                 break;
             case "fluffy":
                 break;
@@ -48,6 +49,7 @@ var Netzstruktur;
             };
             socket.send(JSON.stringify(textCarrier));
         }
+        console.log("Name gesendet");
         // delete name field and buttons
     }
 })(Netzstruktur || (Netzstruktur = {})); //namespace
