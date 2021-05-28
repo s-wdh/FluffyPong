@@ -60,7 +60,17 @@ export namespace Netzstruktur {
             }
         });
         socket.on("close", () => {
-            clientSockets.splice(clientSockets.indexOf(socket));
+            let socketPosition: number = clientSockets.indexOf(socket);
+            clientSockets.splice(socketPosition);
+            for (let element of playerNameList) {
+                if (element.position == socketPosition) {
+                    console.log(element);
+                    playerNameList.splice(playerNameList.indexOf(element));
+                    console.log(playerNameList);
+                } else {
+                    console.log("player not found");
+                }              
+            }
 
             /* playerNameList.splice();
             playerPosition.splice(); */
