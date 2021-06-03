@@ -41,6 +41,7 @@ var Netzstruktur;
                 const fluffy = JSON.parse(data);
                 let x = 250;
                 let y = 300;
+                console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
                         x = 250;

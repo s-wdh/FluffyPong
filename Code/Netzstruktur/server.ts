@@ -73,6 +73,7 @@ export namespace Netzstruktur {
                                     indexNewPlayer = indexOldPlayer + 1;
                                     for (socket of clientSockets) {
                                         newPlayer = playerNameList[indexNewPlayer];
+                                        console.log(`#${newPlayer}: "${newPlayer.position}"`);
                                         if (newPlayer.position == clientSockets.indexOf(socket)) {
                                             const textCarrier: CarrierMessage = {
                                                 selector: "fluffy",

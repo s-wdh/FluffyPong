@@ -63,6 +63,7 @@ namespace Netzstruktur {
                 const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
                 let x: number = 250;
                 let y: number = 300;
+                console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
                         x = 250;
