@@ -10,6 +10,8 @@ namespace Netzstruktur {
     let wallBottomColor: string;
     let wallLeftColor: string;
 
+    export let imgData: ImageData;
+
     function handleLoad(): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
         if (!canvas)
@@ -86,6 +88,8 @@ namespace Netzstruktur {
             crc2.clearRect(0, holeLeftPosition, (_canvas.height / 100 * 5), holeLeftHeight);
         }
         crc2.closePath();
+
+        imgData = crc2.getImageData(0, 0, _canvas.width, _canvas.height);
     }
 
     export function createFluffyPosition(_canvas: HTMLCanvasElement): void {
@@ -96,8 +100,9 @@ namespace Netzstruktur {
             let y: number = 68 + (Math.random() * (_canvas.height - 136));
             let position: Vector = new Vector(x, y);
             let fluffy: FluffyElement = new FluffyElement(position);
-            fluffy.draw(position);
-            //fluffies.push(fluffy);
+            fluffy.generateColor();
+            fluffy.draw();
+            fluffies.push(fluffy);
         }
     }
 } //namespace

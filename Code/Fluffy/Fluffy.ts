@@ -2,28 +2,33 @@ namespace Netzstruktur {
     export class FluffyElement {
         position: Vector;
         velocity: Vector;
+        color: string;
 
         constructor(_position: Vector) {
             this.position = _position;
             //this.velocity = new Vector(0, 0);
         }
 
-        draw(_position: Vector): void {
-            crc2.save();
-            crc2.translate(_position.x, _position.y);
-
+        generateColor(): void {
             let color: String[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
             let fluffyColor: string = color[Math.floor(Math.random() * color.length)].toString();
+            this.color = fluffyColor;
             /* 
             Blau: #b3ecff 
             Grün: #cfffb3
             Gelb: #ffffb3
             Rot: #ffb3d1
             */
+        }
+
+        draw(): void {
+            crc2.save();
+            crc2.translate(this.position.x, this.position.y);
+
             crc2.scale(0.5, 0.4);
             crc2.beginPath();
             crc2.arc(0, 0, 60, 0, 2 * Math.PI);
-            crc2.fillStyle = fluffyColor;
+            crc2.fillStyle = this.color;
             crc2.fill();
             crc2.closePath();
 
@@ -49,7 +54,7 @@ namespace Netzstruktur {
                 crc2.lineTo(17, 57);
                 crc2.lineTo(26, 75);
                 crc2.lineTo(24, 55);
-                crc2.fillStyle = fluffyColor;
+                crc2.fillStyle = this.color;
                 crc2.strokeStyle = "#000000";
                 crc2.fill();
                 crc2.stroke();

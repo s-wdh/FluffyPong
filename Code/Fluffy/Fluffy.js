@@ -6,21 +6,24 @@ var Netzstruktur;
             this.position = _position;
             //this.velocity = new Vector(0, 0);
         }
-        draw(_position) {
-            Netzstruktur.crc2.save();
-            Netzstruktur.crc2.translate(_position.x, _position.y);
+        generateColor() {
             let color = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
             let fluffyColor = color[Math.floor(Math.random() * color.length)].toString();
+            this.color = fluffyColor;
             /*
             Blau: #b3ecff
             Grün: #cfffb3
             Gelb: #ffffb3
             Rot: #ffb3d1
             */
+        }
+        draw() {
+            Netzstruktur.crc2.save();
+            Netzstruktur.crc2.translate(this.position.x, this.position.y);
             Netzstruktur.crc2.scale(0.5, 0.4);
             Netzstruktur.crc2.beginPath();
             Netzstruktur.crc2.arc(0, 0, 60, 0, 2 * Math.PI);
-            Netzstruktur.crc2.fillStyle = fluffyColor;
+            Netzstruktur.crc2.fillStyle = this.color;
             Netzstruktur.crc2.fill();
             Netzstruktur.crc2.closePath();
             Netzstruktur.crc2.beginPath();
@@ -45,7 +48,7 @@ var Netzstruktur;
                 Netzstruktur.crc2.lineTo(17, 57);
                 Netzstruktur.crc2.lineTo(26, 75);
                 Netzstruktur.crc2.lineTo(24, 55);
-                Netzstruktur.crc2.fillStyle = fluffyColor;
+                Netzstruktur.crc2.fillStyle = this.color;
                 Netzstruktur.crc2.strokeStyle = "#000000";
                 Netzstruktur.crc2.fill();
                 Netzstruktur.crc2.stroke();

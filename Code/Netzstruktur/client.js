@@ -61,7 +61,8 @@ var Netzstruktur;
                 }
                 let position = new Netzstruktur.Vector(x, y);
                 let newFluffy = new Netzstruktur.FluffyElement(position);
-                newFluffy.draw(position);
+                newFluffy.generateColor();
+                newFluffy.draw();
                 Netzstruktur.fluffies.push(newFluffy);
                 break;
         }
@@ -82,9 +83,11 @@ var Netzstruktur;
         // delete name field and buttons
     }
     function sendFluffy(_event) {
+        console.log(_event);
         let x = _event.clientX;
         let y = _event.clientY;
         for (let element of Netzstruktur.fluffies) {
+            console.log(element.position);
             if (element.position.x - (Netzstruktur.fluffyWidth / 2) < x && element.position.y - (Netzstruktur.fluffyHeight / 2) < y && element.position.x + (Netzstruktur.fluffyWidth / 2) > x && element.position.y + (Netzstruktur.fluffyHeight / 2) > y) {
                 console.log("send Fluffy");
                 const textCarrier = {
@@ -92,7 +95,12 @@ var Netzstruktur;
                     data: JSON.stringify(element)
                 };
                 socket.send(JSON.stringify(textCarrier));
+                Netzstruktur.fluffies.splice(Netzstruktur.fluffies.indexOf(element), 1);
             }
+        }
+        Netzstruktur.crc2.putImageData(Netzstruktur.imgData, 0, 0);
+        for (let fluffy of Netzstruktur.fluffies) {
+            fluffy.draw();
         }
     }
     Netzstruktur.sendFluffy = sendFluffy;

@@ -83,7 +83,8 @@ namespace Netzstruktur {
                 }
                 let position: Vector = new Vector(x, y);
                 let newFluffy: FluffyElement = new FluffyElement(position);
-                newFluffy.draw(position);
+                newFluffy.generateColor();
+                newFluffy.draw();
                 fluffies.push(newFluffy);
                 break;
         }
@@ -108,9 +109,11 @@ namespace Netzstruktur {
     }
 
     export function sendFluffy(_event: MouseEvent): void {
+        console.log(_event);
         let x: number = _event.clientX;
         let y: number = _event.clientY;
         for (let element of fluffies) {
+            console.log(element.position);
             if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
                 console.log("send Fluffy");
                 const textCarrier: CarrierMessage = {
@@ -118,7 +121,12 @@ namespace Netzstruktur {
                     data: JSON.stringify(element)
                 };
                 socket.send(JSON.stringify(textCarrier));
+                fluffies.splice(fluffies.indexOf(element), 1);
             }
+        }
+        crc2.putImageData(imgData, 0 , 0);
+        for (let fluffy of fluffies) {
+            fluffy.draw();
         }
     }
 

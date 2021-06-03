@@ -78,6 +78,7 @@ var Netzstruktur;
             Netzstruktur.crc2.clearRect(0, holeLeftPosition, (_canvas.height / 100 * 5), holeLeftHeight);
         }
         Netzstruktur.crc2.closePath();
+        Netzstruktur.imgData = Netzstruktur.crc2.getImageData(0, 0, _canvas.width, _canvas.height);
     }
     function createFluffyPosition(_canvas) {
         let amount = 7 + Math.floor(Math.random() * 5);
@@ -87,8 +88,9 @@ var Netzstruktur;
             let y = 68 + (Math.random() * (_canvas.height - 136));
             let position = new Netzstruktur.Vector(x, y);
             let fluffy = new Netzstruktur.FluffyElement(position);
-            fluffy.draw(position);
-            //fluffies.push(fluffy);
+            fluffy.generateColor();
+            fluffy.draw();
+            Netzstruktur.fluffies.push(fluffy);
         }
     }
     Netzstruktur.createFluffyPosition = createFluffyPosition;
