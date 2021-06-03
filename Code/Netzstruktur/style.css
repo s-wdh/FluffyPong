@@ -10,5 +10,19 @@ body {
     top: 0px;
     width: 100%;
     height: 100%;
-    background-color: darkslateblue;
+}
+
+canvas {
+    position: absolute;
+    left: 0px;
+    top: 30px;
+    width: 100%;
+    height: 100%;
+}
+
+@media only-screen and (max-width: 600px) {
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
 }

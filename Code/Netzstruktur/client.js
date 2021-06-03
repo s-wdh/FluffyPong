@@ -14,6 +14,7 @@ var Netzstruktur;
             sendName();
         });
     }
+    Netzstruktur.fluffies = [];
     let playerNameList = [];
     //let playerPosition: number[] = [0];
     // listen to message from server
@@ -37,21 +38,39 @@ var Netzstruktur;
                 console.log(playerNameList);
                 break;
             case "fluffy":
+                const fluffy = JSON.parse(data);
+                let x = 250;
+                let y = 300;
+                switch (fluffy.direction) {
+                    case "top":
+                        x = 250;
+                        y = 0;
+                        break;
+                    case "right":
+                        x = 500;
+                        y = 300;
+                        break;
+                    case "bottom":
+                        x = 250;
+                        y = 600;
+                        break;
+                    case "left":
+                        x = 0;
+                        y = 300;
+                        break;
+                }
+                let position = new Netzstruktur.Vector(x, y);
+                let newFluffy = new Netzstruktur.FluffyElement(position);
+                newFluffy.draw(position);
+                Netzstruktur.fluffies.push(newFluffy);
                 break;
         }
     });
     function sendName() {
         const name = namefield.value;
-        /* let position: number = playerPosition.length - 1;
-        let lastPlayer: number = playerPosition[position].valueOf();
-        let createPlayerNumber: number = lastPlayer + 1;
-        playerPosition.push(createPlayerNumber);
-        let index: number = playerPosition.indexOf(createPlayerNumber);
- */
         if (name !== "") {
             const playername = {
                 name: name
-                //position: index
             };
             const textCarrier = {
                 selector: "player",
@@ -62,5 +81,20 @@ var Netzstruktur;
         console.log("Name gesendet");
         // delete name field and buttons
     }
+    function sendFluffy(_event) {
+        let x = _event.clientX;
+        let y = _event.clientY;
+        for (let element of Netzstruktur.fluffies) {
+            if (element.position.x - (Netzstruktur.fluffyWidth / 2) < x && element.position.y - (Netzstruktur.fluffyHeight / 2) < y && element.position.x + (Netzstruktur.fluffyWidth / 2) > x && element.position.y + (Netzstruktur.fluffyHeight / 2) > y) {
+                console.log("send Fluffy");
+                const textCarrier = {
+                    selector: "fluffy",
+                    data: JSON.stringify(element)
+                };
+                socket.send(JSON.stringify(textCarrier));
+            }
+        }
+    }
+    Netzstruktur.sendFluffy = sendFluffy;
 })(Netzstruktur || (Netzstruktur = {})); //namespace
 //# sourceMappingURL=client.js.map

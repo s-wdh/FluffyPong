@@ -1,9 +1,9 @@
-namespace Fluffy {
+namespace Netzstruktur {
     window.addEventListener("load", handleLoad);
 
-    let crc2: CanvasRenderingContext2D;
-    let fluffyWidth: number = 160;
-    let fluffyHeight: number = 136;
+    export let crc2: CanvasRenderingContext2D;
+    export let fluffyWidth: number = 80;
+    export let fluffyHeight: number = 68;
 
     let wallTopColor: string;
     let wallRightColor: string;
@@ -15,8 +15,18 @@ namespace Fluffy {
         if (!canvas)
             return;
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
+        createBackground(canvas);
         WallColors();
         Walls(canvas);
+        createFluffyPosition(canvas);
+        canvas.addEventListener("mousedown", sendFluffy);
+    }
+    
+    function createBackground(_canvas: HTMLCanvasElement): void {
+        crc2.restore();
+        crc2.fillStyle = "#cccccc";
+        crc2.fillRect(0, 0, _canvas.width, _canvas.height); 
+        crc2.fill();
     }
 
     function WallColors(): void {
@@ -76,5 +86,18 @@ namespace Fluffy {
             crc2.clearRect(0, holeLeftPosition, (_canvas.height / 100 * 5), holeLeftHeight);
         }
         crc2.closePath();
+    }
+
+    export function createFluffyPosition(_canvas: HTMLCanvasElement): void {
+        let amount: number = 7 + Math.floor(Math.random() * 5);
+        console.log(amount);
+        for (let index: number = 0; index < amount; index++) {
+            let x: number = 80 + (Math.random() * (_canvas.width - 160));
+            let y: number = 68 + (Math.random() * (_canvas.height - 136));
+            let position: Vector = new Vector(x, y);
+            let fluffy: FluffyElement = new FluffyElement(position);
+            fluffy.draw(position);
+            //fluffies.push(fluffy);
+        }
     }
 } //namespace

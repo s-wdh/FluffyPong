@@ -27,6 +27,13 @@ namespace Netzstruktur {
         position?: number;
     }
 
+    //fluffy interface
+    interface Fluffy {
+        object: HTMLCanvasElement;
+        direction: string;
+    }
+
+    export let fluffies: FluffyElement[] = [];
     let playerNameList: Player[] = [];
     //let playerPosition: number[] = [0];
 
@@ -53,22 +60,40 @@ namespace Netzstruktur {
                 console.log(playerNameList);
                 break;
             case "fluffy":
+                const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
+                let x: number = 250;
+                let y: number = 300;
+                switch (fluffy.direction) {
+                    case "top":
+                        x = 250;
+                        y = 0;
+                        break;
+                    case "right":
+                        x = 500;
+                        y = 300;
+                        break;
+                    case "bottom":
+                        x = 250;
+                        y = 600;
+                        break;
+                    case "left":
+                        x = 0;
+                        y = 300;
+                        break;
+                }
+                let position: Vector = new Vector(x, y);
+                let newFluffy: FluffyElement = new FluffyElement(position);
+                newFluffy.draw(position);
+                fluffies.push(newFluffy);
                 break;
         }
     });
 
     function sendName(): void {
         const name: string = namefield.value;
-        /* let position: number = playerPosition.length - 1;
-        let lastPlayer: number = playerPosition[position].valueOf();
-        let createPlayerNumber: number = lastPlayer + 1;
-        playerPosition.push(createPlayerNumber);
-        let index: number = playerPosition.indexOf(createPlayerNumber);
- */
         if (name !== "") {
             const playername: Player = {
                 name: name
-                //position: index
             };
 
             const textCarrier: CarrierMessage = {
@@ -80,6 +105,21 @@ namespace Netzstruktur {
         }
         console.log("Name gesendet");
         // delete name field and buttons
+    }
+
+    export function sendFluffy(_event: MouseEvent): void {
+        let x: number = _event.clientX;
+        let y: number = _event.clientY;
+        for (let element of fluffies) {
+            if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
+                console.log("send Fluffy");
+                const textCarrier: CarrierMessage = {
+                    selector: "fluffy",
+                    data: JSON.stringify(element)
+                };
+                socket.send(JSON.stringify(textCarrier));
+            }
+        }
     }
 
 } //namespace
