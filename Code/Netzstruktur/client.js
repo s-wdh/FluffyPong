@@ -90,9 +90,12 @@ var Netzstruktur;
             console.log(element.position);
             if (element.position.x - (Netzstruktur.fluffyWidth / 2) < x && element.position.y - (Netzstruktur.fluffyHeight / 2) < y && element.position.x + (Netzstruktur.fluffyWidth / 2) > x && element.position.y + (Netzstruktur.fluffyHeight / 2) > y) {
                 console.log("send Fluffy");
+                const fluffyMessage = {
+                    direction: "top"
+                };
                 const textCarrier = {
                     selector: "fluffy",
-                    data: JSON.stringify(element)
+                    data: JSON.stringify(fluffyMessage)
                 };
                 socket.send(JSON.stringify(textCarrier));
                 Netzstruktur.fluffies.splice(Netzstruktur.fluffies.indexOf(element), 1);

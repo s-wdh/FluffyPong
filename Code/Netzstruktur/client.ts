@@ -29,7 +29,7 @@ namespace Netzstruktur {
 
     //fluffy interface
     interface Fluffy {
-        object: HTMLCanvasElement;
+        object?: HTMLCanvasElement;
         direction: string;
     }
 
@@ -116,9 +116,12 @@ namespace Netzstruktur {
             console.log(element.position);
             if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
                 console.log("send Fluffy");
+                const fluffyMessage: Fluffy = {
+                    direction: "top"
+                };
                 const textCarrier: CarrierMessage = {
                     selector: "fluffy",
-                    data: JSON.stringify(element)
+                    data: JSON.stringify(fluffyMessage)
                 };
                 socket.send(JSON.stringify(textCarrier));
                 fluffies.splice(fluffies.indexOf(element), 1);

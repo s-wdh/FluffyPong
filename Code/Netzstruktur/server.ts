@@ -16,7 +16,7 @@ export namespace Netzstruktur {
 
     //fluffy interface
     interface Fluffy {
-        object: HTMLCanvasElement;
+        object?: HTMLCanvasElement;
         direction: string;
     }
 
@@ -61,6 +61,7 @@ export namespace Netzstruktur {
                 case "fluffy": {
                     const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
                     let socketPosition: number = clientSockets.indexOf(socket);
+                    console.log(`#${fluffy.object}: "${fluffy.direction}"`);
                     for (let playerElement of playerNameList) {
                         if (playerElement.position == socketPosition) {
                             console.log(playerElement);
