@@ -46,6 +46,7 @@ var Netzstruktur;
                             switch (fluffy.direction) {
                                 case "top":
                                     indexNewPlayer = indexOldPlayer + 1;
+                                    console.log(indexOldPlayer, indexNewPlayer);
                                     for (socket of clientSockets) {
                                         newPlayer = playerNameList[indexNewPlayer];
                                         if (!newPlayer) {
