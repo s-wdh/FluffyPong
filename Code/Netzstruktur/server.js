@@ -36,7 +36,7 @@ var Netzstruktur;
                 case "fluffy": {
                     const fluffy = JSON.parse(data);
                     let socketPosition = clientSockets.indexOf(socket);
-                    console.log(socket, socketPosition);
+                    console.log(socketPosition);
                     console.log(`#${fluffy.object}: "${fluffy.direction}"`);
                     for (let playerElement of playerNameList) {
                         if (playerElement.position == socketPosition) {
