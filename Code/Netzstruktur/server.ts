@@ -73,6 +73,9 @@ export namespace Netzstruktur {
                                     indexNewPlayer = indexOldPlayer + 1;
                                     for (socket of clientSockets) {
                                         newPlayer = playerNameList[indexNewPlayer];
+                                        if (!newPlayer) {
+                                            newPlayer = playerNameList[0];
+                                        }
                                         console.log(`${newPlayer}`);
                                         if (newPlayer.position == clientSockets.indexOf(socket)) {
                                             const textCarrier: CarrierMessage = {
