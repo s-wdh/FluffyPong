@@ -106,7 +106,12 @@ namespace Netzstruktur {
             socket.send(JSON.stringify(textCarrier));
         }
         console.log("Name gesendet");
-        // delete name field and buttons
+
+        let startdiv: HTMLDivElement = <HTMLDivElement>document.getElementById("startdiv");
+        let parent: Node = <Node>startdiv.parentNode;
+        parent.removeChild(startdiv);
+
+        prepareCanvas();
     }
 
     export function sendFluffy(_event: MouseEvent): void {
@@ -128,7 +133,7 @@ namespace Netzstruktur {
                 fluffies.splice(fluffies.indexOf(element), 1);
             }
         }
-        crc2.putImageData(imgData, 0 , 0);
+        crc2.putImageData(imgData, 0, 0);
         for (let fluffy of fluffies) {
             fluffy.draw();
         }

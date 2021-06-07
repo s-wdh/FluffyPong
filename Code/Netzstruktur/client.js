@@ -81,7 +81,10 @@ var Netzstruktur;
             socket.send(JSON.stringify(textCarrier));
         }
         console.log("Name gesendet");
-        // delete name field and buttons
+        let startdiv = document.getElementById("startdiv");
+        let parent = startdiv.parentNode;
+        parent.removeChild(startdiv);
+        Netzstruktur.prepareCanvas();
     }
     function sendFluffy(_event) {
         console.log(_event);

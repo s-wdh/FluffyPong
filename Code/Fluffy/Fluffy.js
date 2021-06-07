@@ -4,7 +4,8 @@ var Netzstruktur;
     class FluffyElement {
         constructor(_position) {
             this.position = _position;
-            //this.velocity = new Vector(0, 0);
+            this.velocity = new Netzstruktur.Vector(0, 0);
+            this.velocity.random(1, 5);
         }
         generateColor() {
             let color = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
@@ -55,6 +56,23 @@ var Netzstruktur;
                 Netzstruktur.crc2.closePath();
             }
             Netzstruktur.crc2.restore();
+        }
+        move(_vector) {
+            /* let offset: Vector = new Vector(_vector.x, _vector.y);
+            this.position.add(offset); */
+            this.position = _vector;
+        }
+        animation() {
+            let offset = new Netzstruktur.Vector(this.velocity.x, this.velocity.y);
+            this.position.add(offset);
+            if (this.position.x < (Netzstruktur.border + (Netzstruktur.fluffyWidth / 2)))
+                this.velocity.scale(-1);
+            if (this.position.y < (Netzstruktur.border + (Netzstruktur.fluffyHeight / 2)))
+                this.velocity.scale(-1);
+            if (this.position.x > Netzstruktur.crc2.canvas.width - Netzstruktur.border - (Netzstruktur.fluffyWidth / 2))
+                this.velocity.scale(-1);
+            if (this.position.y > Netzstruktur.crc2.canvas.height - Netzstruktur.border - (Netzstruktur.fluffyHeight / 2))
+                this.velocity.scale(-1);
         }
     }
     Netzstruktur.FluffyElement = FluffyElement;

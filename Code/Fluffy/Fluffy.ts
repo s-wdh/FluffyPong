@@ -6,7 +6,8 @@ namespace Netzstruktur {
 
         constructor(_position: Vector) {
             this.position = _position;
-            //this.velocity = new Vector(0, 0);
+            this.velocity = new Vector(0, 0);
+            this.velocity.random(1, 5);
         }
 
         generateColor(): void {
@@ -61,6 +62,26 @@ namespace Netzstruktur {
                 crc2.closePath();
             }
             crc2.restore();
+        }
+
+        move(_vector: Vector): void {
+            /* let offset: Vector = new Vector(_vector.x, _vector.y);
+            this.position.add(offset); */
+            this.position = _vector;
+        }
+
+        animation(): void {
+            let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
+            this.position.add(offset);
+
+            if (this.position.x < (border + (fluffyWidth / 2)))
+                this.velocity.scale(-1);
+            if (this.position.y < (border + (fluffyHeight / 2)))
+                this.velocity.scale(-1);
+            if (this.position.x > crc2.canvas.width - border - (fluffyWidth / 2))
+                this.velocity.scale(-1);
+            if (this.position.y > crc2.canvas.height - border - (fluffyHeight / 2))
+                this.velocity.scale(-1);
         }
     }
 } //namespace

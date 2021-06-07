@@ -1,5 +1,5 @@
 namespace Netzstruktur {
-    window.addEventListener("load", handleLoad);
+    //window.addEventListener("load", handleLoad);
 
     export let crc2: CanvasRenderingContext2D;
     export let fluffyWidth: number = 80;
@@ -9,10 +9,11 @@ namespace Netzstruktur {
     let wallRightColor: string;
     let wallBottomColor: string;
     let wallLeftColor: string;
+    export let border: number;
 
     export let imgData: ImageData;
 
-    function handleLoad(): void {
+    export function prepareCanvas(): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
         if (!canvas)
             return;
@@ -21,18 +22,70 @@ namespace Netzstruktur {
         WallColors();
         Walls(canvas);
         createFluffyPosition(canvas);
-        canvas.addEventListener("mousedown", sendFluffy);
+        //canvas.addEventListener("mousedown", sendFluffy);
+        window.addEventListener("resize", canvasSize);
+        canvas.addEventListener("touchstart", moveFluffyStart, false);
+        canvas.addEventListener("touchmove", moveFluffy, false);
+        canvas.addEventListener("touchend", moveFluffyEnd, false);
+        canvas.addEventListener("touchcancel", moveFluffyEnd, false);
+        canvas.addEventListener("mousedown", moveFluffyStart, false);
+        canvas.addEventListener("mousemove", moveFluffy, false);
+        canvas.addEventListener("mouseup", moveFluffyEnd, false);
+        canvas.addEventListener("mouseout", moveFluffyEnd, false);
+        window.setInterval(animation, 30);
     }
-    
+
+    function canvasSize(): void {
+        let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
+        if (!canvas)
+            return;
+
+        let screenWidth: number = window.innerWidth;
+        let screenHeight: number = window.innerHeight;
+        /* if (screenWidth <= 400 && screenHeight >= 600) {
+            canvas.width = screenWidth;
+            canvas.height = (canvas.height / canvas.width) * screenWidth;
+        } else if (screenWidth >= 400 && screenHeight <= 600) {
+            canvas.height = screenHeight;
+            canvas.width = (canvas.width / canvas.height) * screenHeight;
+        } else if (screenWidth < 400 && screenHeight < 600) { */
+        if ((screenHeight / screenWidth) == (canvas.height / canvas.width)) {
+            canvas.height = screenHeight;
+            canvas.width = screenWidth;
+        } else if ((screenHeight / screenWidth) < (canvas.height / canvas.width)) {
+            canvas.width = screenWidth;
+            canvas.height = (canvas.height / canvas.width) * screenWidth;
+        } else if ((screenHeight / screenWidth) > (canvas.height / canvas.width)) {
+            canvas.height = screenHeight;
+            canvas.width = (canvas.width / canvas.height) * screenHeight;
+        }
+        /* } else if (screenWidth == 400 && screenHeight == 600) {
+            canvas.width = screenWidth;
+            canvas.height = screenHeight;
+        } else if (screenWidth > 400 && screenHeight > 600) {
+            if ((screenHeight / screenWidth) == (canvas.height / canvas.width)) {
+                canvas.height = screenHeight;
+                canvas.width = screenWidth;
+            } else if ((screenHeight / screenWidth) < (canvas.height / canvas.width)) {
+                canvas.width = screenWidth;
+                canvas.height = (canvas.height / canvas.width) * screenWidth;
+            } else if ((screenHeight / screenWidth) > (canvas.height / canvas.width)) {
+                canvas.height = screenHeight;
+                canvas.width = (canvas.width / canvas.height) * screenHeight;
+            }
+        } */
+    }
+
+
     function createBackground(_canvas: HTMLCanvasElement): void {
         crc2.restore();
         crc2.fillStyle = "#cccccc";
-        crc2.fillRect(0, 0, _canvas.width, _canvas.height); 
+        crc2.fillRect(0, 0, _canvas.width, _canvas.height);
         crc2.fill();
     }
 
     function WallColors(): void {
-        let color: String [] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
+        let color: String[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
         wallTopColor = color[Math.floor(Math.random() * color.length)].toString();
         let wallTopIndex: number = color.indexOf(wallTopColor);
         color.splice(wallTopIndex, 1);
@@ -48,7 +101,9 @@ namespace Netzstruktur {
         console.log(wallTopColor, wallRightColor, wallBottomColor, wallLeftColor);
     }
 
-    function Walls (_canvas: HTMLCanvasElement): void {
+    function Walls(_canvas: HTMLCanvasElement): void {
+        border = _canvas.height / 100 * 5;
+        console.log(border);
         //Border Top
         crc2.beginPath();
         crc2.fillStyle = wallTopColor;
@@ -103,6 +158,16 @@ namespace Netzstruktur {
             fluffy.generateColor();
             fluffy.draw();
             fluffies.push(fluffy);
+        }
+    }
+
+    function animation(): void {
+        //console.log("animation");
+        crc2.putImageData(imgData, 0, 0);
+
+        for (let fluffy of fluffies) {
+            fluffy.animation();
+            fluffy.draw();
         }
     }
 } //namespace
