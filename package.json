@@ -11,7 +11,7 @@
     "@types/ws": "^7.4.0"
   },
   "scripts": {
-    "start": "node Code/Netzstruktur/server.js"
+    "start": "node Code/server.js"
   },
   "repository": {
     "type": "git",
