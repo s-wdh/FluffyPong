@@ -1,4 +1,4 @@
-namespace Netzstruktur {
+namespace FluffyPong {
     export class FluffyElement {
         position: Vector;
         velocity: Vector;
@@ -64,10 +64,12 @@ namespace Netzstruktur {
             crc2.restore();
         }
 
-        move(_vector: Vector): void {
-            /* let offset: Vector = new Vector(_vector.x, _vector.y);
-            this.position.add(offset); */
+        move(_vector: Vector): Vector {
             this.position = _vector;
+            let swipe: Vector = new Vector(_vector.x, _vector.y);
+            swipe.scale(0.2);
+            this.position.add(swipe);
+            return(this.position);
         }
 
         animation(): void {

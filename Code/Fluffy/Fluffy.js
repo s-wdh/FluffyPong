@@ -1,10 +1,10 @@
 "use strict";
-var Netzstruktur;
-(function (Netzstruktur) {
+var FluffyPong;
+(function (FluffyPong) {
     class FluffyElement {
         constructor(_position) {
             this.position = _position;
-            this.velocity = new Netzstruktur.Vector(0, 0);
+            this.velocity = new FluffyPong.Vector(0, 0);
             this.velocity.random(1, 5);
         }
         generateColor() {
@@ -19,62 +19,64 @@ var Netzstruktur;
             */
         }
         draw() {
-            Netzstruktur.crc2.save();
-            Netzstruktur.crc2.translate(this.position.x, this.position.y);
-            Netzstruktur.crc2.scale(0.5, 0.4);
-            Netzstruktur.crc2.beginPath();
-            Netzstruktur.crc2.arc(0, 0, 60, 0, 2 * Math.PI);
-            Netzstruktur.crc2.fillStyle = this.color;
-            Netzstruktur.crc2.fill();
-            Netzstruktur.crc2.closePath();
-            Netzstruktur.crc2.beginPath();
-            Netzstruktur.crc2.ellipse(-18, -18, 10, 20, 0, 0, 2 * Math.PI);
-            Netzstruktur.crc2.ellipse(18, -18, 10, 20, 0, 0, 2 * Math.PI);
-            Netzstruktur.crc2.fillStyle = "#000000";
-            Netzstruktur.crc2.fill();
-            Netzstruktur.crc2.closePath();
-            Netzstruktur.crc2.beginPath();
-            Netzstruktur.crc2.arc(-16, -25, 5, 0, 2 * Math.PI);
-            Netzstruktur.crc2.arc(20, -25, 5, 0, 2 * Math.PI);
-            Netzstruktur.crc2.fillStyle = "#ffffff";
-            Netzstruktur.crc2.fill();
-            Netzstruktur.crc2.closePath();
+            FluffyPong.crc2.save();
+            FluffyPong.crc2.translate(this.position.x, this.position.y);
+            FluffyPong.crc2.scale(0.5, 0.4);
+            FluffyPong.crc2.beginPath();
+            FluffyPong.crc2.arc(0, 0, 60, 0, 2 * Math.PI);
+            FluffyPong.crc2.fillStyle = this.color;
+            FluffyPong.crc2.fill();
+            FluffyPong.crc2.closePath();
+            FluffyPong.crc2.beginPath();
+            FluffyPong.crc2.ellipse(-18, -18, 10, 20, 0, 0, 2 * Math.PI);
+            FluffyPong.crc2.ellipse(18, -18, 10, 20, 0, 0, 2 * Math.PI);
+            FluffyPong.crc2.fillStyle = "#000000";
+            FluffyPong.crc2.fill();
+            FluffyPong.crc2.closePath();
+            FluffyPong.crc2.beginPath();
+            FluffyPong.crc2.arc(-16, -25, 5, 0, 2 * Math.PI);
+            FluffyPong.crc2.arc(20, -25, 5, 0, 2 * Math.PI);
+            FluffyPong.crc2.fillStyle = "#ffffff";
+            FluffyPong.crc2.fill();
+            FluffyPong.crc2.closePath();
             for (let i = 0; i < 32; i++) {
-                Netzstruktur.crc2.beginPath();
-                Netzstruktur.crc2.rotate(0.55);
-                Netzstruktur.crc2.moveTo(0, 60);
-                Netzstruktur.crc2.lineTo(6, 80);
-                Netzstruktur.crc2.lineTo(10, 59);
-                Netzstruktur.crc2.lineTo(15, 70);
-                Netzstruktur.crc2.lineTo(17, 57);
-                Netzstruktur.crc2.lineTo(26, 75);
-                Netzstruktur.crc2.lineTo(24, 55);
-                Netzstruktur.crc2.fillStyle = this.color;
-                Netzstruktur.crc2.strokeStyle = "#000000";
-                Netzstruktur.crc2.fill();
-                Netzstruktur.crc2.stroke();
-                Netzstruktur.crc2.closePath();
+                FluffyPong.crc2.beginPath();
+                FluffyPong.crc2.rotate(0.55);
+                FluffyPong.crc2.moveTo(0, 60);
+                FluffyPong.crc2.lineTo(6, 80);
+                FluffyPong.crc2.lineTo(10, 59);
+                FluffyPong.crc2.lineTo(15, 70);
+                FluffyPong.crc2.lineTo(17, 57);
+                FluffyPong.crc2.lineTo(26, 75);
+                FluffyPong.crc2.lineTo(24, 55);
+                FluffyPong.crc2.fillStyle = this.color;
+                FluffyPong.crc2.strokeStyle = "#000000";
+                FluffyPong.crc2.fill();
+                FluffyPong.crc2.stroke();
+                FluffyPong.crc2.closePath();
             }
-            Netzstruktur.crc2.restore();
+            FluffyPong.crc2.restore();
         }
         move(_vector) {
-            /* let offset: Vector = new Vector(_vector.x, _vector.y);
-            this.position.add(offset); */
             this.position = _vector;
+            let swipe = new FluffyPong.Vector(_vector.x, _vector.y);
+            swipe.scale(0.2);
+            this.position.add(swipe);
+            return (this.position);
         }
         animation() {
-            let offset = new Netzstruktur.Vector(this.velocity.x, this.velocity.y);
+            let offset = new FluffyPong.Vector(this.velocity.x, this.velocity.y);
             this.position.add(offset);
-            if (this.position.x < (Netzstruktur.border + (Netzstruktur.fluffyWidth / 2)))
+            if (this.position.x < (FluffyPong.border + (FluffyPong.fluffyWidth / 2)))
                 this.velocity.scale(-1);
-            if (this.position.y < (Netzstruktur.border + (Netzstruktur.fluffyHeight / 2)))
+            if (this.position.y < (FluffyPong.border + (FluffyPong.fluffyHeight / 2)))
                 this.velocity.scale(-1);
-            if (this.position.x > Netzstruktur.crc2.canvas.width - Netzstruktur.border - (Netzstruktur.fluffyWidth / 2))
+            if (this.position.x > FluffyPong.crc2.canvas.width - FluffyPong.border - (FluffyPong.fluffyWidth / 2))
                 this.velocity.scale(-1);
-            if (this.position.y > Netzstruktur.crc2.canvas.height - Netzstruktur.border - (Netzstruktur.fluffyHeight / 2))
+            if (this.position.y > FluffyPong.crc2.canvas.height - FluffyPong.border - (FluffyPong.fluffyHeight / 2))
                 this.velocity.scale(-1);
         }
     }
-    Netzstruktur.FluffyElement = FluffyElement;
-})(Netzstruktur || (Netzstruktur = {})); //namespace
+    FluffyPong.FluffyElement = FluffyElement;
+})(FluffyPong || (FluffyPong = {})); //namespace
 //# sourceMappingURL=Fluffy.js.map

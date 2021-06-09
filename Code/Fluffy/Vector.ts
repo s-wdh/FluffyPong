@@ -1,4 +1,4 @@
-namespace Netzstruktur {
+namespace FluffyPong {
     export class Vector {
         x: number;
         y: number;

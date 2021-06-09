@@ -1,12 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const WebSocket = require("ws");
-var Netzstruktur;
-(function (Netzstruktur) {
+var FluffyPong;
+(function (FluffyPong) {
     // create WebSocket server with given port
     const port = Number(process.env.PORT) || 8000;
     const server = new WebSocket.Server({ port: port });
     const playerNameList = [];
+    const ranking = [];
+    let fluffyAmounts = [];
     //const fluffies: Fluffy[] = [];
     // array of connected sockets
     const clientSockets = new Array();
@@ -107,6 +109,32 @@ var Netzstruktur;
                     }
                     break;
                 }
+                case "ranking": {
+                    const playerData = JSON.parse(data);
+                    let rankingHelp = [];
+                    rankingHelp.push(playerData);
+                    for (let element of rankingHelp) {
+                        fluffyAmounts.push(element.fluffyAmount);
+                    }
+                    fluffyAmounts.sort(function (a, b) { return a - b; });
+                    for (let index = 0; index < fluffyAmounts.length; index++) {
+                        for (let element of rankingHelp) {
+                            if (element.fluffyAmount == fluffyAmounts[index]) {
+                                element.position = index + 1;
+                                ranking.push(element);
+                                rankingHelp.splice(rankingHelp.indexOf(element), 1);
+                            }
+                        }
+                    }
+                    for (socket of clientSockets) {
+                        const textCarrier = {
+                            selector: "ranking",
+                            data: JSON.stringify(ranking)
+                        };
+                        socket.send(JSON.stringify(textCarrier));
+                    }
+                    break;
+                }
             }
         });
         socket.on("close", () => {
@@ -115,7 +143,7 @@ var Netzstruktur;
             for (let playerElement of playerNameList) {
                 if (playerElement.position == socketPosition) {
                     console.log(playerElement);
-                    playerNameList.splice(playerNameList.indexOf(playerElement));
+                    playerNameList.splice(playerNameList.indexOf(playerElement), 1);
                     console.log(playerNameList);
                     for (let socket of clientSockets) {
                         const textCarrier = {
@@ -128,5 +156,5 @@ var Netzstruktur;
             }
         });
     }); //server.on
-})(Netzstruktur = exports.Netzstruktur || (exports.Netzstruktur = {})); //namespace
+})(FluffyPong = exports.FluffyPong || (exports.FluffyPong = {})); //namespace
 //# sourceMappingURL=server.js.map

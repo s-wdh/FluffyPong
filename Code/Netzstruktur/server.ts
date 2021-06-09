@@ -1,6 +1,6 @@
 import * as WebSocket from "ws";
 
-export namespace Netzstruktur {
+export namespace FluffyPong {
 
     // carrier message interface
     interface CarrierMessage {
@@ -20,11 +20,20 @@ export namespace Netzstruktur {
         direction: string;
     }
 
+    //interface for the ranking of players
+    interface Ranking {
+        position?: number;
+        name: string;
+        fluffyAmount: number;
+    }
+
     // create WebSocket server with given port
     const port: number = Number(process.env.PORT) || 8000;
     const server: WebSocket.Server = new WebSocket.Server({ port: port });
 
     const playerNameList: Player[] = [];
+    const ranking: Ranking[] = [];
+    let fluffyAmounts: number[] = [];
     //const fluffies: Fluffy[] = [];
 
     // array of connected sockets
@@ -132,6 +141,33 @@ export namespace Netzstruktur {
                     }
                     break;
                 }
+                case "ranking": {
+                    const playerData: Ranking = <Ranking>JSON.parse(<string>data);
+                    let rankingHelp: Ranking[] = [];
+                    rankingHelp.push(playerData);
+                    for (let element of rankingHelp) {
+                        fluffyAmounts.push(element.fluffyAmount);
+                    }
+                    fluffyAmounts.sort(function (a: number, b: number): number { return a - b; });
+                    for (let index: number = 0; index < fluffyAmounts.length; index++) {
+                        for (let element of rankingHelp) {
+                            if (element.fluffyAmount == fluffyAmounts[index]) {
+                                element.position = index + 1;
+                                ranking.push(element);
+                                rankingHelp.splice(rankingHelp.indexOf(element), 1);
+                            }
+                        }
+                    }
+
+                    for (socket of clientSockets) {
+                            const textCarrier: CarrierMessage = {
+                                selector: "ranking",
+                                data: JSON.stringify(ranking)
+                            };
+                            socket.send(JSON.stringify(textCarrier));
+                    }
+                    break;
+                }
             }
         });
         socket.on("close", () => {
@@ -140,7 +176,7 @@ export namespace Netzstruktur {
             for (let playerElement of playerNameList) {
                 if (playerElement.position == socketPosition) {
                     console.log(playerElement);
-                    playerNameList.splice(playerNameList.indexOf(playerElement));
+                    playerNameList.splice(playerNameList.indexOf(playerElement), 1);
                     console.log(playerNameList);
                     for (let socket of clientSockets) {
                         const textCarrier: CarrierMessage = {

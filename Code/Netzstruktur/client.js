@@ -1,9 +1,10 @@
 "use strict";
-var Netzstruktur;
-(function (Netzstruktur) {
+var FluffyPong;
+(function (FluffyPong) {
     //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
     const socket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield;
+    let name;
     window.addEventListener("load", handleLoad);
     function handleLoad() {
         console.log("load");
@@ -14,7 +15,7 @@ var Netzstruktur;
             sendName();
         });
     }
-    Netzstruktur.fluffies = [];
+    FluffyPong.fluffies = [];
     let playerNameList = [];
     //let playerPosition: number[] = [0];
     // listen to message from server
@@ -23,12 +24,13 @@ var Netzstruktur;
         const selector = carrier.selector;
         const data = carrier.data;
         switch (selector) {
-            case "player":
+            case "player": {
                 const playerInfo = JSON.parse(data);
                 playerNameList.push(playerInfo); // add message to message list
                 console.log(playerNameList);
                 break;
-            case "deletePlayer":
+            }
+            case "deletePlayer": {
                 const deleteInfo = JSON.parse(data);
                 for (let playerElement of playerNameList) {
                     if (playerElement.name == deleteInfo.name && playerElement.position == deleteInfo.position) {
@@ -37,7 +39,8 @@ var Netzstruktur;
                 }
                 console.log(playerNameList);
                 break;
-            case "fluffy":
+            }
+            case "fluffy": {
                 const fluffy = JSON.parse(data);
                 let x = 250;
                 let y = 300;
@@ -60,16 +63,35 @@ var Netzstruktur;
                         y = 300;
                         break;
                 }
-                let position = new Netzstruktur.Vector(x, y);
-                let newFluffy = new Netzstruktur.FluffyElement(position);
+                let position = new FluffyPong.Vector(x, y);
+                let newFluffy = new FluffyPong.FluffyElement(position);
                 newFluffy.generateColor();
                 newFluffy.draw();
-                Netzstruktur.fluffies.push(newFluffy);
+                FluffyPong.fluffies.push(newFluffy);
                 break;
+            }
+            case "ranking": {
+                const ranking = JSON.parse(data);
+                let table = document.createElement("table");
+                let row = document.createElement("tr");
+                let tdposition = document.createElement("td");
+                let tdname = document.createElement("td");
+                let tdfluffyAmount = document.createElement("td");
+                for (let index = 0; index < ranking.length; index++) {
+                    tdposition.innerHTML = "" + ranking[index].position;
+                    tdname.innerHTML = ranking[index].name;
+                    tdfluffyAmount.innerHTML = "" + ranking[index].fluffyAmount;
+                    row.appendChild(tdposition);
+                    row.appendChild(tdname);
+                    row.appendChild(tdfluffyAmount);
+                    table.appendChild(row);
+                }
+                break;
+            }
         }
     });
     function sendName() {
-        const name = namefield.value;
+        name = namefield.value;
         if (name !== "") {
             const playername = {
                 name: name
@@ -84,32 +106,69 @@ var Netzstruktur;
         let startdiv = document.getElementById("startdiv");
         let parent = startdiv.parentNode;
         parent.removeChild(startdiv);
-        Netzstruktur.prepareCanvas();
+        FluffyPong.prepareCanvas();
     }
-    function sendFluffy(_event) {
-        console.log(_event);
-        let x = _event.clientX;
-        let y = _event.clientY;
-        for (let element of Netzstruktur.fluffies) {
-            console.log(element.position);
-            if (element.position.x - (Netzstruktur.fluffyWidth / 2) < x && element.position.y - (Netzstruktur.fluffyHeight / 2) < y && element.position.x + (Netzstruktur.fluffyWidth / 2) > x && element.position.y + (Netzstruktur.fluffyHeight / 2) > y) {
-                console.log("send Fluffy");
-                const fluffyMessage = {
-                    direction: "top"
-                };
-                const textCarrier = {
-                    selector: "fluffy",
-                    data: JSON.stringify(fluffyMessage)
-                };
-                socket.send(JSON.stringify(textCarrier));
-                Netzstruktur.fluffies.splice(Netzstruktur.fluffies.indexOf(element), 1);
-            }
+    function sendFluffy(_fluffy, _direction) {
+        console.log(_direction);
+        if (_direction == "top") {
+            const fluffyMessage = {
+                direction: "top"
+            };
+            const textCarrier = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
         }
-        Netzstruktur.crc2.putImageData(Netzstruktur.imgData, 0, 0);
-        for (let fluffy of Netzstruktur.fluffies) {
+        else if (_direction == "right") {
+            const fluffyMessage = {
+                direction: "right"
+            };
+            const textCarrier = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
+        }
+        else if (_direction == "bottom") {
+            const fluffyMessage = {
+                direction: "bottom"
+            };
+            const textCarrier = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
+        }
+        else if (_direction == "left") {
+            const fluffyMessage = {
+                direction: "left"
+            };
+            const textCarrier = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
+        }
+        FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(_fluffy), 1);
+        FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
+        for (let fluffy of FluffyPong.fluffies) {
             fluffy.draw();
         }
     }
-    Netzstruktur.sendFluffy = sendFluffy;
-})(Netzstruktur || (Netzstruktur = {})); //namespace
+    FluffyPong.sendFluffy = sendFluffy;
+    function getRanking() {
+        console.log("ranking");
+        const gameEndMessage = {
+            name: name,
+            fluffyAmount: FluffyPong.fluffies.length
+        };
+        const textCarrier = {
+            selector: "ranking",
+            data: JSON.stringify(gameEndMessage)
+        };
+        socket.send(JSON.stringify(textCarrier));
+    }
+    FluffyPong.getRanking = getRanking;
+})(FluffyPong || (FluffyPong = {})); //namespace
 //# sourceMappingURL=client.js.map

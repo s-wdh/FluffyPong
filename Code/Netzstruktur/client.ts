@@ -1,7 +1,8 @@
-namespace Netzstruktur {
+namespace FluffyPong {
     //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
     const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield: HTMLInputElement;
+    let name: string;
 
     window.addEventListener("load", handleLoad);
 
@@ -33,6 +34,13 @@ namespace Netzstruktur {
         direction: string;
     }
 
+    //interface for the ranking of players
+    interface Ranking {
+        position?: number;
+        name: string;
+        fluffyAmount: number;
+    }
+
     export let fluffies: FluffyElement[] = [];
     let playerNameList: Player[] = [];
     //let playerPosition: number[] = [0];
@@ -45,12 +53,13 @@ namespace Netzstruktur {
         const data: string | undefined = carrier.data;
 
         switch (selector) {
-            case "player":
+            case "player": {
                 const playerInfo: Player = <Player>JSON.parse(<string>data);
                 playerNameList.push(playerInfo); // add message to message list
                 console.log(playerNameList);
                 break;
-            case "deletePlayer":
+            }
+            case "deletePlayer": {
                 const deleteInfo: Player = <Player>JSON.parse(<string>data);
                 for (let playerElement of playerNameList) {
                     if (playerElement.name == deleteInfo.name && playerElement.position == deleteInfo.position) {
@@ -59,7 +68,8 @@ namespace Netzstruktur {
                 }
                 console.log(playerNameList);
                 break;
-            case "fluffy":
+            }
+            case "fluffy": {
                 const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
                 let x: number = 250;
                 let y: number = 300;
@@ -88,11 +98,30 @@ namespace Netzstruktur {
                 newFluffy.draw();
                 fluffies.push(newFluffy);
                 break;
+            }
+            case "ranking": {
+                const ranking: Ranking[] = <Ranking[]>JSON.parse(<string>data);
+                let table: HTMLTableElement = document.createElement("table");
+                let row: HTMLTableRowElement = document.createElement("tr");
+                let tdposition: HTMLTableDataCellElement = document.createElement("td");
+                let tdname: HTMLTableDataCellElement = document.createElement("td");
+                let tdfluffyAmount: HTMLTableDataCellElement = document.createElement("td");
+                for (let index: number = 0; index < ranking.length; index++) {
+                    tdposition.innerHTML = "" + ranking[index].position;
+                    tdname.innerHTML = ranking[index].name;
+                    tdfluffyAmount.innerHTML = "" + ranking[index].fluffyAmount;
+                    row.appendChild(tdposition);
+                    row.appendChild(tdname);
+                    row.appendChild(tdfluffyAmount);
+                    table.appendChild(row);
+                }
+                break;
+            }
         }
     });
 
     function sendName(): void {
-        const name: string = namefield.value;
+        name = namefield.value;
         if (name !== "") {
             const playername: Player = {
                 name: name
@@ -114,29 +143,65 @@ namespace Netzstruktur {
         prepareCanvas();
     }
 
-    export function sendFluffy(_event: MouseEvent): void {
-        console.log(_event);
-        let x: number = _event.clientX;
-        let y: number = _event.clientY;
-        for (let element of fluffies) {
-            console.log(element.position);
-            if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
-                console.log("send Fluffy");
-                const fluffyMessage: Fluffy = {
-                    direction: "top"
-                };
-                const textCarrier: CarrierMessage = {
-                    selector: "fluffy",
-                    data: JSON.stringify(fluffyMessage)
-                };
-                socket.send(JSON.stringify(textCarrier));
-                fluffies.splice(fluffies.indexOf(element), 1);
-            }
+    export function sendFluffy(_fluffy: FluffyElement, _direction: string): void {
+        console.log(_direction);
+        if (_direction == "top") {
+            const fluffyMessage: Fluffy = {
+                direction: "top"
+            };
+            const textCarrier: CarrierMessage = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
+        } else if (_direction == "right") {
+            const fluffyMessage: Fluffy = {
+                direction: "right"
+            };
+            const textCarrier: CarrierMessage = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
+        } else if (_direction == "bottom") {
+            const fluffyMessage: Fluffy = {
+                direction: "bottom"
+            };
+            const textCarrier: CarrierMessage = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
+        } else if (_direction == "left") {
+            const fluffyMessage: Fluffy = {
+                direction: "left"
+            };
+            const textCarrier: CarrierMessage = {
+                selector: "fluffy",
+                data: JSON.stringify(fluffyMessage)
+            };
+            socket.send(JSON.stringify(textCarrier));
         }
+
+        fluffies.splice(fluffies.indexOf(_fluffy), 1);
+
         crc2.putImageData(imgData, 0, 0);
         for (let fluffy of fluffies) {
             fluffy.draw();
         }
+    }
+
+    export function getRanking(): void {
+        console.log("ranking");
+        const gameEndMessage: Ranking = {
+            name: name,
+            fluffyAmount: fluffies.length
+        };
+        const textCarrier: CarrierMessage = {
+            selector: "ranking",
+            data: JSON.stringify(gameEndMessage)
+        };
+        socket.send(JSON.stringify(textCarrier));
     }
 
 } //namespace

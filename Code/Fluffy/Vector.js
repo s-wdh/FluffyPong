@@ -1,6 +1,6 @@
 "use strict";
-var Netzstruktur;
-(function (Netzstruktur) {
+var FluffyPong;
+(function (FluffyPong) {
     class Vector {
         constructor(_x, _y) {
             this.set(_x, _y);
@@ -28,6 +28,6 @@ var Netzstruktur;
             this.scale(length);
         }
     }
-    Netzstruktur.Vector = Vector;
-})(Netzstruktur || (Netzstruktur = {}));
+    FluffyPong.Vector = Vector;
+})(FluffyPong || (FluffyPong = {}));
 //# sourceMappingURL=Vector.js.map
