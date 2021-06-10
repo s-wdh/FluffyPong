@@ -34,13 +34,25 @@ export namespace FluffyPong {
     const playerNameList: Player[] = [];
     const ranking: Ranking[] = [];
     let fluffyAmounts: number[] = [];
-    //const fluffies: Fluffy[] = [];
+
+    // set a Timer for the End of the game round
+    let timer: number = 60;
 
     // array of connected sockets
     const clientSockets: Array<WebSocket> = new Array();
 
     server.on("connection", (socket) => {
         clientSockets.push(socket);
+
+        window.setInterval(function gameTimer(): void {
+            if (timer > 0) {
+                timer--;
+        }},                1000);
+        const textCarrier: CarrierMessage = {
+            selector: "timer",
+            data: JSON.stringify(timer)
+        };
+        socket.send(JSON.stringify(textCarrier));
 
         socket.on("message", (message) => {
             const carrierMessage: CarrierMessage = <CarrierMessage>JSON.parse(<string>message);
@@ -158,13 +170,14 @@ export namespace FluffyPong {
                             }
                         }
                     }
+                    console.log(ranking);
 
                     for (socket of clientSockets) {
-                            const textCarrier: CarrierMessage = {
-                                selector: "ranking",
-                                data: JSON.stringify(ranking)
-                            };
-                            socket.send(JSON.stringify(textCarrier));
+                        const textCarrier: CarrierMessage = {
+                            selector: "ranking",
+                            data: JSON.stringify(ranking)
+                        };
+                        socket.send(JSON.stringify(textCarrier));
                     }
                     break;
                 }

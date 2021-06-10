@@ -9,11 +9,22 @@ var FluffyPong;
     const playerNameList = [];
     const ranking = [];
     let fluffyAmounts = [];
-    //const fluffies: Fluffy[] = [];
+    // set a Timer for the End of the game round
+    let timer = 60;
     // array of connected sockets
     const clientSockets = new Array();
     server.on("connection", (socket) => {
         clientSockets.push(socket);
+        window.setInterval(function gameTimer() {
+            if (timer > 0) {
+                timer--;
+            }
+        }, 1000);
+        const textCarrier = {
+            selector: "timer",
+            data: JSON.stringify(timer)
+        };
+        socket.send(JSON.stringify(textCarrier));
         socket.on("message", (message) => {
             const carrierMessage = JSON.parse(message);
             const selector = carrierMessage.selector;
@@ -126,6 +137,7 @@ var FluffyPong;
                             }
                         }
                     }
+                    console.log(ranking);
                     for (socket of clientSockets) {
                         const textCarrier = {
                             selector: "ranking",

@@ -13,9 +13,6 @@ namespace FluffyPong {
 
     export let imgData: ImageData;
 
-    // set a Timer for the End of the game round
-    export let timer: number = 60;
-
     export function prepareCanvas(): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
         if (!canvas)
@@ -34,8 +31,6 @@ namespace FluffyPong {
         canvas.addEventListener("mouseup", moveFluffyEnd, false);
         canvas.addEventListener("mouseout", moveFluffyEnd, false);
         window.setInterval(animation, 30);
-        window.setInterval(gameTimer, 1000);
-        window.setTimeout(getRanking, (timer * 1000));
     }
 
     function canvasSize(): void {
@@ -153,18 +148,6 @@ namespace FluffyPong {
         for (let fluffy of fluffies) {
             fluffy.animation();
             fluffy.draw();
-        }
-    }
-
-    function gameTimer(): void {
-        if (timer > 0) {
-            timer--;
-            let timerElement: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("timer");
-            timerElement.innerHTML = timer + "s";
-        } else {
-            clearInterval();
-            window.clearInterval();
-            //console.log("game End");
         }
     }
 } //namespace

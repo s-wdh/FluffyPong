@@ -17,7 +17,7 @@ var FluffyPong;
     }
     FluffyPong.fluffies = [];
     let playerNameList = [];
-    //let playerPosition: number[] = [0];
+    let timer;
     // listen to message from server
     socket.addEventListener("message", (event) => {
         const carrier = JSON.parse(event.data);
@@ -86,6 +86,12 @@ var FluffyPong;
                     row.appendChild(tdfluffyAmount);
                     table.appendChild(row);
                 }
+                break;
+            }
+            case "timer": {
+                timer = JSON.parse(data);
+                window.setTimeout(getRanking, (timer * 1000));
+                gameTimer();
                 break;
             }
         }
@@ -170,5 +176,15 @@ var FluffyPong;
         socket.send(JSON.stringify(textCarrier));
     }
     FluffyPong.getRanking = getRanking;
+    function gameTimer() {
+        if (timer > 0) {
+            timer--;
+            let timerElement = document.getElementById("timer");
+            timerElement.innerHTML = timer + "s";
+        }
+        else {
+            clearInterval();
+        }
+    }
 })(FluffyPong || (FluffyPong = {})); //namespace
 //# sourceMappingURL=client.js.map

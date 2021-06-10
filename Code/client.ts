@@ -43,7 +43,8 @@ namespace FluffyPong {
 
     export let fluffies: FluffyElement[] = [];
     let playerNameList: Player[] = [];
-    //let playerPosition: number[] = [0];
+
+    let timer: number;
 
 
     // listen to message from server
@@ -115,6 +116,12 @@ namespace FluffyPong {
                     row.appendChild(tdfluffyAmount);
                     table.appendChild(row);
                 }
+                break;
+            }
+            case "timer": {
+                timer = JSON.parse(<string>data);
+                window.setTimeout(getRanking, (timer * 1000));
+                gameTimer();
                 break;
             }
         }
@@ -202,6 +209,16 @@ namespace FluffyPong {
             data: JSON.stringify(gameEndMessage)
         };
         socket.send(JSON.stringify(textCarrier));
+    }
+
+    function gameTimer(): void {
+        if (timer > 0) {
+            timer--;
+            let timerElement: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("timer");
+            timerElement.innerHTML = timer + "s";
+        } else {
+            clearInterval();
+        }
     }
 
 } //namespace

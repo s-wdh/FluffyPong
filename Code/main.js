@@ -8,8 +8,6 @@ var FluffyPong;
     let wallRightColor;
     let wallBottomColor;
     let wallLeftColor;
-    // set a Timer for the End of the game round
-    FluffyPong.timer = 60;
     function prepareCanvas() {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -28,8 +26,6 @@ var FluffyPong;
         canvas.addEventListener("mouseup", FluffyPong.moveFluffyEnd, false);
         canvas.addEventListener("mouseout", FluffyPong.moveFluffyEnd, false);
         window.setInterval(animation, 30);
-        window.setInterval(gameTimer, 1000);
-        window.setTimeout(FluffyPong.getRanking, (FluffyPong.timer * 1000));
     }
     FluffyPong.prepareCanvas = prepareCanvas;
     function canvasSize() {
@@ -137,18 +133,6 @@ var FluffyPong;
         for (let fluffy of FluffyPong.fluffies) {
             fluffy.animation();
             fluffy.draw();
-        }
-    }
-    function gameTimer() {
-        if (FluffyPong.timer > 0) {
-            FluffyPong.timer--;
-            let timerElement = document.getElementById("timer");
-            timerElement.innerHTML = FluffyPong.timer + "s";
-        }
-        else {
-            clearInterval();
-            window.clearInterval();
-            //console.log("game End");
         }
     }
 })(FluffyPong || (FluffyPong = {})); //namespace
