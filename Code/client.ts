@@ -123,9 +123,7 @@ namespace FluffyPong {
             case "timer": {
                 timer = JSON.parse(<string>data);
                 window.setTimeout(getRanking, (timer * 1000));
-                if (namesent == true) {
-                   window.setInterval(gameTimer, 1000); 
-                }
+                window.setInterval(gameTimer, 1000);
                 break;
             }
         }
@@ -219,8 +217,10 @@ namespace FluffyPong {
     function gameTimer(): void {
         if (timer > 0) {
             timer--;
-            let timerElement: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("timer");
-            timerElement.innerHTML = timer + "s";
+            if (namesent == true) {
+                let timerElement: HTMLParagraphElement = <HTMLParagraphElement>document.getElementById("timer");
+                timerElement.innerHTML = timer + "s";
+            }
         } else {
             clearInterval();
         }

@@ -14,11 +14,8 @@ namespace FluffyPong {
             this.position = _position;
         }
 
-        generateColor(): void {
-            let color: String[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
-            let wallColor: string = color[Math.floor(Math.random() * color.length)].toString();
-            this.color = wallColor;
-            color.splice(color.indexOf(wallColor), 1);
+        generateColor(_color: string): void {
+            this.color = _color;
             if (this.color == "#b3ecff") {
                 this.colorenum = COLOR.BLUE;
             } else if (this.color == "#cfffb3") {

@@ -66,7 +66,11 @@ namespace FluffyPong {
         borderWidth = canvasHeight / 100 * 5;
         console.log("borderwidth:", borderWidth);
 
-        for (let index: number = 0; index < 4; index++) {
+        let color: string[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
+        for (let index: number = 0; index < 4; index++) {     
+            let wallColor: string = color[Math.floor(Math.random() * color.length)].toString(); 
+            color.splice(color.indexOf(wallColor), 1);
+
             switch (index) {
                 case 0: {
                     //Border Top
@@ -74,7 +78,7 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;
@@ -85,7 +89,7 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;
@@ -96,7 +100,7 @@ namespace FluffyPong {
                     let y: number = (canvasHeight - borderWidth);
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;
@@ -107,7 +111,7 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;

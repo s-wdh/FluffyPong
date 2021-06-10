@@ -56,7 +56,10 @@ var FluffyPong;
     function createWalls() {
         FluffyPong.borderWidth = FluffyPong.canvasHeight / 100 * 5;
         console.log("borderwidth:", FluffyPong.borderWidth);
+        let color = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
         for (let index = 0; index < 4; index++) {
+            let wallColor = color[Math.floor(Math.random() * color.length)].toString();
+            color.splice(color.indexOf(wallColor), 1);
             switch (index) {
                 case 0: {
                     //Border Top
@@ -64,7 +67,7 @@ var FluffyPong;
                     let y = 0;
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
                     break;
@@ -75,7 +78,7 @@ var FluffyPong;
                     let y = 0;
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
                     break;
@@ -86,7 +89,7 @@ var FluffyPong;
                     let y = (FluffyPong.canvasHeight - FluffyPong.borderWidth);
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
                     break;
@@ -97,7 +100,7 @@ var FluffyPong;
                     let y = 0;
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor();
+                    wall.generateColor(wallColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
                     break;

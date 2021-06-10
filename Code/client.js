@@ -93,9 +93,7 @@ var FluffyPong;
             case "timer": {
                 timer = JSON.parse(data);
                 window.setTimeout(getRanking, (timer * 1000));
-                if (namesent == true) {
-                    window.setInterval(gameTimer, 1000);
-                }
+                window.setInterval(gameTimer, 1000);
                 break;
             }
         }
@@ -184,8 +182,10 @@ var FluffyPong;
     function gameTimer() {
         if (timer > 0) {
             timer--;
-            let timerElement = document.getElementById("timer");
-            timerElement.innerHTML = timer + "s";
+            if (namesent == true) {
+                let timerElement = document.getElementById("timer");
+                timerElement.innerHTML = timer + "s";
+            }
         }
         else {
             clearInterval();

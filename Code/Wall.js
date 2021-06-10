@@ -12,11 +12,8 @@ var FluffyPong;
         constructor(_position) {
             this.position = _position;
         }
-        generateColor() {
-            let color = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
-            let wallColor = color[Math.floor(Math.random() * color.length)].toString();
-            this.color = wallColor;
-            color.splice(color.indexOf(wallColor), 1);
+        generateColor(_color) {
+            this.color = _color;
             if (this.color == "#b3ecff") {
                 this.colorenum = COLOR.BLUE;
             }
