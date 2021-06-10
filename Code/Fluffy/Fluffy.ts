@@ -1,8 +1,15 @@
 namespace FluffyPong {
+    enum COLOR {
+            RED,
+            BLUE,
+            GREEN,
+            YELLOW
+        }
     export class FluffyElement {
         position: Vector;
         velocity: Vector;
         color: string;
+        colorenum: COLOR;  
 
         constructor(_position: Vector) {
             this.position = _position;
@@ -14,6 +21,15 @@ namespace FluffyPong {
             let color: String[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
             let fluffyColor: string = color[Math.floor(Math.random() * color.length)].toString();
             this.color = fluffyColor;
+            if (this.color == "#b3ecff") {
+                this.colorenum = COLOR.BLUE;
+            } else if (this.color == "#cfffb3") {
+                this.colorenum = COLOR.GREEN;
+            } else if (this.color == "#ffffb3") {
+                this.colorenum = COLOR.YELLOW;
+            } else if (this.color == "#ffb3d1") {
+                this.colorenum = COLOR.RED;
+            }
             /* 
             Blau: #b3ecff 
             Grün: #cfffb3
@@ -76,13 +92,13 @@ namespace FluffyPong {
             let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
             this.position.add(offset);
 
-            if (this.position.x < (border + (fluffyWidth / 2)))
+            if (this.position.x < (borderWidth + (fluffyWidth / 2)))
                 this.velocity.scale(-1);
-            if (this.position.y < (border + (fluffyHeight / 2)))
+            if (this.position.y < (borderWidth + (fluffyHeight / 2)))
                 this.velocity.scale(-1);
-            if (this.position.x > crc2.canvas.width - border - (fluffyWidth / 2))
+            if (this.position.x > crc2.canvas.width - borderWidth - (fluffyWidth / 2))
                 this.velocity.scale(-1);
-            if (this.position.y > crc2.canvas.height - border - (fluffyHeight / 2))
+            if (this.position.y > crc2.canvas.height - borderWidth - (fluffyHeight / 2))
                 this.velocity.scale(-1);
         }
     }

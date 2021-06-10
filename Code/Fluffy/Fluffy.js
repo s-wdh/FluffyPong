@@ -1,6 +1,13 @@
 "use strict";
 var FluffyPong;
 (function (FluffyPong) {
+    let COLOR;
+    (function (COLOR) {
+        COLOR[COLOR["RED"] = 0] = "RED";
+        COLOR[COLOR["BLUE"] = 1] = "BLUE";
+        COLOR[COLOR["GREEN"] = 2] = "GREEN";
+        COLOR[COLOR["YELLOW"] = 3] = "YELLOW";
+    })(COLOR || (COLOR = {}));
     class FluffyElement {
         constructor(_position) {
             this.position = _position;
@@ -11,6 +18,18 @@ var FluffyPong;
             let color = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
             let fluffyColor = color[Math.floor(Math.random() * color.length)].toString();
             this.color = fluffyColor;
+            if (this.color == "#b3ecff") {
+                this.colorenum = COLOR.BLUE;
+            }
+            else if (this.color == "#cfffb3") {
+                this.colorenum = COLOR.GREEN;
+            }
+            else if (this.color == "#ffffb3") {
+                this.colorenum = COLOR.YELLOW;
+            }
+            else if (this.color == "#ffb3d1") {
+                this.colorenum = COLOR.RED;
+            }
             /*
             Blau: #b3ecff
             Grün: #cfffb3
@@ -67,13 +86,13 @@ var FluffyPong;
         animation() {
             let offset = new FluffyPong.Vector(this.velocity.x, this.velocity.y);
             this.position.add(offset);
-            if (this.position.x < (FluffyPong.border + (FluffyPong.fluffyWidth / 2)))
+            if (this.position.x < (FluffyPong.borderWidth + (FluffyPong.fluffyWidth / 2)))
                 this.velocity.scale(-1);
-            if (this.position.y < (FluffyPong.border + (FluffyPong.fluffyHeight / 2)))
+            if (this.position.y < (FluffyPong.borderWidth + (FluffyPong.fluffyHeight / 2)))
                 this.velocity.scale(-1);
-            if (this.position.x > FluffyPong.crc2.canvas.width - FluffyPong.border - (FluffyPong.fluffyWidth / 2))
+            if (this.position.x > FluffyPong.crc2.canvas.width - FluffyPong.borderWidth - (FluffyPong.fluffyWidth / 2))
                 this.velocity.scale(-1);
-            if (this.position.y > FluffyPong.crc2.canvas.height - FluffyPong.border - (FluffyPong.fluffyHeight / 2))
+            if (this.position.y > FluffyPong.crc2.canvas.height - FluffyPong.borderWidth - (FluffyPong.fluffyHeight / 2))
                 this.velocity.scale(-1);
         }
     }

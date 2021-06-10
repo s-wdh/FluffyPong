@@ -3,6 +3,7 @@ namespace FluffyPong {
     const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield: HTMLInputElement;
     let name: string;
+    let namesent: boolean = false;
 
     window.addEventListener("load", handleLoad);
 
@@ -42,6 +43,7 @@ namespace FluffyPong {
     }
 
     export let fluffies: FluffyElement[] = [];
+    export let walls: Wall[] = [];
     let playerNameList: Player[] = [];
 
     let timer: number;
@@ -121,7 +123,9 @@ namespace FluffyPong {
             case "timer": {
                 timer = JSON.parse(<string>data);
                 window.setTimeout(getRanking, (timer * 1000));
-                gameTimer();
+                if (namesent == true) {
+                   window.setInterval(gameTimer, 1000); 
+                }
                 break;
             }
         }
@@ -148,6 +152,7 @@ namespace FluffyPong {
         parent.removeChild(startdiv);
 
         prepareCanvas();
+        namesent = true;
     }
 
     export function sendFluffy(_fluffy: FluffyElement, _direction: string): void {

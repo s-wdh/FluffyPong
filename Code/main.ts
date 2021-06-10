@@ -5,11 +5,9 @@ namespace FluffyPong {
     export let fluffyWidth: number = 80;
     export let fluffyHeight: number = 68;
 
-    let wallTopColor: string;
-    let wallRightColor: string;
-    let wallBottomColor: string;
-    let wallLeftColor: string;
-    export let border: number;
+    export let borderWidth: number;
+    export let canvasWidth: number;
+    export let canvasHeight: number;
 
     export let imgData: ImageData;
 
@@ -18,7 +16,7 @@ namespace FluffyPong {
         if (!canvas)
             return;
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
-        WallColors();
+        canvasSize();
         window.addEventListener("resize", canvasSize);
         createFluffyPosition(canvas);
         //canvas.addEventListener("mousedown", sendFluffy);
@@ -50,81 +48,73 @@ namespace FluffyPong {
             canvas.width = screenWidth;
             canvas.height = 1.5 * screenWidth;
         }
-        createBackground(canvas);
-        Walls(canvas);
+        canvasWidth = canvas.width;
+        canvasHeight = canvas.height;
+        createBackground();
+        createWalls();
     }
 
 
-    function createBackground(_canvas: HTMLCanvasElement): void {
+    function createBackground(): void {
         crc2.restore();
         crc2.fillStyle = "#cccccc";
-        crc2.fillRect(0, 0, _canvas.width, _canvas.height);
+        crc2.fillRect(0, 0, canvasWidth, canvasHeight);
         crc2.fill();
     }
 
-    function WallColors(): void {
-        let color: String[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
-        wallTopColor = color[Math.floor(Math.random() * color.length)].toString();
-        let wallTopIndex: number = color.indexOf(wallTopColor);
-        color.splice(wallTopIndex, 1);
-        wallRightColor = color[Math.floor(Math.random() * color.length)].toString();
-        let wallRightIndex: number = color.indexOf(wallRightColor);
-        color.splice(wallRightIndex, 1);
-        wallBottomColor = color[Math.floor(Math.random() * color.length)].toString();
-        let wallBottomIndex: number = color.indexOf(wallBottomColor);
-        color.splice(wallBottomIndex, 1);
-        wallLeftColor = color[Math.floor(Math.random() * color.length)].toString();
-        let wallLeftIndex: number = color.indexOf(wallLeftColor);
-        color.splice(wallLeftIndex, 1);
-        console.log(wallTopColor, wallRightColor, wallBottomColor, wallLeftColor);
+    function createWalls(): void {
+        borderWidth = canvasHeight / 100 * 5;
+        console.log("borderwidth:", borderWidth);
 
-        canvasSize();
-    }
-
-    function Walls(_canvas: HTMLCanvasElement): void {
-        border = _canvas.height / 100 * 5;
-        console.log("borderwidth:", border);
-        //Border Top
-        crc2.beginPath();
-        crc2.fillStyle = wallTopColor;
-        crc2.fillRect(0, 0, _canvas.width, (_canvas.height / 100 * 5));
-        let holeTopWidth: number = fluffyWidth + Math.random() * (fluffyWidth / 2);
-        let holeTopPosition: number = (_canvas.height / 100 * 5) + Math.floor(Math.random() * (_canvas.width - holeTopWidth - (_canvas.height / 100 * 10)));
-        crc2.clearRect(holeTopPosition, 0, holeTopWidth, (_canvas.height / 100 * 5));
-        crc2.closePath();
-
-        //Border Right
-        crc2.beginPath();
-        crc2.fillStyle = wallRightColor;
-        crc2.fillRect((_canvas.width - (_canvas.height / 100 * 5)), 0, (_canvas.height / 100 * 5), _canvas.height);
-        for (let index: number = 0; index < 2; index++) {
-            let holeRightHeight: number = fluffyHeight + Math.random() * (fluffyHeight / 2);
-            let holeRightPosition: number = (_canvas.height / 100 * 5) + Math.floor(Math.random() * (_canvas.height - holeRightHeight - (_canvas.height / 100 * 10)));
-            crc2.clearRect((_canvas.width - (_canvas.height / 100 * 5)), holeRightPosition, (_canvas.height / 100 * 5), holeRightHeight);
+        for (let index: number = 0; index < 4; index++) {
+            switch (index) {
+                case 0: {
+                    //Border Top
+                    let x: number = 0;
+                    let y: number = 0;
+                    let position: Vector = new Vector(x, y);
+                    let wall: Wall = new Wall(position);
+                    wall.generateColor();
+                    wall.draw(index);
+                    walls.push(wall);
+                    break;
+                }
+                case 1: {
+                    //Border Right
+                    let x: number = (canvasWidth - borderWidth);
+                    let y: number = 0;
+                    let position: Vector = new Vector(x, y);
+                    let wall: Wall = new Wall(position);
+                    wall.generateColor();
+                    wall.draw(index);
+                    walls.push(wall);
+                    break;
+                }
+                case 2: {
+                    //Border Bottom
+                    let x: number = 0;
+                    let y: number = (canvasHeight - borderWidth);
+                    let position: Vector = new Vector(x, y);
+                    let wall: Wall = new Wall(position);
+                    wall.generateColor();
+                    wall.draw(index);
+                    walls.push(wall);
+                    break;
+                }
+                case 3: {
+                    //Border Left
+                    let x: number = 0;
+                    let y: number = 0;
+                    let position: Vector = new Vector(x, y);
+                    let wall: Wall = new Wall(position);
+                    wall.generateColor();
+                    wall.draw(index);
+                    walls.push(wall);
+                    break;
+                }
+            }
         }
-        crc2.closePath();
-
-        //Border Bottom
-        crc2.beginPath();
-        crc2.fillStyle = wallBottomColor;
-        crc2.fillRect(0, (_canvas.height - (_canvas.height / 100 * 5)), _canvas.width, (_canvas.height / 100 * 5));
-        let holeBottomWidth: number = fluffyWidth + Math.random() * (fluffyWidth / 2);
-        let holeBottomPosition: number = (_canvas.height / 100 * 5) + Math.floor(Math.random() * (_canvas.width - holeBottomWidth - (_canvas.height / 100 * 10)));
-        crc2.clearRect(holeBottomPosition, (_canvas.height - (_canvas.height / 100 * 5)), holeBottomWidth, (_canvas.height / 100 * 5));
-        crc2.closePath();
-
-        //Border Left
-        crc2.beginPath();
-        crc2.fillStyle = wallLeftColor;
-        crc2.fillRect(0, 0, (_canvas.height / 100 * 5), _canvas.height);
-        for (let index: number = 0; index < 2; index++) {
-            let holeLeftHeight: number = fluffyHeight + Math.random() * (fluffyHeight / 2);
-            let holeLeftPosition: number = (_canvas.height / 100 * 5) + Math.floor(Math.random() * (_canvas.height - holeLeftHeight - (_canvas.height / 100 * 10)));
-            crc2.clearRect(0, holeLeftPosition, (_canvas.height / 100 * 5), holeLeftHeight);
-        }
-        crc2.closePath();
-
-        imgData = crc2.getImageData(0, 0, _canvas.width, _canvas.height);
+        imgData = crc2.getImageData(0, 0, canvasWidth, canvasHeight);
     }
 
     export function createFluffyPosition(_canvas: HTMLCanvasElement): void {

@@ -5,6 +5,7 @@ var FluffyPong;
     const socket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield;
     let name;
+    let namesent = false;
     window.addEventListener("load", handleLoad);
     function handleLoad() {
         console.log("load");
@@ -16,6 +17,7 @@ var FluffyPong;
         });
     }
     FluffyPong.fluffies = [];
+    FluffyPong.walls = [];
     let playerNameList = [];
     let timer;
     // listen to message from server
@@ -91,7 +93,9 @@ var FluffyPong;
             case "timer": {
                 timer = JSON.parse(data);
                 window.setTimeout(getRanking, (timer * 1000));
-                gameTimer();
+                if (namesent == true) {
+                    window.setInterval(gameTimer, 1000);
+                }
                 break;
             }
         }
@@ -113,6 +117,7 @@ var FluffyPong;
         let parent = startdiv.parentNode;
         parent.removeChild(startdiv);
         FluffyPong.prepareCanvas();
+        namesent = true;
     }
     function sendFluffy(_fluffy, _direction) {
         console.log(_direction);
