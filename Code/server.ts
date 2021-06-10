@@ -44,10 +44,10 @@ export namespace FluffyPong {
     server.on("connection", (socket) => {
         clientSockets.push(socket);
 
-        window.setInterval(function gameTimer(): void {
+        setInterval(function gameTimer(): void {
             if (timer > 0) {
                 timer--;
-        }},                1000);
+        }},         1000);
         const textCarrier: CarrierMessage = {
             selector: "timer",
             data: JSON.stringify(timer)

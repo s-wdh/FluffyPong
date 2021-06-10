@@ -15,7 +15,7 @@ var FluffyPong;
     const clientSockets = new Array();
     server.on("connection", (socket) => {
         clientSockets.push(socket);
-        window.setInterval(function gameTimer() {
+        setInterval(function gameTimer() {
             if (timer > 0) {
                 timer--;
             }
