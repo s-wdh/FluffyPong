@@ -1,0 +1,26 @@
+{
+  "name": "fluffypong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "ws": "^7.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/ws": "^7.4.0"
+  },
+  "scripts": {
+    "start": "node Code/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-wdh/FluffyPong.git"
+  },
+  "author": "Jacqueline und Sarah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s-wdh/FluffyPong/issues"
+  },
+  "homepage": "https://github.com/s-wdh/FluffyPong#readme"
+}
