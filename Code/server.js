@@ -6,15 +6,18 @@ var FluffyPong;
     // create WebSocket server with given port
     const port = Number(process.env.PORT) || 8000;
     const server = new WebSocket.Server({ port: port });
-    const playerNameList = [];
+    //const playerNameList: Player[] = [];
     const ranking = [];
     let fluffyAmounts = [];
     // set a Timer for the End of the game round
-    let timer = 60;
+    let timer = 20;
     // array of connected sockets
     const clientSockets = new Array();
+    const playerInfos = new Map();
     server.on("connection", (socket) => {
         clientSockets.push(socket);
+        const player = { name: "" };
+        playerInfos.set(socket, player);
         setInterval(function gameTimer() {
             if (timer > 0) {
                 timer--;
@@ -32,11 +35,10 @@ var FluffyPong;
             switch (selector) {
                 case "player": {
                     const playerInfo = JSON.parse(data);
-                    playerInfo.position = clientSockets.indexOf(socket);
-                    // add message to message list
-                    playerNameList.push(playerInfo);
-                    console.log(`#${playerInfo.name}: "${playerInfo.position}"`);
-                    // broadcast message to all connected clients
+                    playerInfos.set(socket, playerInfo);
+                    console.log(`#playername: ${playerInfo.name}`);
+                    console.log("clientsockets.length:" + clientSockets.length);
+                    // send new player to all connected clients
                     for (let socket of clientSockets) {
                         const textCarrier = {
                             selector: "player",
@@ -45,93 +47,86 @@ var FluffyPong;
                         socket.send(JSON.stringify(textCarrier));
                     }
                     break;
-                }
+                } // case player
+                case "ping": {
+                    const textCarrier = {
+                        selector: "pong"
+                    };
+                    socket.send(JSON.stringify(textCarrier));
+                    console.log("ping");
+                } // case ping-pong
                 case "fluffy": {
                     const fluffy = JSON.parse(data);
                     let socketPosition = clientSockets.indexOf(socket);
                     console.log(socketPosition);
-                    console.log(`#${fluffy.object}: "${fluffy.direction}"`);
-                    for (let playerElement of playerNameList) {
-                        if (playerElement.position == socketPosition) {
-                            console.log(playerElement);
-                            let indexOldPlayer = playerNameList.indexOf(playerElement);
-                            let indexNewPlayer;
-                            let newPlayer;
-                            switch (fluffy.direction) {
-                                case "top":
-                                    indexNewPlayer = indexOldPlayer + 1;
-                                    console.log(indexOldPlayer, indexNewPlayer);
-                                    for (socket of clientSockets) {
-                                        newPlayer = playerNameList[indexNewPlayer];
-                                        if (!newPlayer) {
-                                            newPlayer = playerNameList[0];
-                                        }
-                                        console.log(`${newPlayer}`);
-                                        if (newPlayer.position == clientSockets.indexOf(socket)) {
-                                            const textCarrier = {
-                                                selector: "fluffy",
-                                                data: JSON.stringify(fluffy)
-                                            };
-                                            socket.send(JSON.stringify(textCarrier));
-                                        }
-                                    }
-                                    break;
-                                case "right":
-                                    indexNewPlayer = indexOldPlayer - 1;
-                                    for (socket of clientSockets) {
-                                        newPlayer = playerNameList[indexNewPlayer];
-                                        if (!newPlayer) {
-                                            newPlayer = playerNameList[(playerNameList.length - 1)];
-                                        }
-                                        console.log(`${newPlayer}`);
-                                        if (newPlayer.position == clientSockets.indexOf(socket)) {
-                                            const textCarrier = {
-                                                selector: "fluffy",
-                                                data: JSON.stringify(fluffy)
-                                            };
-                                            socket.send(JSON.stringify(textCarrier));
-                                        }
-                                    }
-                                    break;
-                                case "bottom":
-                                    indexNewPlayer = indexOldPlayer - 1;
-                                    for (socket of clientSockets) {
-                                        newPlayer = playerNameList[indexNewPlayer];
-                                        if (!newPlayer) {
-                                            newPlayer = playerNameList[(playerNameList.length - 1)];
-                                        }
-                                        console.log(`${newPlayer}`);
-                                        if (newPlayer.position == clientSockets.indexOf(socket)) {
-                                            const textCarrier = {
-                                                selector: "fluffy",
-                                                data: JSON.stringify(fluffy)
-                                            };
-                                            socket.send(JSON.stringify(textCarrier));
-                                        }
-                                    }
-                                    break;
-                                case "left":
-                                    indexNewPlayer = indexOldPlayer + 1;
-                                    for (socket of clientSockets) {
-                                        newPlayer = playerNameList[indexNewPlayer];
-                                        if (!newPlayer) {
-                                            newPlayer = playerNameList[0];
-                                        }
-                                        console.log(`${newPlayer}`);
-                                        if (newPlayer.position == clientSockets.indexOf(socket)) {
-                                            const textCarrier = {
-                                                selector: "fluffy",
-                                                data: JSON.stringify(fluffy)
-                                            };
-                                            socket.send(JSON.stringify(textCarrier));
-                                        }
-                                    }
-                                    break;
+                    console.log("fluffy direction:" + fluffy.direction);
+                    let indexNewPlayer;
+                    let newPlayer;
+                    switch (fluffy.direction) {
+                        case "top": {
+                            indexNewPlayer = socketPosition + 1;
+                            console.log(socketPosition, indexNewPlayer);
+                            newPlayer = clientSockets[indexNewPlayer];
+                            if (!newPlayer) {
+                                newPlayer = clientSockets[0];
                             }
+                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            const textCarrier = {
+                                selector: "fluffy",
+                                data: JSON.stringify(fluffy)
+                            };
+                            newPlayer.send(JSON.stringify(textCarrier));
+                            console.log(textCarrier);
+                            break;
                         }
-                    }
+                        case "right": {
+                            indexNewPlayer = socketPosition - 1;
+                            newPlayer = clientSockets[indexNewPlayer];
+                            if (!newPlayer) {
+                                newPlayer = clientSockets[(clientSockets.length - 1)];
+                            }
+                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            const textCarrier = {
+                                selector: "fluffy",
+                                data: JSON.stringify(fluffy)
+                            };
+                            newPlayer.send(JSON.stringify(textCarrier));
+                            console.log(textCarrier);
+                            break;
+                        }
+                        case "bottom": {
+                            indexNewPlayer = socketPosition - 1;
+                            newPlayer = clientSockets[indexNewPlayer];
+                            if (!newPlayer) {
+                                newPlayer = clientSockets[(clientSockets.length - 1)];
+                            }
+                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            const textCarrier = {
+                                selector: "fluffy",
+                                data: JSON.stringify(fluffy)
+                            };
+                            newPlayer.send(JSON.stringify(textCarrier));
+                            console.log(textCarrier);
+                            break;
+                        }
+                        case "left": {
+                            indexNewPlayer = socketPosition + 1;
+                            newPlayer = clientSockets[indexNewPlayer];
+                            if (!newPlayer) {
+                                newPlayer = clientSockets[0];
+                            }
+                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            const textCarrier = {
+                                selector: "fluffy",
+                                data: JSON.stringify(fluffy)
+                            };
+                            newPlayer.send(JSON.stringify(textCarrier));
+                            console.log(textCarrier);
+                            break;
+                        }
+                    } //switch (fluffy.direction)
                     break;
-                }
+                } //case fluffy
                 case "ranking": {
                     const playerData = JSON.parse(data);
                     let rankingHelp = [];
@@ -158,26 +153,15 @@ var FluffyPong;
                         socket.send(JSON.stringify(textCarrier));
                     }
                     break;
-                }
-            }
-        });
+                } // case ranking
+            } //switch (selector)
+        }); //socket on ("message")
         socket.on("close", () => {
             let socketPosition = clientSockets.indexOf(socket);
             clientSockets.splice(socketPosition);
-            for (let playerElement of playerNameList) {
-                if (playerElement.position == socketPosition) {
-                    console.log(playerElement);
-                    playerNameList.splice(playerNameList.indexOf(playerElement), 1);
-                    console.log(playerNameList);
-                    for (let socket of clientSockets) {
-                        const textCarrier = {
-                            selector: "deletePlayer",
-                            data: JSON.stringify(playerElement)
-                        };
-                        socket.send(JSON.stringify(textCarrier));
-                    }
-                }
-            }
+            console.log(playerInfos.get(socket));
+            playerInfos.delete(socket);
+            console.log(`socket deletet: ${playerInfos.get(socket)}`);
         });
     }); //server.on
 })(FluffyPong = exports.FluffyPong || (exports.FluffyPong = {})); //namespace

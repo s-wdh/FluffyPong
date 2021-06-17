@@ -15,6 +15,7 @@ var FluffyPong;
         startbtn.addEventListener("click", function () {
             sendName();
         });
+        window.setInterval(sendPing, 5000);
     }
     FluffyPong.fluffies = [];
     FluffyPong.walls = [];
@@ -32,14 +33,8 @@ var FluffyPong;
                 console.log(playerNameList);
                 break;
             }
-            case "deletePlayer": {
-                const deleteInfo = JSON.parse(data);
-                for (let playerElement of playerNameList) {
-                    if (playerElement.name == deleteInfo.name && playerElement.position == deleteInfo.position) {
-                        playerNameList.splice(playerNameList.indexOf(playerElement)); // delete player from array
-                    }
-                }
-                console.log(playerNameList);
+            case "pong": {
+                console.log(selector);
                 break;
             }
             case "fluffy": {
@@ -74,20 +69,7 @@ var FluffyPong;
             }
             case "ranking": {
                 const ranking = JSON.parse(data);
-                let table = document.createElement("table");
-                let row = document.createElement("tr");
-                let tdposition = document.createElement("td");
-                let tdname = document.createElement("td");
-                let tdfluffyAmount = document.createElement("td");
-                for (let index = 0; index < ranking.length; index++) {
-                    tdposition.innerHTML = "" + ranking[index].position;
-                    tdname.innerHTML = ranking[index].name;
-                    tdfluffyAmount.innerHTML = "" + ranking[index].fluffyAmount;
-                    row.appendChild(tdposition);
-                    row.appendChild(tdname);
-                    row.appendChild(tdfluffyAmount);
-                    table.appendChild(row);
-                }
+                createRankingTable(ranking);
                 break;
             }
             case "timer": {
@@ -98,6 +80,12 @@ var FluffyPong;
             }
         }
     });
+    function sendPing() {
+        const textCarrier = {
+            selector: "ping"
+        };
+        socket.send(JSON.stringify(textCarrier));
+    }
     function sendName() {
         name = namefield.value;
         if (name !== "") {
@@ -189,6 +177,28 @@ var FluffyPong;
         }
         else {
             clearInterval();
+        }
+    }
+    function createRankingTable(_ranking) {
+        console.log("help");
+        let canvas = document.querySelector("canvas");
+        if (!canvas)
+            return;
+        document.removeChild(canvas);
+        console.log("help");
+        let table = document.createElement("table");
+        let row = document.createElement("tr");
+        let tdposition = document.createElement("td");
+        let tdname = document.createElement("td");
+        let tdfluffyAmount = document.createElement("td");
+        for (let index = 0; index < _ranking.length; index++) {
+            tdposition.innerHTML = "" + _ranking[index].position;
+            tdname.innerHTML = _ranking[index].name;
+            tdfluffyAmount.innerHTML = "" + _ranking[index].fluffyAmount;
+            row.appendChild(tdposition);
+            row.appendChild(tdname);
+            row.appendChild(tdfluffyAmount);
+            table.appendChild(row);
         }
     }
 })(FluffyPong || (FluffyPong = {})); //namespace

@@ -2,12 +2,20 @@ namespace FluffyPong {
     //window.addEventListener("load", handleLoad);
 
     export let crc2: CanvasRenderingContext2D;
-    export let fluffyWidth: number = 80;
-    export let fluffyHeight: number = 68;
 
     export let borderWidth: number;
     export let canvasWidth: number;
     export let canvasHeight: number;
+    export let fluffyScaleFactor: number;
+    
+    export let fluffyWidth: number = 80;
+    export let fluffyHeight: number = 68;
+    
+    // save wall colors, so they stay the same when window is resized
+    let wallTopColor: string;
+    let wallRightColor: string;
+    let wallBottomColor: string;
+    let wallLeftColor: string;
 
     export let imgData: ImageData;
 
@@ -16,6 +24,7 @@ namespace FluffyPong {
         if (!canvas)
             return;
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
+        wallColors();
         canvasSize();
         window.addEventListener("resize", canvasSize);
         createFluffyPosition(canvas);
@@ -50,6 +59,9 @@ namespace FluffyPong {
         }
         canvasWidth = canvas.width;
         canvasHeight = canvas.height;
+        fluffyScaleFactor = canvas.width / 400;
+        fluffyWidth = fluffyScaleFactor * 80;
+        fluffyHeight = fluffyScaleFactor * 68;
         createBackground();
         createWalls();
     }
@@ -62,15 +74,32 @@ namespace FluffyPong {
         crc2.fill();
     }
 
+    function wallColors(): void {
+        let color: string[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
+        for (let index: number = 0; index < 4; index++) {
+            let wallColor: string = color[Math.floor(Math.random() * color.length)].toString();
+            switch (index) {
+                case 0:
+                    wallTopColor = wallColor;
+                    break;
+                case 1:
+                    wallRightColor = wallColor;
+                    break;
+                case 2:
+                    wallBottomColor = wallColor;
+                    break;
+                case 3:
+                    wallLeftColor = wallColor;
+                    break;
+            }
+            color.splice(color.indexOf(wallColor), 1);
+        }
+    }
+
     function createWalls(): void {
         borderWidth = canvasHeight / 100 * 5;
         console.log("borderwidth:", borderWidth);
-
-        let color: string[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
-        for (let index: number = 0; index < 4; index++) {     
-            let wallColor: string = color[Math.floor(Math.random() * color.length)].toString(); 
-            color.splice(color.indexOf(wallColor), 1);
-
+        for (let index: number = 0; index < 4; index++) {
             switch (index) {
                 case 0: {
                     //Border Top
@@ -78,7 +107,7 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallColor);
+                    wall.generateColor(wallTopColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;
@@ -89,7 +118,7 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallColor);
+                    wall.generateColor(wallRightColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;
@@ -100,7 +129,7 @@ namespace FluffyPong {
                     let y: number = (canvasHeight - borderWidth);
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallColor);
+                    wall.generateColor(wallBottomColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;
@@ -111,7 +140,7 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallColor);
+                    wall.generateColor(wallLeftColor);
                     wall.draw(index);
                     walls.push(wall);
                     break;

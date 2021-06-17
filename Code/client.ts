@@ -15,6 +15,7 @@ namespace FluffyPong {
         startbtn.addEventListener("click", function (): void {
             sendName();
         });
+        window.setInterval(sendPing, 5000);
     }
 
     // carrier message interface
@@ -62,14 +63,8 @@ namespace FluffyPong {
                 console.log(playerNameList);
                 break;
             }
-            case "deletePlayer": {
-                const deleteInfo: Player = <Player>JSON.parse(<string>data);
-                for (let playerElement of playerNameList) {
-                    if (playerElement.name == deleteInfo.name && playerElement.position == deleteInfo.position) {
-                        playerNameList.splice(playerNameList.indexOf(playerElement)); // delete player from array
-                    }
-                }
-                console.log(playerNameList);
+            case "pong": {
+                console.log(selector);
                 break;
             }
             case "fluffy": {
@@ -104,20 +99,7 @@ namespace FluffyPong {
             }
             case "ranking": {
                 const ranking: Ranking[] = <Ranking[]>JSON.parse(<string>data);
-                let table: HTMLTableElement = document.createElement("table");
-                let row: HTMLTableRowElement = document.createElement("tr");
-                let tdposition: HTMLTableDataCellElement = document.createElement("td");
-                let tdname: HTMLTableDataCellElement = document.createElement("td");
-                let tdfluffyAmount: HTMLTableDataCellElement = document.createElement("td");
-                for (let index: number = 0; index < ranking.length; index++) {
-                    tdposition.innerHTML = "" + ranking[index].position;
-                    tdname.innerHTML = ranking[index].name;
-                    tdfluffyAmount.innerHTML = "" + ranking[index].fluffyAmount;
-                    row.appendChild(tdposition);
-                    row.appendChild(tdname);
-                    row.appendChild(tdfluffyAmount);
-                    table.appendChild(row);
-                }
+                createRankingTable(ranking);
                 break;
             }
             case "timer": {
@@ -128,6 +110,13 @@ namespace FluffyPong {
             }
         }
     });
+
+    function sendPing(): void {
+        const textCarrier: CarrierMessage = {
+            selector: "ping"
+        };
+        socket.send(JSON.stringify(textCarrier));
+    }
 
     function sendName(): void {
         name = namefield.value;
@@ -223,6 +212,31 @@ namespace FluffyPong {
             }
         } else {
             clearInterval();
+        }
+    }
+
+    function createRankingTable(_ranking: Ranking[]): void {
+        
+        console.log("help");
+        let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
+        if (!canvas)
+            return;
+        document.removeChild(canvas);
+        console.log("help");
+
+        let table: HTMLTableElement = document.createElement("table");
+        let row: HTMLTableRowElement = document.createElement("tr");
+        let tdposition: HTMLTableDataCellElement = document.createElement("td");
+        let tdname: HTMLTableDataCellElement = document.createElement("td");
+        let tdfluffyAmount: HTMLTableDataCellElement = document.createElement("td");
+        for (let index: number = 0; index < _ranking.length; index++) {
+            tdposition.innerHTML = "" + _ranking[index].position;
+            tdname.innerHTML = _ranking[index].name;
+            tdfluffyAmount.innerHTML = "" + _ranking[index].fluffyAmount;
+            row.appendChild(tdposition);
+            row.appendChild(tdname);
+            row.appendChild(tdfluffyAmount);
+            table.appendChild(row);
         }
     }
 
