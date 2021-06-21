@@ -39,25 +39,25 @@ var FluffyPong;
             }
             case "fluffy": {
                 const fluffy = JSON.parse(data);
-                let x = 250;
-                let y = 300;
+                let x = (FluffyPong.canvasWidth / 2);
+                let y = (FluffyPong.canvasHeight / 2);
                 console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
-                        x = 250;
+                        x = (FluffyPong.canvasWidth / 2);
                         y = 0;
                         break;
                     case "right":
-                        x = 500;
-                        y = 300;
+                        x = FluffyPong.canvasWidth;
+                        y = (FluffyPong.canvasHeight / 2);
                         break;
                     case "bottom":
-                        x = 250;
-                        y = 600;
+                        x = (FluffyPong.canvasWidth / 2);
+                        y = FluffyPong.canvasHeight;
                         break;
                     case "left":
                         x = 0;
-                        y = 300;
+                        y = (FluffyPong.canvasHeight / 2);
                         break;
                 }
                 let position = new FluffyPong.Vector(x, y);

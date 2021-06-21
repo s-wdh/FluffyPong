@@ -27,7 +27,6 @@ namespace FluffyPong {
     // player name interface
     interface Player {
         name: string;
-        position?: number;
     }
 
     //fluffy interface
@@ -69,25 +68,25 @@ namespace FluffyPong {
             }
             case "fluffy": {
                 const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
-                let x: number = 250;
-                let y: number = 300;
+                let x: number = (canvasWidth / 2);
+                let y: number = (canvasHeight / 2);
                 console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
-                        x = 250;
+                        x = (canvasWidth / 2);
                         y = 0;
                         break;
                     case "right":
-                        x = 500;
-                        y = 300;
+                        x = canvasWidth;
+                        y = (canvasHeight / 2);
                         break;
                     case "bottom":
-                        x = 250;
-                        y = 600;
+                        x = (canvasWidth / 2);
+                        y = canvasHeight;
                         break;
                     case "left":
                         x = 0;
-                        y = 300;
+                        y = (canvasHeight / 2);
                         break;
                 }
                 let position: Vector = new Vector(x, y);
