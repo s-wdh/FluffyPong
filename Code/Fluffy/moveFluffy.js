@@ -17,6 +17,7 @@ var FluffyPong;
             if (element.position.x - (FluffyPong.fluffyWidth / 2) < x && element.position.y - (FluffyPong.fluffyHeight / 2) < y && element.position.x + (FluffyPong.fluffyWidth / 2) > x && element.position.y + (FluffyPong.fluffyHeight / 2) > y) {
                 console.log("move Fluffy start");
                 movedFluffy = element;
+                break;
             }
         }
     }

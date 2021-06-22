@@ -19,6 +19,7 @@ namespace FluffyPong {
             if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
                 console.log("move Fluffy start");
                 movedFluffy = element;
+                break;
             }
         }
     }
