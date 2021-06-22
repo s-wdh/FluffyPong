@@ -215,20 +215,33 @@ namespace FluffyPong {
     }
 
     function createRankingTable(_ranking: Ranking[]): void {
-        
+
         console.log("help");
-        let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
-        if (!canvas)
-            return;
-        document.removeChild(canvas);
-        console.log("help");
+        let div: HTMLDivElement = document.createElement("div");
+        document.body.appendChild(div);
+        div.id = "rankingDiv";
+        console.log(div);
 
         let table: HTMLTableElement = document.createElement("table");
-        let row: HTMLTableRowElement = document.createElement("tr");
-        let tdposition: HTMLTableDataCellElement = document.createElement("td");
-        let tdname: HTMLTableDataCellElement = document.createElement("td");
-        let tdfluffyAmount: HTMLTableDataCellElement = document.createElement("td");
+        div.appendChild(table);
+        table.classList.add("table");
+        let heading: HTMLTableRowElement = document.createElement("tr");
+        let thposition: HTMLTableHeaderCellElement = document.createElement("th");
+        thposition.innerHTML = "Position";
+        let thname: HTMLTableHeaderCellElement = document.createElement("th");
+        thname.innerHTML = "Name";
+        let thfluffyAmount: HTMLTableHeaderCellElement = document.createElement("th");
+        thfluffyAmount.innerHTML = "Fluffy Menge";
+        heading.appendChild(thposition);
+        heading.appendChild(thname);
+        heading.appendChild(thfluffyAmount);
+        table.appendChild(heading);
+
         for (let index: number = 0; index < _ranking.length; index++) {
+            let row: HTMLTableRowElement = document.createElement("tr");
+            let tdposition: HTMLTableDataCellElement = document.createElement("td");
+            let tdname: HTMLTableDataCellElement = document.createElement("td");
+            let tdfluffyAmount: HTMLTableDataCellElement = document.createElement("td");
             tdposition.innerHTML = "" + _ranking[index].position;
             tdname.innerHTML = _ranking[index].name;
             tdfluffyAmount.innerHTML = "" + _ranking[index].fluffyAmount;
@@ -237,6 +250,7 @@ namespace FluffyPong {
             row.appendChild(tdfluffyAmount);
             table.appendChild(row);
         }
+        //console.table(table);
     }
 
 } //namespace

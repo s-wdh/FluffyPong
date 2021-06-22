@@ -4,6 +4,7 @@ namespace FluffyPong {
     let movedFluffy: FluffyElement;
 
     export function moveFluffyStart(_event: TouchEvent | MouseEvent): void {
+        _event.preventDefault();
         let x: number = (_event as TouchEvent).changedTouches ?
             (_event as TouchEvent).changedTouches[0].pageX :
             (_event as MouseEvent).pageX;
@@ -23,6 +24,7 @@ namespace FluffyPong {
     }
 
     export function moveFluffy(_event: TouchEvent | MouseEvent): void {
+        _event.preventDefault();
         if (swipe) {
             let x: number = (_event as TouchEvent).changedTouches ?
                 (_event as TouchEvent).changedTouches[0].pageX :

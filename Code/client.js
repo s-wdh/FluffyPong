@@ -181,17 +181,29 @@ var FluffyPong;
     }
     function createRankingTable(_ranking) {
         console.log("help");
-        let canvas = document.querySelector("canvas");
-        if (!canvas)
-            return;
-        document.removeChild(canvas);
-        console.log("help");
+        let div = document.createElement("div");
+        document.body.appendChild(div);
+        div.id = "rankingDiv";
+        console.log(div);
         let table = document.createElement("table");
-        let row = document.createElement("tr");
-        let tdposition = document.createElement("td");
-        let tdname = document.createElement("td");
-        let tdfluffyAmount = document.createElement("td");
+        div.appendChild(table);
+        table.classList.add("table");
+        let heading = document.createElement("tr");
+        let thposition = document.createElement("th");
+        thposition.innerHTML = "Position";
+        let thname = document.createElement("th");
+        thname.innerHTML = "Name";
+        let thfluffyAmount = document.createElement("th");
+        thfluffyAmount.innerHTML = "Fluffy Menge";
+        heading.appendChild(thposition);
+        heading.appendChild(thname);
+        heading.appendChild(thfluffyAmount);
+        table.appendChild(heading);
         for (let index = 0; index < _ranking.length; index++) {
+            let row = document.createElement("tr");
+            let tdposition = document.createElement("td");
+            let tdname = document.createElement("td");
+            let tdfluffyAmount = document.createElement("td");
             tdposition.innerHTML = "" + _ranking[index].position;
             tdname.innerHTML = _ranking[index].name;
             tdfluffyAmount.innerHTML = "" + _ranking[index].fluffyAmount;
@@ -200,6 +212,7 @@ var FluffyPong;
             row.appendChild(tdfluffyAmount);
             table.appendChild(row);
         }
+        //console.table(table);
     }
 })(FluffyPong || (FluffyPong = {})); //namespace
 //# sourceMappingURL=client.js.map

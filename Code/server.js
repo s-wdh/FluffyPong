@@ -8,7 +8,8 @@ var FluffyPong;
     const server = new WebSocket.Server({ port: port });
     //const playerNameList: Player[] = [];
     const ranking = [];
-    let fluffyAmounts = [];
+    const fluffyAmounts = [];
+    const rankingHelp = [];
     // set a Timer for the End of the game round
     let timer = 20;
     // array of connected sockets
@@ -53,7 +54,8 @@ var FluffyPong;
                         selector: "pong"
                     };
                     socket.send(JSON.stringify(textCarrier));
-                    console.log("ping");
+                    //console.log("ping");
+                    break;
                 } // case ping-pong
                 case "fluffy": {
                     const fluffy = JSON.parse(data);
@@ -129,28 +131,32 @@ var FluffyPong;
                 } //case fluffy
                 case "ranking": {
                     const playerData = JSON.parse(data);
-                    let rankingHelp = [];
                     rankingHelp.push(playerData);
                     for (let element of rankingHelp) {
                         fluffyAmounts.push(element.fluffyAmount);
                     }
-                    fluffyAmounts.sort(function (a, b) { return a - b; });
-                    for (let index = 0; index < fluffyAmounts.length; index++) {
-                        for (let element of rankingHelp) {
-                            if (element.fluffyAmount == fluffyAmounts[index]) {
-                                element.position = index + 1;
-                                ranking.push(element);
-                                rankingHelp.splice(rankingHelp.indexOf(element), 1);
+                    if (rankingHelp.length == clientSockets.length) {
+                        fluffyAmounts.sort(function (a, b) { return a - b; });
+                        for (let index = 0; index < fluffyAmounts.length; index++) {
+                            for (let element of rankingHelp) {
+                                if (element.fluffyAmount == fluffyAmounts[index]) {
+                                    element.position = index + 1;
+                                    ranking.push(element);
+                                    rankingHelp.splice(rankingHelp.indexOf(element), 1);
+                                }
                             }
                         }
+                        console.log(ranking);
+                        for (socket of clientSockets) {
+                            const textCarrier = {
+                                selector: "ranking",
+                                data: JSON.stringify(ranking)
+                            };
+                            socket.send(JSON.stringify(textCarrier));
+                        }
                     }
-                    console.log(ranking);
-                    for (socket of clientSockets) {
-                        const textCarrier = {
-                            selector: "ranking",
-                            data: JSON.stringify(ranking)
-                        };
-                        socket.send(JSON.stringify(textCarrier));
+                    else {
+                        console.log("nöö");
                     }
                     break;
                 } // case ranking

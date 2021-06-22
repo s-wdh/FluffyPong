@@ -32,7 +32,9 @@ export namespace FluffyPong {
 
     //const playerNameList: Player[] = [];
     const ranking: Ranking[] = [];
-    let fluffyAmounts: number[] = [];
+    const fluffyAmounts: number[] = [];
+
+    const rankingHelp: Ranking[] = [];
 
     // set a Timer for the End of the game round
     let timer: number = 20;
@@ -86,7 +88,8 @@ export namespace FluffyPong {
                         selector: "pong"
                     };
                     socket.send(JSON.stringify(textCarrier));
-                    console.log("ping");
+                    //console.log("ping");
+                    break;
                 } // case ping-pong
 
                 case "fluffy": {
@@ -164,29 +167,33 @@ export namespace FluffyPong {
                 } //case fluffy
                 case "ranking": {
                     const playerData: Ranking = <Ranking>JSON.parse(<string>data);
-                    let rankingHelp: Ranking[] = [];
                     rankingHelp.push(playerData);
                     for (let element of rankingHelp) {
                         fluffyAmounts.push(element.fluffyAmount);
                     }
-                    fluffyAmounts.sort(function (a: number, b: number): number { return a - b; });
-                    for (let index: number = 0; index < fluffyAmounts.length; index++) {
-                        for (let element of rankingHelp) {
-                            if (element.fluffyAmount == fluffyAmounts[index]) {
-                                element.position = index + 1;
-                                ranking.push(element);
-                                rankingHelp.splice(rankingHelp.indexOf(element), 1);
+                    if (rankingHelp.length == clientSockets.length) {
+                        fluffyAmounts.sort(function (a: number, b: number): number { return a - b; });
+                        for (let index: number = 0; index < fluffyAmounts.length; index++) {
+                            for (let element of rankingHelp) {
+                                if (element.fluffyAmount == fluffyAmounts[index]) {
+                                    element.position = index + 1;
+                                    ranking.push(element);
+                                    rankingHelp.splice(rankingHelp.indexOf(element), 1);
+                                }
                             }
                         }
+                        console.log(ranking);
+                        for (socket of clientSockets) {
+                            const textCarrier: CarrierMessage = {
+                                selector: "ranking",
+                                data: JSON.stringify(ranking)
+                            };
+                            socket.send(JSON.stringify(textCarrier));
+                        }
+                    } else {
+                        console.log("nöö");
                     }
-                    console.log(ranking);
-                    for (socket of clientSockets) {
-                        const textCarrier: CarrierMessage = {
-                            selector: "ranking",
-                            data: JSON.stringify(ranking)
-                        };
-                        socket.send(JSON.stringify(textCarrier));
-                    }
+
                     break;
                 } // case ranking
             } //switch (selector)

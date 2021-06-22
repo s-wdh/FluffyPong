@@ -40,6 +40,8 @@ namespace FluffyPong {
         window.setInterval(animation, 30);
     }
 
+    //event?.preventDefault
+
     function canvasSize(): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
         if (!canvas)

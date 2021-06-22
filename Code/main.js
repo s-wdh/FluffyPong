@@ -30,6 +30,7 @@ var FluffyPong;
         window.setInterval(animation, 30);
     }
     FluffyPong.prepareCanvas = prepareCanvas;
+    //event?.preventDefault
     function canvasSize() {
         let canvas = document.querySelector("canvas");
         if (!canvas)
