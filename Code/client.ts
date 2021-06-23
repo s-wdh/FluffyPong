@@ -70,7 +70,7 @@ namespace FluffyPong {
                 const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
                 let x: number = (canvasWidth / 2);
                 let y: number = (canvasHeight / 2);
-                console.log("fluffy");
+                //console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
                         x = (canvasWidth / 2);
@@ -142,7 +142,7 @@ namespace FluffyPong {
     }
 
     export function sendFluffy(_fluffy: FluffyElement, _direction: string): void {
-        console.log(_direction);
+        console.log(fluffies.length);
         if (_direction == "top") {
             const fluffyMessage: Fluffy = {
                 direction: "top"
@@ -187,6 +187,7 @@ namespace FluffyPong {
         for (let fluffy of fluffies) {
             fluffy.draw();
         }
+        console.log(fluffies.length);
     }
 
     export function getRanking(): void {

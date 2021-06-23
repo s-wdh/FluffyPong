@@ -41,7 +41,7 @@ var FluffyPong;
                 const fluffy = JSON.parse(data);
                 let x = (FluffyPong.canvasWidth / 2);
                 let y = (FluffyPong.canvasHeight / 2);
-                console.log("fluffy");
+                //console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
                         x = (FluffyPong.canvasWidth / 2);
@@ -106,7 +106,7 @@ var FluffyPong;
         namesent = true;
     }
     function sendFluffy(_fluffy, _direction) {
-        console.log(_direction);
+        console.log(FluffyPong.fluffies.length);
         if (_direction == "top") {
             const fluffyMessage = {
                 direction: "top"
@@ -152,6 +152,7 @@ var FluffyPong;
         for (let fluffy of FluffyPong.fluffies) {
             fluffy.draw();
         }
+        console.log(FluffyPong.fluffies.length);
     }
     FluffyPong.sendFluffy = sendFluffy;
     function getRanking() {
