@@ -40,10 +40,10 @@ var FluffyPong;
                     console.log("passed the left wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "right");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
-                    for (let fluffy of FluffyPong.fluffies) {
+                    /* crc2.putImageData(imgData, 0, 0);
+                    for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 }
                 else if (element.position.y + FluffyPong.borderWidth > position.y - (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                     FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
@@ -51,10 +51,10 @@ var FluffyPong;
                     console.log("passed the top wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "bottom");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
-                    for (let fluffy of FluffyPong.fluffies) {
+                    /* crc2.putImageData(imgData, 0, 0);
+                    for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 }
                 else if (position.x < position.x + (FluffyPong.fluffyWidth / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                     FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
@@ -62,10 +62,10 @@ var FluffyPong;
                     console.log("passed the right wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "left");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
-                    for (let fluffy of FluffyPong.fluffies) {
+                    /* crc2.putImageData(imgData, 0, 0);
+                    for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 }
                 else if (position.y < position.y + (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                     FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
@@ -73,18 +73,18 @@ var FluffyPong;
                     console.log("passed the bottom wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "top");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
-                    for (let fluffy of FluffyPong.fluffies) {
+                    /* crc2.putImageData(imgData, 0, 0);
+                    for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 }
                 else {
                     FluffyPong.movedFluffy.move(FluffyPong.oldPosition);
                     FluffyPong.movedFluffy.draw();
-                    FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
-                    for (let fluffy of FluffyPong.fluffies) {
+                    /* crc2.putImageData(imgData, 0, 0);
+                    for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 }
             }
             //fluffyTroughWall();

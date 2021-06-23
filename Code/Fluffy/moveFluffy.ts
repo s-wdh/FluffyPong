@@ -47,10 +47,10 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "right");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    crc2.putImageData(imgData, 0, 0);
+                    /* crc2.putImageData(imgData, 0, 0);
                     for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 } else if (element.position.y + borderWidth > position.y - (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
                     movedFluffy.move(fluffyDirection);
                     movedFluffy.draw();
@@ -58,10 +58,10 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "bottom");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    crc2.putImageData(imgData, 0, 0);
+                    /* crc2.putImageData(imgData, 0, 0);
                     for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 } else if (position.x < position.x + (fluffyWidth / 2) && movedFluffy.colorenum == element.colorenum) {
                     movedFluffy.move(fluffyDirection);
                     movedFluffy.draw();
@@ -69,10 +69,10 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "left");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    crc2.putImageData(imgData, 0, 0);
+                    /* crc2.putImageData(imgData, 0, 0);
                     for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 } else if (position.y < position.y + (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
                     movedFluffy.move(fluffyDirection);
                     movedFluffy.draw();
@@ -80,17 +80,17 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "top");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    crc2.putImageData(imgData, 0, 0);
+                    /* crc2.putImageData(imgData, 0, 0);
                     for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 } else {
                     movedFluffy.move(oldPosition);
                     movedFluffy.draw();
-                    crc2.putImageData(imgData, 0, 0);
+                    /* crc2.putImageData(imgData, 0, 0);
                     for (let fluffy of fluffies) {
                         fluffy.draw();
-                    }
+                    } */
                 }
             }
             //fluffyTroughWall();
