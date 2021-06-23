@@ -11,7 +11,7 @@ var FluffyPong;
     const fluffyAmounts = [];
     const rankingHelp = [];
     // set a Timer for the End of the game round
-    let timer = 20;
+    let timer = 180;
     // array of connected sockets
     const clientSockets = new Array();
     const playerInfos = new Map();
