@@ -8,6 +8,11 @@ namespace FluffyPong {
         _event.preventDefault();
 
         if (swipe == false) {
+            let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
+            if (!canvas)
+                return;
+            canvas.removeEventListener("touchstart", moveFluffyStart, false);
+            canvas.removeEventListener("mousedown", moveFluffyStart, false);
             let x: number = (_event as TouchEvent).changedTouches ?
                 (_event as TouchEvent).changedTouches[0].pageX :
                 (_event as MouseEvent).pageX;
@@ -33,6 +38,11 @@ namespace FluffyPong {
     export function moveFluffy(_event: TouchEvent | MouseEvent): void {
         _event.preventDefault();
         if (swipe == true) {
+            let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
+            if (!canvas)
+                return;
+            canvas.removeEventListener("touchmove", moveFluffy, false);
+            canvas.removeEventListener("mousemove", moveFluffy, false);
             let x: number = (_event as TouchEvent).changedTouches ?
                 (_event as TouchEvent).changedTouches[0].pageX :
                 (_event as MouseEvent).pageX;
@@ -86,6 +96,14 @@ namespace FluffyPong {
 
     export function moveFluffyEnd(_event: TouchEvent | MouseEvent): void {
         swipe = false;
+
+        let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
+        if (!canvas)
+            return;
+        canvas.addEventListener("touchstart", moveFluffyStart, false);
+        canvas.addEventListener("touchmove", moveFluffy, false);
+        canvas.addEventListener("mousedown", moveFluffyStart, false);
+        canvas.addEventListener("mousemove", moveFluffy, false);
     }
 
     /* export function fluffyTroughWall(): void {
