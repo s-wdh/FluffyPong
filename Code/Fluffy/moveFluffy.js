@@ -28,7 +28,7 @@ var FluffyPong;
     FluffyPong.moveFluffyStart = moveFluffyStart;
     function moveFluffy(_event) {
         _event.preventDefault();
-        if (FluffyPong.swipe) {
+        if (FluffyPong.swipe == true) {
             let x = _event.changedTouches ?
                 _event.changedTouches[0].pageX :
                 _event.pageX;
