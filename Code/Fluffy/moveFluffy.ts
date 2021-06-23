@@ -6,22 +6,27 @@ namespace FluffyPong {
 
     export function moveFluffyStart(_event: TouchEvent | MouseEvent): void {
         _event.preventDefault();
-        let x: number = (_event as TouchEvent).changedTouches ?
-            (_event as TouchEvent).changedTouches[0].pageX :
-            (_event as MouseEvent).pageX;
-        let y: number = (_event as TouchEvent).changedTouches ?
-            (_event as TouchEvent).changedTouches[0].pageY :
-            (_event as MouseEvent).pageY;
-        oldPosition = new Vector(x, y);
 
-        swipe = true;
+        if (swipe == false) {
+            let x: number = (_event as TouchEvent).changedTouches ?
+                (_event as TouchEvent).changedTouches[0].pageX :
+                (_event as MouseEvent).pageX;
+            let y: number = (_event as TouchEvent).changedTouches ?
+                (_event as TouchEvent).changedTouches[0].pageY :
+                (_event as MouseEvent).pageY;
+            oldPosition = new Vector(x, y);
 
-        for (let element of fluffies) {
-            if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
-                console.log("move Fluffy start");
-                movedFluffy = element;
-                break;
+            swipe = true;
+
+            for (let element of fluffies) {
+                if (element.position.x - (fluffyWidth / 2) < x && element.position.y - (fluffyHeight / 2) < y && element.position.x + (fluffyWidth / 2) > x && element.position.y + (fluffyHeight / 2) > y) {
+                    console.log("move Fluffy start");
+                    movedFluffy = element;
+                    break;
+                }
             }
+        } else {
+            return;
         }
     }
 
@@ -47,10 +52,6 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "right");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 } else if (element.position.y + borderWidth > position.y - (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
                     movedFluffy.move(fluffyDirection);
                     movedFluffy.draw();
@@ -58,10 +59,6 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "bottom");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 } else if (position.x < position.x + (fluffyWidth / 2) && movedFluffy.colorenum == element.colorenum) {
                     movedFluffy.move(fluffyDirection);
                     movedFluffy.draw();
@@ -69,10 +66,6 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "left");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 } else if (position.y < position.y + (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
                     movedFluffy.move(fluffyDirection);
                     movedFluffy.draw();
@@ -80,17 +73,9 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy, "top");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 } else {
                     movedFluffy.move(oldPosition);
                     movedFluffy.draw();
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 }
             }
             //fluffyTroughWall();

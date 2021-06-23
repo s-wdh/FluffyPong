@@ -4,20 +4,25 @@ var FluffyPong;
     FluffyPong.swipe = false;
     function moveFluffyStart(_event) {
         _event.preventDefault();
-        let x = _event.changedTouches ?
-            _event.changedTouches[0].pageX :
-            _event.pageX;
-        let y = _event.changedTouches ?
-            _event.changedTouches[0].pageY :
-            _event.pageY;
-        FluffyPong.oldPosition = new FluffyPong.Vector(x, y);
-        FluffyPong.swipe = true;
-        for (let element of FluffyPong.fluffies) {
-            if (element.position.x - (FluffyPong.fluffyWidth / 2) < x && element.position.y - (FluffyPong.fluffyHeight / 2) < y && element.position.x + (FluffyPong.fluffyWidth / 2) > x && element.position.y + (FluffyPong.fluffyHeight / 2) > y) {
-                console.log("move Fluffy start");
-                FluffyPong.movedFluffy = element;
-                break;
+        if (FluffyPong.swipe == false) {
+            let x = _event.changedTouches ?
+                _event.changedTouches[0].pageX :
+                _event.pageX;
+            let y = _event.changedTouches ?
+                _event.changedTouches[0].pageY :
+                _event.pageY;
+            FluffyPong.oldPosition = new FluffyPong.Vector(x, y);
+            FluffyPong.swipe = true;
+            for (let element of FluffyPong.fluffies) {
+                if (element.position.x - (FluffyPong.fluffyWidth / 2) < x && element.position.y - (FluffyPong.fluffyHeight / 2) < y && element.position.x + (FluffyPong.fluffyWidth / 2) > x && element.position.y + (FluffyPong.fluffyHeight / 2) > y) {
+                    console.log("move Fluffy start");
+                    FluffyPong.movedFluffy = element;
+                    break;
+                }
             }
+        }
+        else {
+            return;
         }
     }
     FluffyPong.moveFluffyStart = moveFluffyStart;
@@ -40,10 +45,6 @@ var FluffyPong;
                     console.log("passed the left wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "right");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 }
                 else if (element.position.y + FluffyPong.borderWidth > position.y - (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                     FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
@@ -51,10 +52,6 @@ var FluffyPong;
                     console.log("passed the top wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "bottom");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 }
                 else if (position.x < position.x + (FluffyPong.fluffyWidth / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                     FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
@@ -62,10 +59,6 @@ var FluffyPong;
                     console.log("passed the right wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "left");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 }
                 else if (position.y < position.y + (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                     FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
@@ -73,18 +66,10 @@ var FluffyPong;
                     console.log("passed the bottom wall");
                     FluffyPong.sendFluffy(FluffyPong.movedFluffy, "top");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 }
                 else {
                     FluffyPong.movedFluffy.move(FluffyPong.oldPosition);
                     FluffyPong.movedFluffy.draw();
-                    /* crc2.putImageData(imgData, 0, 0);
-                    for (let fluffy of fluffies) {
-                        fluffy.draw();
-                    } */
                 }
             }
             //fluffyTroughWall();
