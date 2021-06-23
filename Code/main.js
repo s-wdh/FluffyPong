@@ -4,6 +4,14 @@ var FluffyPong;
     //window.addEventListener("load", handleLoad);
     FluffyPong.fluffyWidth = 80;
     FluffyPong.fluffyHeight = 68;
+    // enum to check the colors of fluffy + wall
+    let COLOR;
+    (function (COLOR) {
+        COLOR[COLOR["RED"] = 0] = "RED";
+        COLOR[COLOR["BLUE"] = 1] = "BLUE";
+        COLOR[COLOR["GREEN"] = 2] = "GREEN";
+        COLOR[COLOR["YELLOW"] = 3] = "YELLOW";
+    })(COLOR = FluffyPong.COLOR || (FluffyPong.COLOR = {}));
     // save wall colors, so they stay the same when window is resized
     let wallTopColor;
     let wallRightColor;

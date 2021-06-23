@@ -54,7 +54,7 @@ namespace FluffyPong {
         let position: Vector = new Vector(movedFluffy.position.x, movedFluffy.position.y);
 
         for (let element of walls) {
-            if (element.position.x + borderWidth > position.x - (fluffyWidth / 2) && movedFluffy.colorenum === element.colorenum) {
+            if (element.position.x + borderWidth > position.x - (fluffyWidth / 2) && movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the left wall");
                 sendFluffy(movedFluffy, "right");
 
@@ -63,7 +63,7 @@ namespace FluffyPong {
                 for (let fluffy of fluffies) {
                     fluffy.draw();
                 }
-            } else if (element.position.y + borderWidth > position.y - (fluffyHeight / 2) && movedFluffy.colorenum === element.colorenum) {
+            } else if (element.position.y + borderWidth > position.y - (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the top wall");
                 sendFluffy(movedFluffy, "bottom");
 
@@ -72,7 +72,7 @@ namespace FluffyPong {
                 for (let fluffy of fluffies) {
                     fluffy.draw();
                 }
-            } else if (position.x < position.x + (fluffyWidth / 2) && movedFluffy.colorenum === element.colorenum) {
+            } else if (position.x < position.x + (fluffyWidth / 2) && movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the right wall");
                 sendFluffy(movedFluffy, "left");
 
@@ -81,7 +81,7 @@ namespace FluffyPong {
                 for (let fluffy of fluffies) {
                     fluffy.draw();
                 }
-            } else if (position.y < position.y + (fluffyHeight / 2) && movedFluffy.colorenum === element.colorenum) {
+            } else if (position.y < position.y + (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the bottom wall");
                 sendFluffy(movedFluffy, "top");
 

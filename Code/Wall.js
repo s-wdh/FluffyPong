@@ -1,13 +1,6 @@
 "use strict";
 var FluffyPong;
 (function (FluffyPong) {
-    let COLOR;
-    (function (COLOR) {
-        COLOR[COLOR["RED"] = 0] = "RED";
-        COLOR[COLOR["BLUE"] = 1] = "BLUE";
-        COLOR[COLOR["GREEN"] = 2] = "GREEN";
-        COLOR[COLOR["YELLOW"] = 3] = "YELLOW";
-    })(COLOR || (COLOR = {}));
     class Wall {
         constructor(_position) {
             this.position = _position;
@@ -15,16 +8,16 @@ var FluffyPong;
         generateColor(_color) {
             this.color = _color;
             if (this.color == "#b3ecff") {
-                this.colorenum = COLOR.BLUE;
+                this.colorenum = FluffyPong.COLOR.BLUE;
             }
             else if (this.color == "#cfffb3") {
-                this.colorenum = COLOR.GREEN;
+                this.colorenum = FluffyPong.COLOR.GREEN;
             }
             else if (this.color == "#ffffb3") {
-                this.colorenum = COLOR.YELLOW;
+                this.colorenum = FluffyPong.COLOR.YELLOW;
             }
             else if (this.color == "#ffb3d1") {
-                this.colorenum = COLOR.RED;
+                this.colorenum = FluffyPong.COLOR.RED;
             }
             /*
             Blau: #b3ecff

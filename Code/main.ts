@@ -11,6 +11,14 @@ namespace FluffyPong {
     export let fluffyWidth: number = 80;
     export let fluffyHeight: number = 68;
 
+    // enum to check the colors of fluffy + wall
+    export enum COLOR {
+        RED,
+        BLUE,
+        GREEN,
+        YELLOW
+    }
+
     // save wall colors, so they stay the same when window is resized
     let wallTopColor: string;
     let wallRightColor: string;

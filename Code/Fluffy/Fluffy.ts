@@ -1,10 +1,4 @@
 namespace FluffyPong {
-    enum COLOR {
-        RED,
-        BLUE,
-        GREEN,
-        YELLOW
-    }
     export class FluffyElement {
         position: Vector;
         velocity: Vector;

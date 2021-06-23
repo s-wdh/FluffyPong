@@ -1,10 +1,4 @@
 namespace FluffyPong {
-    enum COLOR {
-            RED,
-            BLUE,
-            GREEN,
-            YELLOW
-        }
     export class Wall {
         position: Vector;
         color: string;
