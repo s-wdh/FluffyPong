@@ -180,14 +180,6 @@ namespace FluffyPong {
             };
             socket.send(JSON.stringify(textCarrier));
         }
-
-        fluffies.splice(fluffies.indexOf(_fluffy), 1);
-
-        crc2.putImageData(imgData, 0, 0);
-        for (let fluffy of fluffies) {
-            fluffy.draw();
-        }
-        console.log(fluffies.length);
     }
 
     export function getRanking(): void {

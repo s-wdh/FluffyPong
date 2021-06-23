@@ -147,12 +147,6 @@ var FluffyPong;
             };
             socket.send(JSON.stringify(textCarrier));
         }
-        FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(_fluffy), 1);
-        FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
-        for (let fluffy of FluffyPong.fluffies) {
-            fluffy.draw();
-        }
-        console.log(FluffyPong.fluffies.length);
     }
     FluffyPong.sendFluffy = sendFluffy;
     function getRanking() {
