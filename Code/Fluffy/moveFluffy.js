@@ -32,10 +32,10 @@ var FluffyPong;
                 _event.pageY;
             FluffyPong.fluffyDirection = new FluffyPong.Vector(x, y);
             FluffyPong.fluffyDirection.getDifference(FluffyPong.oldPosition, FluffyPong.fluffyDirection);
+            FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
+            FluffyPong.movedFluffy.draw();
+            fluffyTroughWall();
         }
-        FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
-        FluffyPong.movedFluffy.draw();
-        fluffyTroughWall();
         // wenn fluffy durch mauer geht sendFlufrfy in client aufrufen, um ihn an server zu schicken       
     }
     FluffyPong.moveFluffy = moveFluffy;

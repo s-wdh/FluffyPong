@@ -37,11 +37,12 @@ namespace FluffyPong {
 
             fluffyDirection = new Vector(x, y);
             fluffyDirection.getDifference(oldPosition, fluffyDirection);
+
+            movedFluffy.move(fluffyDirection);
+            movedFluffy.draw();
+            fluffyTroughWall();
         }
 
-        movedFluffy.move(fluffyDirection);
-        movedFluffy.draw();
-        fluffyTroughWall();
         // wenn fluffy durch mauer geht sendFlufrfy in client aufrufen, um ihn an server zu schicken       
     }
 
