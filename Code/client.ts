@@ -1,6 +1,6 @@
 namespace FluffyPong {
-    //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
-    const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
+    const socket: WebSocket = new WebSocket("ws://localhost:8000/");
+    //const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield: HTMLInputElement;
     let name: string;
     let namesent: boolean = false;
@@ -74,18 +74,18 @@ namespace FluffyPong {
                 switch (fluffy.direction) {
                     case "top":
                         x = (canvasWidth / 2);
-                        y = 0;
+                        y = fluffyHeight;
                         break;
                     case "right":
-                        x = canvasWidth;
+                        x = (canvasWidth - fluffyWidth);
                         y = (canvasHeight / 2);
                         break;
                     case "bottom":
                         x = (canvasWidth / 2);
-                        y = canvasHeight;
+                        y = (canvasHeight - fluffyHeight);
                         break;
                     case "left":
-                        x = 0;
+                        x = fluffyWidth;
                         y = (canvasHeight / 2);
                         break;
                 }
@@ -225,6 +225,9 @@ namespace FluffyPong {
         let table: HTMLTableElement = document.createElement("table");
         div.appendChild(table);
         table.classList.add("table");
+        table.style.margin = borderWidth.toString() + "px";        
+        let width: number = canvasWidth - (2 * borderWidth) - 6;
+        table.style.width = width.toString() + "px";
         let heading: HTMLTableRowElement = document.createElement("tr");
         let thposition: HTMLTableHeaderCellElement = document.createElement("th");
         thposition.innerHTML = "Position";

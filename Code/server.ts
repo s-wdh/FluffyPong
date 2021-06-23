@@ -37,7 +37,7 @@ export namespace FluffyPong {
     const rankingHelp: Ranking[] = [];
 
     // set a Timer for the End of the game round
-    let timer: number = 20000;
+    let timer: number = 20;
 
     // array of connected sockets
     const clientSockets: Array<WebSocket> = new Array();

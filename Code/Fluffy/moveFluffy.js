@@ -2,7 +2,6 @@
 var FluffyPong;
 (function (FluffyPong) {
     FluffyPong.swipe = false;
-    let movedFluffy;
     function moveFluffyStart(_event) {
         _event.preventDefault();
         let x = _event.changedTouches ?
@@ -16,7 +15,7 @@ var FluffyPong;
         for (let element of FluffyPong.fluffies) {
             if (element.position.x - (FluffyPong.fluffyWidth / 2) < x && element.position.y - (FluffyPong.fluffyHeight / 2) < y && element.position.x + (FluffyPong.fluffyWidth / 2) > x && element.position.y + (FluffyPong.fluffyHeight / 2) > y) {
                 console.log("move Fluffy start");
-                movedFluffy = element;
+                FluffyPong.movedFluffy = element;
                 break;
             }
         }
@@ -31,12 +30,16 @@ var FluffyPong;
             let y = _event.changedTouches ?
                 _event.changedTouches[0].pageY :
                 _event.pageY;
-            let fluffyDirection = new FluffyPong.Vector(x, y);
-            fluffyDirection.getDifference(FluffyPong.oldPosition, fluffyDirection);
-            //console.log(fluffyDirection);
-            movedFluffy.move(fluffyDirection);
-            movedFluffy.draw();
-            fluffyTroughWall(movedFluffy);
+            FluffyPong.fluffyDirection = new FluffyPong.Vector(x, y);
+            FluffyPong.fluffyDirection.getDifference(FluffyPong.oldPosition, FluffyPong.fluffyDirection);
+        }
+        if (!FluffyPong.movedFluffy) {
+            console.log("no fluffy");
+        }
+        else {
+            FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
+            FluffyPong.movedFluffy.draw();
+            fluffyTroughWall();
         }
         // wenn fluffy durch mauer geht sendFlufrfy in client aufrufen, um ihn an server zu schicken       
     }
@@ -45,40 +48,46 @@ var FluffyPong;
         FluffyPong.swipe = false;
     }
     FluffyPong.moveFluffyEnd = moveFluffyEnd;
-    function fluffyTroughWall(_movedFluffy) {
-        let position = new FluffyPong.Vector(_movedFluffy.position.x, _movedFluffy.position.y);
+    function fluffyTroughWall() {
+        let position = new FluffyPong.Vector(FluffyPong.movedFluffy.position.x, FluffyPong.movedFluffy.position.y);
         for (let element of FluffyPong.walls) {
-            /* if (element.position.x + borderWidth > position.x - (fluffyWidth / 2) && _movedFluffy.colorenum == element.colorenum) {
+            if (element.position.x + FluffyPong.borderWidth > position.x - (FluffyPong.fluffyWidth / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the left wall");
-                sendFluffy(_movedFluffy, "right");
-            } else if (element.position.y + borderWidth > position.y - (fluffyHeight / 2) && _movedFluffy.colorenum == element.colorenum) {
+                FluffyPong.sendFluffy(FluffyPong.movedFluffy, "right");
+            }
+            else if (element.position.y + FluffyPong.borderWidth > position.y - (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the top wall");
-                sendFluffy(_movedFluffy, "bottom");
-            } else if (position.x < position.x + (fluffyWidth / 2) && _movedFluffy.colorenum == element.colorenum) {
+                FluffyPong.sendFluffy(FluffyPong.movedFluffy, "bottom");
+            }
+            else if (position.x < position.x + (FluffyPong.fluffyWidth / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the right wall");
-                sendFluffy(_movedFluffy, "left");
-            } else if (position.y < position.y + (fluffyHeight / 2) && _movedFluffy.colorenum == element.colorenum) {
+                FluffyPong.sendFluffy(FluffyPong.movedFluffy, "left");
+            }
+            else if (position.y < position.y + (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
                 console.log("passed the bottom wall");
-                sendFluffy(_movedFluffy, "top");
+                FluffyPong.sendFluffy(FluffyPong.movedFluffy, "top");
+            }
+            else {
+                break;
+            }
+            /* if (position.x < (fluffyWidth / 2) && movedFluffy.colorenum == element.colorenum) {
+                console.log("passed the left wall");
+                sendFluffy(movedFluffy, "right");
+            } else if (position.y < (fluffyHeight / 2) && movedFluffy.colorenum == element.colorenum) {
+                console.log("passed the top wall");
+                sendFluffy(movedFluffy, "bottom");
+            } else if (position.x > crc2.canvas.width - (fluffyWidth / 2) && movedFluffy.colorenum == element.colorenum) {
+                console.log("passed the right wall");
+                sendFluffy(movedFluffy, "left");
+            } else if (position.y > crc2.canvas.height - (fluffyHeight / 2) && _movedFluffy.colorenum == element.colorenum) {
+                console.log("passed the bottom wall");
+                sendFluffy(movedFluffy, "top");
+            } else {
+                break;
             } */
-            if (position.x < (FluffyPong.fluffyWidth / 2) && _movedFluffy.colorenum == element.colorenum) {
-                console.log("passed the left wall");
-                FluffyPong.sendFluffy(_movedFluffy, "right");
-            }
-            else if (position.y < (FluffyPong.fluffyHeight / 2) && _movedFluffy.colorenum == element.colorenum) {
-                console.log("passed the top wall");
-                FluffyPong.sendFluffy(_movedFluffy, "bottom");
-            }
-            else if (position.x > FluffyPong.crc2.canvas.width - (FluffyPong.fluffyWidth / 2) && _movedFluffy.colorenum == element.colorenum) {
-                console.log("passed the right wall");
-                FluffyPong.sendFluffy(_movedFluffy, "left");
-            }
-            else if (position.y > FluffyPong.crc2.canvas.height - (FluffyPong.fluffyHeight / 2) && _movedFluffy.colorenum == element.colorenum) {
-                console.log("passed the bottom wall");
-                FluffyPong.sendFluffy(_movedFluffy, "top");
-            }
         }
         //check if the fluffy passed through a wall
     }
+    FluffyPong.fluffyTroughWall = fluffyTroughWall;
 })(FluffyPong || (FluffyPong = {})); //namespace
 //# sourceMappingURL=moveFluffy.js.map

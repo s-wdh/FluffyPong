@@ -1,8 +1,8 @@
 "use strict";
 var FluffyPong;
 (function (FluffyPong) {
-    //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
-    const socket = new WebSocket("wss://fluffypong.herokuapp.com/");
+    const socket = new WebSocket("ws://localhost:8000/");
+    //const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield;
     let name;
     let namesent = false;
@@ -45,18 +45,18 @@ var FluffyPong;
                 switch (fluffy.direction) {
                     case "top":
                         x = (FluffyPong.canvasWidth / 2);
-                        y = 0;
+                        y = FluffyPong.fluffyHeight;
                         break;
                     case "right":
-                        x = FluffyPong.canvasWidth;
+                        x = (FluffyPong.canvasWidth - FluffyPong.fluffyWidth);
                         y = (FluffyPong.canvasHeight / 2);
                         break;
                     case "bottom":
                         x = (FluffyPong.canvasWidth / 2);
-                        y = FluffyPong.canvasHeight;
+                        y = (FluffyPong.canvasHeight - FluffyPong.fluffyHeight);
                         break;
                     case "left":
-                        x = 0;
+                        x = FluffyPong.fluffyWidth;
                         y = (FluffyPong.canvasHeight / 2);
                         break;
                 }
@@ -188,6 +188,9 @@ var FluffyPong;
         let table = document.createElement("table");
         div.appendChild(table);
         table.classList.add("table");
+        table.style.margin = FluffyPong.borderWidth.toString() + "px";
+        let width = FluffyPong.canvasWidth - (2 * FluffyPong.borderWidth) - 6;
+        table.style.width = width.toString() + "px";
         let heading = document.createElement("tr");
         let thposition = document.createElement("th");
         thposition.innerHTML = "Position";

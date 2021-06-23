@@ -40,6 +40,14 @@ var FluffyPong;
         draw() {
             FluffyPong.crc2.save();
             FluffyPong.crc2.translate(this.position.x, this.position.y);
+            // draw fluffy as img -> doesn't work :(
+            /* let fluffyRed: HTMLImageElement = document.createElement("img");
+            fluffyRed.onload = function (): void {
+                crc2.drawImage(fluffyRed, 0, 0, (fluffyScaleFactor * 80), (fluffyScaleFactor * 80));
+                console.log(fluffyRed);
+            };
+            fluffyRed.src = "Fluffy/Pictures/FluffyRed.png"; */
+            //draw Fluffy with paths
             FluffyPong.crc2.scale(FluffyPong.fluffyScaleFactor, (0.8 * FluffyPong.fluffyScaleFactor));
             FluffyPong.crc2.beginPath();
             FluffyPong.crc2.arc(0, 0, 30, 0, 2 * Math.PI);

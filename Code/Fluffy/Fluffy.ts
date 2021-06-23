@@ -1,15 +1,15 @@
 namespace FluffyPong {
     enum COLOR {
-            RED,
-            BLUE,
-            GREEN,
-            YELLOW
-        }
+        RED,
+        BLUE,
+        GREEN,
+        YELLOW
+    }
     export class FluffyElement {
         position: Vector;
         velocity: Vector;
         color: string;
-        colorenum: COLOR;  
+        colorenum: COLOR;
 
         constructor(_position: Vector) {
             this.position = _position;
@@ -41,7 +41,15 @@ namespace FluffyPong {
         draw(): void {
             crc2.save();
             crc2.translate(this.position.x, this.position.y);
+            // draw fluffy as img -> doesn't work :(
+            /* let fluffyRed: HTMLImageElement = document.createElement("img");
+            fluffyRed.onload = function (): void {
+                crc2.drawImage(fluffyRed, 0, 0, (fluffyScaleFactor * 80), (fluffyScaleFactor * 80));
+                console.log(fluffyRed);
+            };
+            fluffyRed.src = "Fluffy/Pictures/FluffyRed.png"; */
 
+            //draw Fluffy with paths
             crc2.scale(fluffyScaleFactor, (0.8 * fluffyScaleFactor));
             crc2.beginPath();
             crc2.arc(0, 0, 30, 0, 2 * Math.PI);
@@ -86,7 +94,7 @@ namespace FluffyPong {
             let swipe: Vector = new Vector(_vector.x, _vector.y);
             swipe.scale(0.2);
             this.position.add(swipe);
-            return(this.position);
+            return (this.position);
         }
 
         animation(): void {

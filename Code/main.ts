@@ -7,10 +7,10 @@ namespace FluffyPong {
     export let canvasWidth: number;
     export let canvasHeight: number;
     export let fluffyScaleFactor: number;
-    
+
     export let fluffyWidth: number = 80;
     export let fluffyHeight: number = 68;
-    
+
     // save wall colors, so they stay the same when window is resized
     let wallTopColor: string;
     let wallRightColor: string;
@@ -38,9 +38,8 @@ namespace FluffyPong {
         canvas.addEventListener("mouseup", moveFluffyEnd, false);
         canvas.addEventListener("mouseout", moveFluffyEnd, false);
         window.setInterval(animation, 30);
+        //window.requestAnimationFrame(animation);
     }
-
-    //event?.preventDefault
 
     function canvasSize(): void {
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -167,8 +166,9 @@ namespace FluffyPong {
     }
 
     function animation(): void {
-        //console.log("animation");
         crc2.putImageData(imgData, 0, 0);
+
+        //window.requestAnimationFrame(animation);
 
         for (let fluffy of fluffies) {
             fluffy.animation();

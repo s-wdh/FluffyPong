@@ -28,9 +28,9 @@ var FluffyPong;
         canvas.addEventListener("mouseup", FluffyPong.moveFluffyEnd, false);
         canvas.addEventListener("mouseout", FluffyPong.moveFluffyEnd, false);
         window.setInterval(animation, 30);
+        //window.requestAnimationFrame(animation);
     }
     FluffyPong.prepareCanvas = prepareCanvas;
-    //event?.preventDefault
     function canvasSize() {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -152,8 +152,8 @@ var FluffyPong;
     }
     FluffyPong.createFluffyPosition = createFluffyPosition;
     function animation() {
-        //console.log("animation");
         FluffyPong.crc2.putImageData(FluffyPong.imgData, 0, 0);
+        //window.requestAnimationFrame(animation);
         for (let fluffy of FluffyPong.fluffies) {
             fluffy.animation();
             fluffy.draw();
