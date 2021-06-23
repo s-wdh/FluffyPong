@@ -1,6 +1,6 @@
 namespace FluffyPong {
-    const socket: WebSocket = new WebSocket("ws://localhost:8000/");
-    //const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
+    //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
+    const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield: HTMLInputElement;
     let name: string;
     let namesent: boolean = false;
