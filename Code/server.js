@@ -67,12 +67,12 @@ var FluffyPong;
                     switch (fluffy.direction) {
                         case "top": {
                             indexNewPlayer = socketPosition + 1;
-                            console.log(socketPosition, indexNewPlayer);
+                            //console.log(socketPosition, indexNewPlayer);
                             newPlayer = clientSockets[indexNewPlayer];
                             if (!newPlayer) {
                                 newPlayer = clientSockets[0];
                             }
-                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            //console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
                             const textCarrier = {
                                 selector: "fluffy",
                                 data: JSON.stringify(fluffy)
@@ -87,7 +87,7 @@ var FluffyPong;
                             if (!newPlayer) {
                                 newPlayer = clientSockets[(clientSockets.length - 1)];
                             }
-                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            //console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
                             const textCarrier = {
                                 selector: "fluffy",
                                 data: JSON.stringify(fluffy)
@@ -102,7 +102,7 @@ var FluffyPong;
                             if (!newPlayer) {
                                 newPlayer = clientSockets[(clientSockets.length - 1)];
                             }
-                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            //console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
                             const textCarrier = {
                                 selector: "fluffy",
                                 data: JSON.stringify(fluffy)
@@ -117,7 +117,7 @@ var FluffyPong;
                             if (!newPlayer) {
                                 newPlayer = clientSockets[0];
                             }
-                            console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
+                            //console.log(`${clientSockets.indexOf(newPlayer)}` + `${playerInfos.get(newPlayer)}`);
                             const textCarrier = {
                                 selector: "fluffy",
                                 data: JSON.stringify(fluffy)
@@ -140,7 +140,7 @@ var FluffyPong;
                         for (let index = 0; index < fluffyAmounts.length; index++) {
                             for (let element of rankingHelp) {
                                 if (element.fluffyAmount == fluffyAmounts[index]) {
-                                    element.position = index + 1;
+                                    element.position = index;
                                     ranking.push(element);
                                     rankingHelp.splice(rankingHelp.indexOf(element), 1);
                                 }
