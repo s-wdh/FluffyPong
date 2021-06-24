@@ -5,11 +5,6 @@ var FluffyPong;
     function moveFluffyStart(_event) {
         _event.preventDefault();
         if (FluffyPong.swipe == false) {
-            // Versuch, ob dadurch das swipen von mehreren Fluffies vermieden werden kann
-            let canvas = document.querySelector("canvas");
-            if (!canvas)
-                return;
-            // Ende Versuch, ob dadurch das swipen von mehreren Fluffies vermieden werden kann
             let x = _event.changedTouches ?
                 _event.changedTouches[0].pageX :
                 _event.pageX;
@@ -34,7 +29,6 @@ var FluffyPong;
     function moveFluffy(_event) {
         _event.preventDefault();
         if (FluffyPong.swipe == true) {
-            eL();
             let x = _event.changedTouches ?
                 _event.changedTouches[0].pageX :
                 _event.pageX;
@@ -85,24 +79,8 @@ var FluffyPong;
     FluffyPong.moveFluffy = moveFluffy;
     function moveFluffyEnd(_event) {
         FluffyPong.swipe = false;
-        let canvas = document.querySelector("canvas");
-        if (!canvas)
-            return;
-        canvas.addEventListener("touchstart", moveFluffyStart, false);
-        canvas.addEventListener("touchmove", moveFluffy, false);
-        canvas.addEventListener("mousedown", moveFluffyStart, false);
-        canvas.addEventListener("mousemove", moveFluffy, false);
     }
     FluffyPong.moveFluffyEnd = moveFluffyEnd;
-    function eL() {
-        let canvas = document.querySelector("canvas");
-        if (!canvas)
-            return;
-        canvas.removeEventListener("touchstart", moveFluffyStart, false);
-        canvas.removeEventListener("mousedown", moveFluffyStart, false);
-        canvas.removeEventListener("touchmove", moveFluffy, false);
-        canvas.removeEventListener("mousemove", moveFluffy, false);
-    }
     /* export function fluffyTroughWall(): void {
         let position: Vector = new Vector(movedFluffy.position.x, movedFluffy.position.y);
 

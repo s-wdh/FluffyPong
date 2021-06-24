@@ -80,9 +80,9 @@ var FluffyPong;
         }
         move(_vector) {
             this.position = _vector;
-            let swipe = new FluffyPong.Vector(_vector.x, _vector.y);
+            /* let swipe: Vector = new Vector(_vector.x, _vector.y);
             swipe.scale(0.2);
-            this.position.add(swipe);
+            this.position.add(swipe); */
             return (this.position);
         }
         animation() {
