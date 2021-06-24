@@ -194,7 +194,7 @@ export namespace FluffyPong {
                         rankingHelp.splice(0, rankingHelp.length);
                         ranking.splice(0, ranking.length);
                     } else {
-                        console.log("nöö");
+                        console.log("noch nicht alle Rankings da");
                     }
 
                     break;
