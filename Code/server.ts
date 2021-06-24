@@ -190,6 +190,9 @@ export namespace FluffyPong {
                             };
                             socket.send(JSON.stringify(textCarrier));
                         }
+                        fluffyAmounts.splice(0, fluffyAmounts.length);
+                        rankingHelp.splice(0, rankingHelp.length);
+                        ranking.splice(0, ranking.length);
                     } else {
                         console.log("nöö");
                     }
