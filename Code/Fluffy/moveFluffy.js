@@ -16,7 +16,7 @@ var FluffyPong;
             for (let element of FluffyPong.fluffies) {
                 if (element.position.x - (FluffyPong.fluffyWidth / 2) < x && element.position.y - (FluffyPong.fluffyHeight / 2) < y && element.position.x + (FluffyPong.fluffyWidth / 2) > x && element.position.y + (FluffyPong.fluffyHeight / 2) > y) {
                     console.log("move Fluffy start");
-                    FluffyPong.movedFluffy = FluffyPong.fluffies.indexOf(element);
+                    FluffyPong.movedFluffy = element;
                     break;
                 }
             }
@@ -37,39 +37,39 @@ var FluffyPong;
                 _event.pageY;
             FluffyPong.fluffyDirection = new FluffyPong.Vector(x, y);
             //fluffyDirection.getDifference(oldPosition, fluffyDirection);
-            let position = new FluffyPong.Vector(FluffyPong.fluffies[FluffyPong.movedFluffy].position.x, FluffyPong.fluffies[FluffyPong.movedFluffy].position.y);
+            let position = new FluffyPong.Vector(FluffyPong.movedFluffy.position.x, FluffyPong.movedFluffy.position.y);
             for (let element of FluffyPong.walls) {
-                if (element.position.x + FluffyPong.borderWidth > position.x - (FluffyPong.fluffyWidth / 2) && FluffyPong.fluffies[FluffyPong.movedFluffy].colorenum == element.colorenum) {
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].move(FluffyPong.fluffyDirection);
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].draw();
+                if (element.position.x + FluffyPong.borderWidth > position.x - (FluffyPong.fluffyWidth / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
+                    FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
+                    FluffyPong.movedFluffy.draw();
                     console.log("passed the left wall");
-                    FluffyPong.sendFluffy(FluffyPong.fluffies[FluffyPong.movedFluffy], "right");
-                    FluffyPong.fluffies.splice(FluffyPong.movedFluffy, 1);
+                    FluffyPong.sendFluffy(FluffyPong.movedFluffy, "right");
+                    FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
                 }
-                else if (element.position.y + FluffyPong.borderWidth > position.y - (FluffyPong.fluffyHeight / 2) && FluffyPong.fluffies[FluffyPong.movedFluffy].colorenum == element.colorenum) {
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].move(FluffyPong.fluffyDirection);
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].draw();
+                else if (element.position.y + FluffyPong.borderWidth > position.y - (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
+                    FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
+                    FluffyPong.movedFluffy.draw();
                     console.log("passed the top wall");
-                    FluffyPong.sendFluffy(FluffyPong.fluffies[FluffyPong.movedFluffy], "bottom");
-                    FluffyPong.fluffies.splice(FluffyPong.movedFluffy, 1);
+                    FluffyPong.sendFluffy(FluffyPong.movedFluffy, "bottom");
+                    FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
                 }
-                else if (position.x < position.x + (FluffyPong.fluffyWidth / 2) && FluffyPong.fluffies[FluffyPong.movedFluffy].colorenum == element.colorenum) {
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].move(FluffyPong.fluffyDirection);
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].draw();
+                else if (position.x < position.x + (FluffyPong.fluffyWidth / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
+                    FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
+                    FluffyPong.movedFluffy.draw();
                     console.log("passed the right wall");
-                    FluffyPong.sendFluffy(FluffyPong.fluffies[FluffyPong.movedFluffy], "left");
-                    FluffyPong.fluffies.splice(FluffyPong.movedFluffy, 1);
+                    FluffyPong.sendFluffy(FluffyPong.movedFluffy, "left");
+                    FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
                 }
-                else if (position.y < position.y + (FluffyPong.fluffyHeight / 2) && FluffyPong.fluffies[FluffyPong.movedFluffy].colorenum == element.colorenum) {
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].move(FluffyPong.fluffyDirection);
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].draw();
+                else if (position.y < position.y + (FluffyPong.fluffyHeight / 2) && FluffyPong.movedFluffy.colorenum == element.colorenum) {
+                    FluffyPong.movedFluffy.move(FluffyPong.fluffyDirection);
+                    FluffyPong.movedFluffy.draw();
                     console.log("passed the bottom wall");
-                    FluffyPong.sendFluffy(FluffyPong.fluffies[FluffyPong.movedFluffy], "top");
-                    FluffyPong.fluffies.splice(FluffyPong.movedFluffy, 1);
+                    FluffyPong.sendFluffy(FluffyPong.movedFluffy, "top");
+                    FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy), 1);
                 }
                 else {
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].move(FluffyPong.oldPosition);
-                    FluffyPong.fluffies[FluffyPong.movedFluffy].draw();
+                    FluffyPong.movedFluffy.move(FluffyPong.oldPosition);
+                    FluffyPong.movedFluffy.draw();
                 }
             }
             //fluffyTroughWall();
