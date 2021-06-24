@@ -30,7 +30,7 @@ var FluffyPong;
             case "player": {
                 const playerInfo = JSON.parse(data);
                 playerNameList.push(playerInfo); // add message to message list
-                console.log(playerNameList);
+                //console.log(playerNameList);
                 break;
             }
             case "pong": {
@@ -150,7 +150,7 @@ var FluffyPong;
     }
     FluffyPong.sendFluffy = sendFluffy;
     function getRanking() {
-        console.log("ranking");
+        //console.log("ranking");
         const gameEndMessage = {
             name: name,
             fluffyAmount: FluffyPong.fluffies.length
@@ -175,11 +175,11 @@ var FluffyPong;
         }
     }
     function createRankingTable(_ranking) {
-        console.log("help");
+        //console.log("help");
         let div = document.createElement("div");
         document.body.appendChild(div);
         div.id = "rankingDiv";
-        console.log(div);
+        //console.log(div);
         let table = document.createElement("table");
         div.appendChild(table);
         table.classList.add("table");

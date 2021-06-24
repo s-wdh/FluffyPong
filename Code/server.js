@@ -140,7 +140,7 @@ var FluffyPong;
                         for (let index = 0; index < fluffyAmounts.length; index++) {
                             for (let element of rankingHelp) {
                                 if (element.fluffyAmount == fluffyAmounts[index]) {
-                                    element.position = index;
+                                    element.position = index + 1;
                                     ranking.push(element);
                                     rankingHelp.splice(rankingHelp.indexOf(element), 1);
                                 }
