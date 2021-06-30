@@ -24,7 +24,7 @@ namespace FluffyPong {
                 if (distance < (fluffyWidth / 2)) {
                     console.log("move Fluffy start");
                     //movedFluffy = element;
-                    movedFluffy.push(element);
+                    movedFluffy.unshift(element);
                     _event.stopPropagation();
                     break;
                 }
@@ -74,7 +74,7 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy[0], "right");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             } else if (element instanceof WallTopHole) {
                 if (element.position.y + borderWidth > (movedFluffy[0].position.y - (fluffyHeight / 2) - 1) && movedFluffy[0].color == wallTopColor) {
@@ -82,7 +82,7 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy[0], "bottom");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             } else if (element instanceof WallRightHole) {
                 if (element.position.x < (movedFluffy[0].position.x + (fluffyWidth / 2) + 1) && movedFluffy[0].color == wallRightColor) {
@@ -90,7 +90,7 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy[0], "left");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             }
             else if (element instanceof WallBottomHole) {
@@ -99,10 +99,10 @@ namespace FluffyPong {
                     sendFluffy(movedFluffy[0], "top");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             } else {
-                movedFluffy.splice(0);
+                movedFluffy.splice(0, movedFluffy.length);
             }
         }
     }

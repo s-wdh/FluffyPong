@@ -20,7 +20,7 @@ var FluffyPong;
                 if (distance < (FluffyPong.fluffyWidth / 2)) {
                     console.log("move Fluffy start");
                     //movedFluffy = element;
-                    movedFluffy.push(element);
+                    movedFluffy.unshift(element);
                     _event.stopPropagation();
                     break;
                 }
@@ -67,7 +67,7 @@ var FluffyPong;
                     console.log("passed the left wall");
                     FluffyPong.sendFluffy(movedFluffy[0], "right");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             }
             else if (element instanceof FluffyPong.WallTopHole) {
@@ -75,7 +75,7 @@ var FluffyPong;
                     console.log("passed the top wall");
                     FluffyPong.sendFluffy(movedFluffy[0], "bottom");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             }
             else if (element instanceof FluffyPong.WallRightHole) {
@@ -83,7 +83,7 @@ var FluffyPong;
                     console.log("passed the right wall");
                     FluffyPong.sendFluffy(movedFluffy[0], "left");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             }
             else if (element instanceof FluffyPong.WallBottomHole) {
@@ -91,11 +91,11 @@ var FluffyPong;
                     console.log("passed the bottom wall");
                     FluffyPong.sendFluffy(movedFluffy[0], "top");
                     FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(movedFluffy[0]), 1);
-                    movedFluffy.splice(0);
+                    movedFluffy.splice(0, movedFluffy.length);
                 }
             }
             else {
-                movedFluffy.splice(0);
+                movedFluffy.splice(0, movedFluffy.length);
             }
         }
     }
