@@ -11,19 +11,11 @@ namespace FluffyPong {
     export let fluffyWidth: number = 80;
     export let fluffyHeight: number = 68;
 
-    // enum to check the colors of fluffy + wall
-    export enum COLOR {
-        RED,
-        BLUE,
-        GREEN,
-        YELLOW
-    }
-
     // save wall colors, so they stay the same when window is resized
-    let wallTopColor: string;
-    let wallRightColor: string;
-    let wallBottomColor: string;
-    let wallLeftColor: string;
+    export let wallTopColor: string;
+    export let wallRightColor: string;
+    export let wallBottomColor: string;
+    export let wallLeftColor: string;
 
     export let imgData: ImageData;
 
@@ -115,9 +107,11 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallTopColor);
                     wall.draw(index);
                     walls.push(wall);
+                    let hole: WallTopHole = new WallTopHole(position);
+                    hole.draw();
+                    wallHoles.push(hole);
                     break;
                 }
                 case 1: {
@@ -126,9 +120,11 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallRightColor);
                     wall.draw(index);
                     walls.push(wall);
+                    let hole: WallRightHole = new WallRightHole(position);
+                    hole.draw();
+                    wallHoles.push(hole);
                     break;
                 }
                 case 2: {
@@ -137,9 +133,11 @@ namespace FluffyPong {
                     let y: number = (canvasHeight - borderWidth);
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallBottomColor);
                     wall.draw(index);
                     walls.push(wall);
+                    let hole: WallBottomHole = new WallBottomHole(position);
+                    hole.draw();
+                    wallHoles.push(hole);
                     break;
                 }
                 case 3: {
@@ -148,9 +146,11 @@ namespace FluffyPong {
                     let y: number = 0;
                     let position: Vector = new Vector(x, y);
                     let wall: Wall = new Wall(position);
-                    wall.generateColor(wallLeftColor);
                     wall.draw(index);
                     walls.push(wall);
+                    let hole: WallLeftHole = new WallLeftHole(position);
+                    hole.draw();
+                    wallHoles.push(hole);
                     break;
                 }
             }
@@ -162,8 +162,10 @@ namespace FluffyPong {
         let amount: number = 7 + Math.floor(Math.random() * 5);
         console.log(amount);
         for (let index: number = 0; index < amount; index++) {
-            let x: number = 80 + (Math.random() * (_canvas.width - 160));
-            let y: number = 68 + (Math.random() * (_canvas.height - 136));
+            //Berechnung, dass die Fluffies auf random Positionen auf dem Canvas gezeichnet werden 
+            //und nicht auf oder an den Mauern hängen könnnen
+            let x: number = fluffyWidth + 1 + (Math.random() * (_canvas.width - (fluffyWidth * 2) - 2));
+            let y: number = fluffyHeight + 1 + (Math.random() * (_canvas.height - (fluffyHeight * 2) - 2));
             let position: Vector = new Vector(x, y);
             let fluffy: FluffyElement = new FluffyElement(position);
             fluffy.generateColor();

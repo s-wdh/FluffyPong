@@ -1,6 +1,6 @@
 namespace FluffyPong {
-    const socket: WebSocket = new WebSocket("ws://localhost:8000/");
-    //const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
+    //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
+    const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield: HTMLInputElement;
     let name: string;
     let namesent: boolean = false;
@@ -44,6 +44,7 @@ namespace FluffyPong {
 
     export let fluffies: FluffyElement[] = [];
     export let walls: Wall[] = [];
+    export let wallHoles: Wall[] = [];
     let playerNameList: Player[] = [];
 
     let timer: number;
@@ -142,7 +143,7 @@ namespace FluffyPong {
     }
 
     export function sendFluffy(_fluffy: FluffyElement, _direction: string): void {
-        console.log(fluffies.length);
+        //console.log(fluffies.length);
         if (_direction == "top") {
             const fluffyMessage: Fluffy = {
                 direction: "top"

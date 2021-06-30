@@ -11,18 +11,6 @@ var FluffyPong;
             let color = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
             let fluffyColor = color[Math.floor(Math.random() * color.length)].toString();
             this.color = fluffyColor;
-            if (this.color == "#b3ecff") {
-                this.colorenum = FluffyPong.COLOR.BLUE;
-            }
-            else if (this.color == "#cfffb3") {
-                this.colorenum = FluffyPong.COLOR.GREEN;
-            }
-            else if (this.color == "#ffffb3") {
-                this.colorenum = FluffyPong.COLOR.YELLOW;
-            }
-            else if (this.color == "#ffb3d1") {
-                this.colorenum = FluffyPong.COLOR.RED;
-            }
             /*
             Blau: #b3ecff
             Grün: #cfffb3

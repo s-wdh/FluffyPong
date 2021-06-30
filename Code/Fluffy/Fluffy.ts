@@ -3,7 +3,6 @@ namespace FluffyPong {
         position: Vector;
         velocity: Vector;
         color: string;
-        colorenum: COLOR;
 
         constructor(_position: Vector) {
             this.position = _position;
@@ -15,15 +14,6 @@ namespace FluffyPong {
             let color: String[] = ["#b3ecff", "#cfffb3", "#ffffb3", "#ffb3d1"];
             let fluffyColor: string = color[Math.floor(Math.random() * color.length)].toString();
             this.color = fluffyColor;
-            if (this.color == "#b3ecff") {
-                this.colorenum = COLOR.BLUE;
-            } else if (this.color == "#cfffb3") {
-                this.colorenum = COLOR.GREEN;
-            } else if (this.color == "#ffffb3") {
-                this.colorenum = COLOR.YELLOW;
-            } else if (this.color == "#ffb3d1") {
-                this.colorenum = COLOR.RED;
-            }
             /* 
             Blau: #b3ecff 
             Grün: #cfffb3

@@ -4,19 +4,6 @@ var FluffyPong;
     //window.addEventListener("load", handleLoad);
     FluffyPong.fluffyWidth = 80;
     FluffyPong.fluffyHeight = 68;
-    // enum to check the colors of fluffy + wall
-    let COLOR;
-    (function (COLOR) {
-        COLOR[COLOR["RED"] = 0] = "RED";
-        COLOR[COLOR["BLUE"] = 1] = "BLUE";
-        COLOR[COLOR["GREEN"] = 2] = "GREEN";
-        COLOR[COLOR["YELLOW"] = 3] = "YELLOW";
-    })(COLOR = FluffyPong.COLOR || (FluffyPong.COLOR = {}));
-    // save wall colors, so they stay the same when window is resized
-    let wallTopColor;
-    let wallRightColor;
-    let wallBottomColor;
-    let wallLeftColor;
     function prepareCanvas() {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -76,16 +63,16 @@ var FluffyPong;
             let wallColor = color[Math.floor(Math.random() * color.length)].toString();
             switch (index) {
                 case 0:
-                    wallTopColor = wallColor;
+                    FluffyPong.wallTopColor = wallColor;
                     break;
                 case 1:
-                    wallRightColor = wallColor;
+                    FluffyPong.wallRightColor = wallColor;
                     break;
                 case 2:
-                    wallBottomColor = wallColor;
+                    FluffyPong.wallBottomColor = wallColor;
                     break;
                 case 3:
-                    wallLeftColor = wallColor;
+                    FluffyPong.wallLeftColor = wallColor;
                     break;
             }
             color.splice(color.indexOf(wallColor), 1);
@@ -102,9 +89,11 @@ var FluffyPong;
                     let y = 0;
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor(wallTopColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
+                    let hole = new FluffyPong.WallTopHole(position);
+                    hole.draw();
+                    FluffyPong.wallHoles.push(hole);
                     break;
                 }
                 case 1: {
@@ -113,9 +102,11 @@ var FluffyPong;
                     let y = 0;
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor(wallRightColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
+                    let hole = new FluffyPong.WallRightHole(position);
+                    hole.draw();
+                    FluffyPong.wallHoles.push(hole);
                     break;
                 }
                 case 2: {
@@ -124,9 +115,11 @@ var FluffyPong;
                     let y = (FluffyPong.canvasHeight - FluffyPong.borderWidth);
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor(wallBottomColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
+                    let hole = new FluffyPong.WallBottomHole(position);
+                    hole.draw();
+                    FluffyPong.wallHoles.push(hole);
                     break;
                 }
                 case 3: {
@@ -135,9 +128,11 @@ var FluffyPong;
                     let y = 0;
                     let position = new FluffyPong.Vector(x, y);
                     let wall = new FluffyPong.Wall(position);
-                    wall.generateColor(wallLeftColor);
                     wall.draw(index);
                     FluffyPong.walls.push(wall);
+                    let hole = new FluffyPong.WallLeftHole(position);
+                    hole.draw();
+                    FluffyPong.wallHoles.push(hole);
                     break;
                 }
             }
@@ -148,8 +143,10 @@ var FluffyPong;
         let amount = 7 + Math.floor(Math.random() * 5);
         console.log(amount);
         for (let index = 0; index < amount; index++) {
-            let x = 80 + (Math.random() * (_canvas.width - 160));
-            let y = 68 + (Math.random() * (_canvas.height - 136));
+            //Berechnung, dass die Fluffies auf random Positionen auf dem Canvas gezeichnet werden 
+            //und nicht auf oder an den Mauern hängen könnnen
+            let x = FluffyPong.fluffyWidth + 1 + (Math.random() * (_canvas.width - (FluffyPong.fluffyWidth * 2) - 2));
+            let y = FluffyPong.fluffyHeight + 1 + (Math.random() * (_canvas.height - (FluffyPong.fluffyHeight * 2) - 2));
             let position = new FluffyPong.Vector(x, y);
             let fluffy = new FluffyPong.FluffyElement(position);
             fluffy.generateColor();

@@ -1,8 +1,8 @@
 "use strict";
 var FluffyPong;
 (function (FluffyPong) {
-    const socket = new WebSocket("ws://localhost:8000/");
-    //const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
+    //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
+    const socket = new WebSocket("wss://fluffypong.herokuapp.com/");
     let namefield;
     let name;
     let namesent = false;
@@ -19,6 +19,7 @@ var FluffyPong;
     }
     FluffyPong.fluffies = [];
     FluffyPong.walls = [];
+    FluffyPong.wallHoles = [];
     let playerNameList = [];
     let timer;
     // listen to message from server
@@ -106,7 +107,7 @@ var FluffyPong;
         namesent = true;
     }
     function sendFluffy(_fluffy, _direction) {
-        console.log(FluffyPong.fluffies.length);
+        //console.log(fluffies.length);
         if (_direction == "top") {
             const fluffyMessage = {
                 direction: "top"
