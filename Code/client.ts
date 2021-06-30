@@ -31,7 +31,7 @@ namespace FluffyPong {
 
     //fluffy interface
     interface Fluffy {
-        object?: HTMLCanvasElement;
+        position: number;
         direction: string;
     }
 
@@ -74,20 +74,20 @@ namespace FluffyPong {
                 //console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
-                        x = (canvasWidth / 2);
+                        x = fluffy.position;
                         y = fluffyHeight;
                         break;
                     case "right":
                         x = (canvasWidth - fluffyWidth);
-                        y = (canvasHeight / 2);
+                        y = fluffy.position;
                         break;
                     case "bottom":
-                        x = (canvasWidth / 2);
+                        x = fluffy.position;
                         y = (canvasHeight - fluffyHeight);
                         break;
                     case "left":
                         x = fluffyWidth;
-                        y = (canvasHeight / 2);
+                        y = fluffy.position;
                         break;
                 }
                 let position: Vector = new Vector(x, y);
@@ -142,10 +142,11 @@ namespace FluffyPong {
         namesent = true;
     }
 
-    export function sendFluffy(_fluffy: FluffyElement, _direction: string): void {
+    export function sendFluffy(_fluffyPosition: number, _direction: string): void {
         //console.log(fluffies.length);
         if (_direction == "top") {
             const fluffyMessage: Fluffy = {
+                position: _fluffyPosition,
                 direction: "top"
             };
             const textCarrier: CarrierMessage = {
@@ -155,6 +156,7 @@ namespace FluffyPong {
             socket.send(JSON.stringify(textCarrier));
         } else if (_direction == "right") {
             const fluffyMessage: Fluffy = {
+                position: _fluffyPosition,
                 direction: "right"
             };
             const textCarrier: CarrierMessage = {
@@ -164,6 +166,7 @@ namespace FluffyPong {
             socket.send(JSON.stringify(textCarrier));
         } else if (_direction == "bottom") {
             const fluffyMessage: Fluffy = {
+                position: _fluffyPosition,
                 direction: "bottom"
             };
             const textCarrier: CarrierMessage = {
@@ -173,6 +176,7 @@ namespace FluffyPong {
             socket.send(JSON.stringify(textCarrier));
         } else if (_direction == "left") {
             const fluffyMessage: Fluffy = {
+                position: _fluffyPosition,
                 direction: "left"
             };
             const textCarrier: CarrierMessage = {

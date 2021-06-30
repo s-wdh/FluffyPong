@@ -15,7 +15,7 @@ export namespace FluffyPong {
 
     //fluffy interface
     interface Fluffy {
-        object?: HTMLCanvasElement;
+        position: number;
         direction: string;
     }
 

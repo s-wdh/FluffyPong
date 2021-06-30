@@ -45,20 +45,20 @@ var FluffyPong;
                 //console.log("fluffy");
                 switch (fluffy.direction) {
                     case "top":
-                        x = (FluffyPong.canvasWidth / 2);
+                        x = fluffy.position;
                         y = FluffyPong.fluffyHeight;
                         break;
                     case "right":
                         x = (FluffyPong.canvasWidth - FluffyPong.fluffyWidth);
-                        y = (FluffyPong.canvasHeight / 2);
+                        y = fluffy.position;
                         break;
                     case "bottom":
-                        x = (FluffyPong.canvasWidth / 2);
+                        x = fluffy.position;
                         y = (FluffyPong.canvasHeight - FluffyPong.fluffyHeight);
                         break;
                     case "left":
                         x = FluffyPong.fluffyWidth;
-                        y = (FluffyPong.canvasHeight / 2);
+                        y = fluffy.position;
                         break;
                 }
                 let position = new FluffyPong.Vector(x, y);
@@ -106,10 +106,11 @@ var FluffyPong;
         FluffyPong.prepareCanvas();
         namesent = true;
     }
-    function sendFluffy(_fluffy, _direction) {
+    function sendFluffy(_fluffyPosition, _direction) {
         //console.log(fluffies.length);
         if (_direction == "top") {
             const fluffyMessage = {
+                position: _fluffyPosition,
                 direction: "top"
             };
             const textCarrier = {
@@ -120,6 +121,7 @@ var FluffyPong;
         }
         else if (_direction == "right") {
             const fluffyMessage = {
+                position: _fluffyPosition,
                 direction: "right"
             };
             const textCarrier = {
@@ -130,6 +132,7 @@ var FluffyPong;
         }
         else if (_direction == "bottom") {
             const fluffyMessage = {
+                position: _fluffyPosition,
                 direction: "bottom"
             };
             const textCarrier = {
@@ -140,6 +143,7 @@ var FluffyPong;
         }
         else if (_direction == "left") {
             const fluffyMessage = {
+                position: _fluffyPosition,
                 direction: "left"
             };
             const textCarrier = {

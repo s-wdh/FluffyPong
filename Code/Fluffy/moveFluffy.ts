@@ -71,7 +71,7 @@ namespace FluffyPong {
             if (element instanceof WallLeftHole) {
                 if (element.position.x + borderWidth > (movedFluffy[0].position.x - (fluffyWidth / 2) - 1) && movedFluffy[0].color == wallLeftColor) {
                     console.log("passed the left wall");
-                    sendFluffy(movedFluffy[0], "right");
+                    sendFluffy(movedFluffy[0].position.y, "right");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                     movedFluffy.splice(0, movedFluffy.length);
@@ -79,7 +79,7 @@ namespace FluffyPong {
             } else if (element instanceof WallTopHole) {
                 if (element.position.y + borderWidth > (movedFluffy[0].position.y - (fluffyHeight / 2) - 1) && movedFluffy[0].color == wallTopColor) {
                     console.log("passed the top wall");
-                    sendFluffy(movedFluffy[0], "bottom");
+                    sendFluffy(movedFluffy[0].position.x, "bottom");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                     movedFluffy.splice(0, movedFluffy.length);
@@ -87,7 +87,7 @@ namespace FluffyPong {
             } else if (element instanceof WallRightHole) {
                 if (element.position.x < (movedFluffy[0].position.x + (fluffyWidth / 2) + 1) && movedFluffy[0].color == wallRightColor) {
                     console.log("passed the right wall");
-                    sendFluffy(movedFluffy[0], "left");
+                    sendFluffy(movedFluffy[0].position.y, "left");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                     movedFluffy.splice(0, movedFluffy.length);
@@ -96,7 +96,7 @@ namespace FluffyPong {
             else if (element instanceof WallBottomHole) {
                 if (element.position.y < (movedFluffy[0].position.y + (fluffyHeight / 2) + 1) && movedFluffy[0].color == wallBottomColor) {
                     console.log("passed the bottom wall");
-                    sendFluffy(movedFluffy[0], "top");
+                    sendFluffy(movedFluffy[0].position.x, "top");
 
                     fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                     movedFluffy.splice(0, movedFluffy.length);
