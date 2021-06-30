@@ -132,10 +132,10 @@ var FluffyPong;
                 case "ranking": {
                     const playerData = JSON.parse(data);
                     rankingHelp.push(playerData);
-                    for (let element of rankingHelp) {
-                        fluffyAmounts.push(element.fluffyAmount);
-                    }
                     if (rankingHelp.length == clientSockets.length) {
+                        for (let element of rankingHelp) {
+                            fluffyAmounts.push(element.fluffyAmount);
+                        }
                         fluffyAmounts.sort(function (a, b) { return a - b; });
                         for (let index = 0; index < fluffyAmounts.length; index++) {
                             for (let element of rankingHelp) {

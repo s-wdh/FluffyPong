@@ -52,7 +52,7 @@ export namespace FluffyPong {
             if (timer > 0) {
                 timer--;
             }
-        },          1000);
+        }, 1000);
         const textCarrier: CarrierMessage = {
             selector: "timer",
             data: JSON.stringify(timer)
@@ -168,10 +168,10 @@ export namespace FluffyPong {
                 case "ranking": {
                     const playerData: Ranking = <Ranking>JSON.parse(<string>data);
                     rankingHelp.push(playerData);
-                    for (let element of rankingHelp) {
-                        fluffyAmounts.push(element.fluffyAmount);
-                    }
                     if (rankingHelp.length == clientSockets.length) {
+                        for (let element of rankingHelp) {
+                            fluffyAmounts.push(element.fluffyAmount);
+                        }
                         fluffyAmounts.sort(function (a: number, b: number): number { return a - b; });
                         for (let index: number = 0; index < fluffyAmounts.length; index++) {
                             for (let element of rankingHelp) {
