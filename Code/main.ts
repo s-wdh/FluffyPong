@@ -36,7 +36,6 @@ namespace FluffyPong {
         canvasSize();
         window.addEventListener("resize", canvasSize);
         createFluffyPosition(canvas);
-        //canvas.addEventListener("mousedown", sendFluffy);
         canvas.addEventListener("touchstart", moveFluffyStart, false);
         canvas.addEventListener("touchmove", moveFluffy, false);
         canvas.addEventListener("touchend", moveFluffyEnd, false);

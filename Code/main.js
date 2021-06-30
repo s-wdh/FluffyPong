@@ -26,7 +26,6 @@ var FluffyPong;
         canvasSize();
         window.addEventListener("resize", canvasSize);
         createFluffyPosition(canvas);
-        //canvas.addEventListener("mousedown", sendFluffy);
         canvas.addEventListener("touchstart", FluffyPong.moveFluffyStart, false);
         canvas.addEventListener("touchmove", FluffyPong.moveFluffy, false);
         canvas.addEventListener("touchend", FluffyPong.moveFluffyEnd, false);

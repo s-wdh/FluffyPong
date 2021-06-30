@@ -85,6 +85,14 @@ namespace FluffyPong {
 
         move(_vector: Vector): Vector {
             this.position = _vector;
+            if (this.position.x < (borderWidth + (fluffyWidth / 2)))
+                this.position.x = (borderWidth + (fluffyWidth / 2));
+            if (this.position.y < (borderWidth + (fluffyHeight / 2)))
+                this.position.y = (borderWidth + (fluffyHeight / 2));
+            if (this.position.x > crc2.canvas.width - borderWidth - (fluffyWidth / 2))
+                this.position.x = crc2.canvas.width - borderWidth - (fluffyWidth / 2);
+            if (this.position.y > crc2.canvas.height - borderWidth - (fluffyHeight / 2))
+                this.position.y = crc2.canvas.height - borderWidth - (fluffyHeight / 2);
             /* let swipe: Vector = new Vector(_vector.x, _vector.y);
             swipe.scale(0.2);
             this.position.add(swipe); */

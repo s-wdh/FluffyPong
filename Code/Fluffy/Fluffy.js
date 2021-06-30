@@ -80,6 +80,14 @@ var FluffyPong;
         }
         move(_vector) {
             this.position = _vector;
+            if (this.position.x < (FluffyPong.borderWidth + (FluffyPong.fluffyWidth / 2)))
+                this.position.x = (FluffyPong.borderWidth + (FluffyPong.fluffyWidth / 2));
+            if (this.position.y < (FluffyPong.borderWidth + (FluffyPong.fluffyHeight / 2)))
+                this.position.y = (FluffyPong.borderWidth + (FluffyPong.fluffyHeight / 2));
+            if (this.position.x > FluffyPong.crc2.canvas.width - FluffyPong.borderWidth - (FluffyPong.fluffyWidth / 2))
+                this.position.x = FluffyPong.crc2.canvas.width - FluffyPong.borderWidth - (FluffyPong.fluffyWidth / 2);
+            if (this.position.y > FluffyPong.crc2.canvas.height - FluffyPong.borderWidth - (FluffyPong.fluffyHeight / 2))
+                this.position.y = FluffyPong.crc2.canvas.height - FluffyPong.borderWidth - (FluffyPong.fluffyHeight / 2);
             /* let swipe: Vector = new Vector(_vector.x, _vector.y);
             swipe.scale(0.2);
             this.position.add(swipe); */

@@ -204,10 +204,9 @@ export namespace FluffyPong {
 
         socket.on("close", () => {
             let socketPosition: number = clientSockets.indexOf(socket);
+            console.log("socket deletet:" + playerInfos.get(socket));
             clientSockets.splice(socketPosition);
-            console.log(playerInfos.get(socket));
             playerInfos.delete(socket);
-            console.log(`socket deletet: ${playerInfos.get(socket)}`);
         });
     }); //server.on
 

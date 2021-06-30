@@ -167,10 +167,9 @@ var FluffyPong;
         }); //socket on ("message")
         socket.on("close", () => {
             let socketPosition = clientSockets.indexOf(socket);
+            console.log("socket deletet:" + playerInfos.get(socket));
             clientSockets.splice(socketPosition);
-            console.log(playerInfos.get(socket));
             playerInfos.delete(socket);
-            console.log(`socket deletet: ${playerInfos.get(socket)}`);
         });
     }); //server.on
 })(FluffyPong = exports.FluffyPong || (exports.FluffyPong = {})); //namespace
