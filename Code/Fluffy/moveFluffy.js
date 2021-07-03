@@ -19,7 +19,6 @@ var FluffyPong;
                 let distance = Math.hypot((FluffyPong.oldPosition.x - element.position.x), (FluffyPong.oldPosition.y - element.position.y));
                 if (distance < (FluffyPong.fluffyWidth / 2)) {
                     console.log("move Fluffy start");
-                    //movedFluffy = element;
                     movedFluffy.unshift(element);
                     _event.stopPropagation();
                     break;

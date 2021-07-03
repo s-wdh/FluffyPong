@@ -8,7 +8,7 @@ namespace FluffyPong {
             crc2.save();
             //Border Right
             crc2.beginPath();
-            crc2.fillStyle = "#cccccc";
+            crc2.fillStyle = "#999999";
             for (let index: number = 0; index < 2; index++) {
                 let holeRightHeight: number = fluffyHeight + Math.random() * (fluffyHeight / 2);
                 let holeRightPosition: number = borderWidth + Math.floor(Math.random() * (canvasHeight - holeRightHeight - (borderWidth * 2)));

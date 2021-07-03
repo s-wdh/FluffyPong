@@ -23,7 +23,6 @@ namespace FluffyPong {
                 let distance: number = Math.hypot((oldPosition.x - element.position.x), (oldPosition.y - element.position.y));
                 if (distance < (fluffyWidth / 2)) {
                     console.log("move Fluffy start");
-                    //movedFluffy = element;
                     movedFluffy.unshift(element);
                     _event.stopPropagation();
                     break;
