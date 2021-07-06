@@ -6,7 +6,7 @@ namespace FluffyPong {
 
         draw(): void {
             crc2.save();
-            //Border Left
+            //Border Left Hole
             crc2.beginPath();
             crc2.fillStyle = "#999999";
             for (let index: number = 0; index < 2; index++) {

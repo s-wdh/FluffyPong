@@ -7,7 +7,7 @@ var FluffyPong;
         }
         draw() {
             FluffyPong.crc2.save();
-            //Border Left
+            //Border Left Hole
             FluffyPong.crc2.beginPath();
             FluffyPong.crc2.fillStyle = "#999999";
             for (let index = 0; index < 2; index++) {

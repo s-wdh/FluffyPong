@@ -7,9 +7,128 @@ body {
 #startdiv {
     position: absolute;
     left: 0px;
-    top: 500px;
-    width: 100%;
-    height: 100px;
+    top: 0px;
+    height: 100%;
+    background-color: #cccccc;
+    color: #ffffff;
+    z-index: 1;
+}
+
+#playername {
+    position: relative;
+    top: 50%;
+    left: 20%;
+    background-color: #999999;
+    border-style: none;
+    border-width: 0px;
+    border-radius: 1px;
+    color: #ffffff;
+}
+
+#playername::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ffffff;
+    opacity: 1; /* Firefox */
+}
+  
+#playername:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ffffff;
+}
+  
+#playername::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ffffff;
+}
+
+button {
+    position: absolute;
+    top: 70%;
+    border-style: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #ffffb3;
+    color: #999999;
+    font-weight: bold;
+    font-size: large;
+}
+
+@media only screen and (max-width: 400px) {
+    #startdiv {
+        width: 100%;
+    }
+    h1 {
+        text-align: center;
+        font-weight: bold;
+    }
+    #logo {
+        position:absolute;
+        left: 10%;
+        width: 80%;
+    }
+    #playername {
+        left: 2%;
+        width: 96%;
+    }
+    #start {
+        left: 28%;
+    }
+    #help {
+        left: 60%;
+    }
+}
+@media only screen and (min-width: 404px) {
+    #startdiv {
+        width: 410px;
+    }
+    h1 {
+        position: relative;
+        text-align: center;
+        max-width: 400px;
+        font-weight: bold;
+    }
+    #logo {
+        position:absolute;
+        left: 40px;
+        width: 320px;
+    }
+    #playername {
+        left: 2px;
+        width: 400px;
+    }
+    #start {
+        left: 130px;
+    }
+    #help {
+        left: 230px;
+    }
+}
+
+#alert {
+    position: absolute;
+    top: 20%;
+    padding: 20px;
+    background-color: #999999;
+    color: white;
+    opacity: 0;
+    width: 87.5%;
+    max-width: 350px;
+    height: 150px;
+    padding: 20px;
+    z-index: 2;
+}
+  
+#closebtn {
+    margin-left: 15px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 30px;
+    line-height: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+#closebtn:hover {
+    color: black;
 }
 
 canvas {
@@ -27,8 +146,6 @@ canvas {
 
 #rankingDiv {
     position: absolute;
-    left: 3px;
-    top: 10px;
 }
 
 th, td {
@@ -43,4 +160,9 @@ th, td {
     border-width: 2px;
     border-color: #000000;
     color: #000000;
+}
+
+.newRound {
+    color: #000000;
+    margin: 5px;
 }

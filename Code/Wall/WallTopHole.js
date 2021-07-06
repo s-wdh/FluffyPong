@@ -7,7 +7,7 @@ var FluffyPong;
         }
         draw() {
             FluffyPong.crc2.save();
-            //Border Top
+            //Border Top Hole
             FluffyPong.crc2.beginPath();
             FluffyPong.crc2.fillStyle = "#999999";
             let holeTopWidth = FluffyPong.fluffyWidth + Math.random() * (FluffyPong.fluffyWidth / 2);

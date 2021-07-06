@@ -66,6 +66,7 @@ var FluffyPong;
             }
             FluffyPong.crc2.restore();
         }
+        //swipe/move function when player moves them on canvas, so they can't be swiped out of the walls
         move(_vector) {
             this.position = _vector;
             if (this.position.x < (FluffyPong.borderWidth + (FluffyPong.fluffyWidth / 2)))
@@ -76,11 +77,9 @@ var FluffyPong;
                 this.position.x = FluffyPong.crc2.canvas.width - FluffyPong.borderWidth - (FluffyPong.fluffyWidth / 2);
             if (this.position.y > FluffyPong.crc2.canvas.height - FluffyPong.borderWidth - (FluffyPong.fluffyHeight / 2))
                 this.position.y = FluffyPong.crc2.canvas.height - FluffyPong.borderWidth - (FluffyPong.fluffyHeight / 2);
-            /* let swipe: Vector = new Vector(_vector.x, _vector.y);
-            swipe.scale(0.2);
-            this.position.add(swipe); */
             return (this.position);
         }
+        //animate the fluffies so they scurry around on the canvas
         animation() {
             let offset = new FluffyPong.Vector(this.velocity.x, this.velocity.y);
             this.position.add(offset);
@@ -93,7 +92,56 @@ var FluffyPong;
             if (this.position.y > FluffyPong.crc2.canvas.height - FluffyPong.borderWidth - (FluffyPong.fluffyHeight / 2))
                 this.velocity.scale(-1);
         }
-    }
+        //animate the process, when the correct hole is hit, so the player can see how they disappear out of the canvas
+        holeAnimation(_direction, _position) {
+            switch (_direction) {
+                case "left": {
+                    if ((this.position.x + (FluffyPong.fluffyWidth / 2)) < _position) {
+                        FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
+                        FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
+                        window.clearInterval(FluffyPong.anim);
+                    }
+                    else {
+                        this.position.x -= 1;
+                    }
+                    break;
+                }
+                case "top": {
+                    if ((this.position.y + (FluffyPong.fluffyHeight / 2)) < _position) {
+                        FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
+                        FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
+                        window.clearInterval(FluffyPong.anim);
+                    }
+                    else {
+                        this.position.y -= 1;
+                    }
+                    break;
+                }
+                case "right": {
+                    if ((this.position.x - (FluffyPong.fluffyWidth / 2)) > _position) {
+                        FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
+                        FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
+                        window.clearInterval(FluffyPong.anim);
+                    }
+                    else {
+                        this.position.x += 1;
+                    }
+                    break;
+                }
+                case "bottom": {
+                    if ((this.position.y - (FluffyPong.fluffyHeight / 2)) < _position) {
+                        FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
+                        FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
+                        window.clearInterval(FluffyPong.anim);
+                    }
+                    else {
+                        this.position.y += 1;
+                    }
+                    break;
+                }
+            }
+        }
+    } //class FluffyElement
     FluffyPong.FluffyElement = FluffyElement;
 })(FluffyPong || (FluffyPong = {})); //namespace
 //# sourceMappingURL=Fluffy.js.map

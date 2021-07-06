@@ -6,7 +6,7 @@ namespace FluffyPong {
 
         draw(): void {
             crc2.save();
-            //Border Bottom
+            //Border Bottom Hole
             crc2.beginPath();
             crc2.fillStyle = "#999999";
             let holeBottomWidth: number = fluffyWidth + Math.random() * (fluffyWidth / 2);
