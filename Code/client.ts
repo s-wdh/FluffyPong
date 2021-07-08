@@ -1,5 +1,5 @@
 namespace FluffyPong {
-    //change the server type
+    //change the server
     //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
     const socket: WebSocket = new WebSocket("wss://fluffypong.herokuapp.com/");
 
@@ -107,7 +107,7 @@ namespace FluffyPong {
                 break;
             }
 
-            //timer arrives and 
+            //timer arrives, timer function is started and end of round is set to send the ranking to the sever then
             case "timer": {
                 timer = JSON.parse(<string>data);
                 window.setTimeout(getRanking, (timer * 1000));

@@ -1,7 +1,6 @@
 "use strict";
 var FluffyPong;
 (function (FluffyPong) {
-    //window.addEventListener("load", handleLoad);
     //prepare Canvas for the game and add all needed EventListener for the swipe move
     function prepareCanvas() {
         let canvas = document.querySelector("canvas");

@@ -1,7 +1,7 @@
 "use strict";
 var FluffyPong;
 (function (FluffyPong) {
-    //change the server type
+    //change the server
     //const socket: WebSocket = new WebSocket("ws://localhost:8000/");
     const socket = new WebSocket("wss://fluffypong.herokuapp.com/");
     //variables for the name input
@@ -74,7 +74,7 @@ var FluffyPong;
                 createRankingTable(ranking);
                 break;
             }
-            //timer arrives and 
+            //timer arrives, timer function is started and end of round is set to send the ranking to the sever then
             case "timer": {
                 timer = JSON.parse(data);
                 window.setTimeout(getRanking, (timer * 1000));

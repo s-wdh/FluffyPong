@@ -1,9 +1,8 @@
 namespace FluffyPong {
     export let swipe: Boolean = false;
     export let oldPosition: Vector;                         //to save the old Position of the swiped fluffy
-    export let movedFluffy: FluffyElement [] = [];          //array for fluffy that is swiped currently
+    export let movedFluffy: FluffyElement[] = [];          //array for fluffy that is swiped currently
     export let fluffyDirection: Vector;                     //direction in which fluffy is swiped
-    export let anim: NodeJS.Timer;                          //timer variable, so the holeAnimation can be deleted when it's finished
 
     //start of the swipe of a fluffy
     export function moveFluffyStart(_event: TouchEvent | MouseEvent): void {
@@ -55,7 +54,7 @@ namespace FluffyPong {
             movedFluffy[0].move(fluffyDirection);
             movedFluffy[0].draw();
             fluffyTroughWall();
-        }      
+        }
     }
 
     //function for the end of the swipe
@@ -69,46 +68,57 @@ namespace FluffyPong {
         if (!movedFluffy[0]) {
             return;
         }
-        
+        //check if the fluffy was swiped inside of a hole
         for (let element of wallHoles) {
+            //if yes, then check if the fluffy has the same color than the wall
             if (element instanceof WallLeftHole) {
-                //check if the fluffy is next to the hole, so it is sent to the server. 
-                //It's not possible to swipe the fluffy in a hole, because then you could also swipe it in a wall, which shouldn't happen
-                if (element.position.x + borderWidth > (movedFluffy[0].position.x - (fluffyWidth / 2) - 1) && movedFluffy[0].color == wallLeftColor) {
-                    console.log("passed the left wall");
-                    sendFluffy(movedFluffy[0].position.y, "right");
+                //if yes, send the fluffy to the server and delete it in this players fluffies array
+                if (element.position.x + borderWidth > (movedFluffy[0].position.x)) {
+                    if (movedFluffy[0].color == wallLeftColor) {
+                        console.log("passed the left wall");
+                        sendFluffy(movedFluffy[0].position.y, "right");
 
-                    anim = setInterval(function anim(): void {
-                        movedFluffy[0].holeAnimation("left", 0);
-                    },                 30);
+                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
+                        movedFluffy.splice(0, movedFluffy.length);
+                    } else { //if no, make the fluffy jump back inside the wall
+                        movedFluffy[0].position.x = borderWidth + (fluffyWidth / 2);
+                    }
                 }
             } else if (element instanceof WallTopHole) {
-                if (element.position.y + borderWidth > (movedFluffy[0].position.y - (fluffyHeight / 2) - 1) && movedFluffy[0].color == wallTopColor) {
-                    console.log("passed the top wall");
-                    sendFluffy(movedFluffy[0].position.x, "bottom");
+                if (element.position.y + borderWidth > (movedFluffy[0].position.y)) {
+                    if (movedFluffy[0].color == wallTopColor) {
+                        console.log("passed the top wall");
+                        sendFluffy(movedFluffy[0].position.x, "bottom");
 
-                    anim = setInterval(function anim(): void {
-                        movedFluffy[0].holeAnimation("top", 0);
-                    },                 30);
+                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
+                        movedFluffy.splice(0, movedFluffy.length);
+                    } else {
+                        movedFluffy[0].position.y = borderWidth + (fluffyHeight / 2);
+                    }
                 }
             } else if (element instanceof WallRightHole) {
-                if (element.position.x < (movedFluffy[0].position.x + (fluffyWidth / 2) + 1) && movedFluffy[0].color == wallRightColor) {
-                    console.log("passed the right wall");
-                    sendFluffy(movedFluffy[0].position.y, "left");
+                if (element.position.x < (movedFluffy[0].position.x)) {
+                    if (movedFluffy[0].color == wallRightColor) {
+                        console.log("passed the right wall");
+                        sendFluffy(movedFluffy[0].position.y, "left");
 
-                    anim = setInterval(function anim(): void {
-                        movedFluffy[0].holeAnimation("right", canvasWidth);
-                    },                 30);
+                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
+                        movedFluffy.splice(0, movedFluffy.length);
+                    } else {
+                        movedFluffy[0].position.x = canvasWidth - borderWidth - (fluffyWidth / 2);
+                    }
                 }
-            }
-            else if (element instanceof WallBottomHole) {
-                if (element.position.y < (movedFluffy[0].position.y + (fluffyHeight / 2) + 1) && movedFluffy[0].color == wallBottomColor) {
-                    console.log("passed the bottom wall");
-                    sendFluffy(movedFluffy[0].position.x, "top");
+            } else if (element instanceof WallBottomHole) {
+                if (element.position.y < (movedFluffy[0].position.y)) {
+                    if (movedFluffy[0].color == wallBottomColor) {
+                        console.log("passed the bottom wall");
+                        sendFluffy(movedFluffy[0].position.x, "top");
 
-                    anim = setInterval(function anim(): void {
-                        movedFluffy[0].holeAnimation("bottom", canvasHeight);
-                    },                 30);
+                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
+                        movedFluffy.splice(0, movedFluffy.length);
+                    } else {
+                        movedFluffy[0].position.y = canvasHeight - borderWidth - (fluffyHeight / 2);
+                    }
                 }
             } else {  //if something went wrong with the holes
                 console.log("delete");

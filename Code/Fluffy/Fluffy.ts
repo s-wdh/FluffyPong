@@ -73,17 +73,45 @@ namespace FluffyPong {
             crc2.restore();
         }
 
-        //swipe/move function when player moves them on canvas, so they can't be swiped out of the walls
+        //swipe/move function when player moves them on canvas, so they can't be swiped out of the walls, but through the holes
         move(_vector: Vector): Vector {
             this.position = _vector;
-            if (this.position.x < (borderWidth + (fluffyWidth / 2)))
-                this.position.x = (borderWidth + (fluffyWidth / 2));
-            if (this.position.y < (borderWidth + (fluffyHeight / 2)))
-                this.position.y = (borderWidth + (fluffyHeight / 2));
-            if (this.position.x > crc2.canvas.width - borderWidth - (fluffyWidth / 2))
-                this.position.x = crc2.canvas.width - borderWidth - (fluffyWidth / 2);
-            if (this.position.y > crc2.canvas.height - borderWidth - (fluffyHeight / 2))
-                this.position.y = crc2.canvas.height - borderWidth - (fluffyHeight / 2);
+            //left wall
+            if (this.position.x < (borderWidth + (fluffyWidth / 2))) {
+                if (this.position.y - (fluffyHeight / 2) < holeLeftPosition1) {
+                    this.position.x = (borderWidth + (fluffyWidth / 2));
+                } else if (this.position.y - (fluffyHeight / 2) < holeLeftPosition2 && this.position.y + (fluffyHeight / 2) > holeLeftPosition1 + holeLeftHeight1) {
+                    this.position.x = (borderWidth + (fluffyWidth / 2));
+                } else if (this.position.y + (fluffyHeight / 2) > holeLeftPosition2 + holeLeftHeight2) {
+                    this.position.x = (borderWidth + (fluffyWidth / 2));
+                }
+            }
+            //top wall
+            if (this.position.y < (borderWidth + (fluffyHeight / 2))) {
+                if (this.position.x - (fluffyWidth / 2) < holeTopPosition) {
+                    this.position.y = (borderWidth + (fluffyHeight / 2));
+                } else if (this.position.x + (fluffyWidth / 2) > holeTopPosition + holeTopWidth) {
+                    this.position.y = (borderWidth + (fluffyHeight / 2));
+                }
+            }
+            //right wall
+            if (this.position.x > canvasWidth - borderWidth - (fluffyWidth / 2)) {
+                if (this.position.y - (fluffyHeight / 2) < holeRightPosition1) {
+                    this.position.x = canvasWidth - borderWidth - (fluffyWidth / 2);
+                } else if (this.position.y - (fluffyHeight / 2) < holeRightPosition2 && this.position.y + (fluffyHeight / 2) > holeRightPosition1 + holeRightHeight1) {
+                    this.position.x = canvasWidth - borderWidth - (fluffyWidth / 2);
+                } else if (this.position.y + (fluffyHeight / 2) > holeRightPosition2 + holeRightHeight2) {
+                    this.position.x = canvasWidth - borderWidth - (fluffyWidth / 2);
+                }
+            }
+            //bottom wall                
+            if (this.position.y > canvasHeight - borderWidth - (fluffyHeight / 2)) {
+                if (this.position.x - (fluffyWidth / 2) < holeBottomPosition) {
+                    this.position.y = canvasHeight - borderWidth - (fluffyHeight / 2);
+                } else if (this.position.x + (fluffyWidth / 2) > holeBottomPosition + holeBottomWidth) {
+                    this.position.y = canvasHeight - borderWidth - (fluffyHeight / 2);
+                }
+            }
             return (this.position);
         }
 
@@ -92,7 +120,7 @@ namespace FluffyPong {
             let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
             this.position.add(offset);
 
-            if (this.position.x < (borderWidth + (fluffyWidth / 2)))
+            if (this.position.x < (borderWidth + (fluffyWidth / 2))) 
                 this.velocity.scale(-1);
             if (this.position.y < (borderWidth + (fluffyHeight / 2)))
                 this.velocity.scale(-1);
@@ -100,52 +128,6 @@ namespace FluffyPong {
                 this.velocity.scale(-1);
             if (this.position.y > crc2.canvas.height - borderWidth - (fluffyHeight / 2))
                 this.velocity.scale(-1);
-        }
-
-        //animate the process, when the correct hole is hit, so the player can see how they disappear out of the canvas
-        holeAnimation(_direction: string, _position: number): void {
-            switch (_direction) {
-                case "left": {
-                    if ((this.position.x + (fluffyWidth / 2)) < _position) {
-                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                        movedFluffy.splice(0, movedFluffy.length);
-                        window.clearInterval(anim);
-                    } else {
-                        this.position.x -= 1;
-                    }
-                    break;
-                }
-                case "top": {
-                    if ((this.position.y + (fluffyHeight / 2)) < _position) {
-                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                        movedFluffy.splice(0, movedFluffy.length);
-                        window.clearInterval(anim);
-                    } else {
-                        this.position.y -= 1;
-                    }
-                    break;
-                }
-                case "right": {
-                    if ((this.position.x - (fluffyWidth / 2)) > _position) {
-                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                        movedFluffy.splice(0, movedFluffy.length);
-                        window.clearInterval(anim);
-                    } else {
-                        this.position.x += 1;
-                    }
-                    break;
-                }
-                case "bottom": {
-                    if ((this.position.y - (fluffyHeight / 2)) < _position) {
-                        fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
-                        movedFluffy.splice(0, movedFluffy.length);
-                        window.clearInterval(anim);
-                    } else {
-                        this.position.y += 1;
-                    }
-                    break;
-                }
-            }
         }
     } //class FluffyElement
 } //namespace

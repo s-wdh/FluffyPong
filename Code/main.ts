@@ -1,6 +1,4 @@
 namespace FluffyPong {
-    //window.addEventListener("load", handleLoad);
-
     export let crc2: CanvasRenderingContext2D;
 
     //save the sizes corresponding to the window size

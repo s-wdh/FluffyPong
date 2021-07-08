@@ -1,4 +1,9 @@
 namespace FluffyPong {
+    export let holeRightHeight1: number;
+    export let holeRightPosition1: number;
+    export let holeRightHeight2: number;
+    export let holeRightPosition2: number;
+    
     export class WallRightHole extends Wall {
         constructor(_position: Vector) {
             super(_position);
@@ -9,11 +14,14 @@ namespace FluffyPong {
             //Border Right Hole
             crc2.beginPath();
             crc2.fillStyle = "#999999";
-            for (let index: number = 0; index < 2; index++) {
-                let holeRightHeight: number = fluffyHeight + Math.random() * (fluffyHeight / 2);
-                let holeRightPosition: number = borderWidth + Math.floor(Math.random() * (canvasHeight - holeRightHeight - (borderWidth * 2)));
-                crc2.fillRect(this.position.x, holeRightPosition, borderWidth, holeRightHeight);
-            }
+            holeRightHeight1 = fluffyHeight + Math.random() * (fluffyHeight / 2);
+            //first hole should be in the upper half of the canvas
+            holeRightPosition1 = borderWidth + Math.floor(Math.random() * ((canvasHeight / 2) - holeRightHeight1 - (borderWidth * 2)));
+            crc2.fillRect(this.position.x, holeRightPosition1, borderWidth, holeRightHeight1);
+            holeRightHeight2 = fluffyHeight + Math.random() * (fluffyHeight / 2);
+            //second hole should be below hole 1
+            holeRightPosition2 = (canvasHeight / 2) + Math.floor(Math.random() * ((canvasHeight / 2) - holeRightHeight2 - borderWidth));
+            crc2.fillRect(this.position.x, holeRightPosition2, borderWidth, holeRightHeight2);
             crc2.closePath();
             crc2.restore();
         }
