@@ -43,7 +43,7 @@ var FluffyPong_Path;
             FluffyPong_Path.fluffyDirection = new FluffyPong_Path.Vector(x, y);
             //fluffyDirection.getDifference(oldPosition, fluffyDirection);
             //let position: Vector = new Vector(movedFluffy.position.x, movedFluffy.position.y);
-            if (!FluffyPong_Path.movedFluffy[0]) {
+            if (FluffyPong_Path.movedFluffy.length < 1) {
                 return;
             }
             FluffyPong_Path.movedFluffy[0].move(FluffyPong_Path.fluffyDirection);
@@ -61,7 +61,7 @@ var FluffyPong_Path;
     //check if the fluffy was swiped through a hole in one of the walls or just somewhere else on the canvas
     //send the Fluffy to the server if it went through the hole with the sendFluffy function
     function fluffyTroughWall() {
-        if (!FluffyPong_Path.movedFluffy[0]) {
+        if (FluffyPong_Path.movedFluffy.length < 1) {
             return;
         }
         else {
