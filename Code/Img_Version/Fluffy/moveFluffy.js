@@ -67,9 +67,9 @@ var FluffyPong_Img;
         else {
             for (let element of FluffyPong_Img.wallHoles) {
                 if (element instanceof FluffyPong_Img.WallLeftHole) {
-                    /* if (!movedFluffy[0]) {
+                    if (!FluffyPong_Img.movedFluffy[0]) {
                         return;
-                    } */
+                    }
                     //check if the fluffy was swiped inside of a hole
                     if (element.position.x + (FluffyPong_Img.borderWidth / 4) > (FluffyPong_Img.movedFluffy[0].position.x)) {
                         //if yes, then check if the fluffy has the same color than the wall
@@ -88,9 +88,9 @@ var FluffyPong_Img;
                     //and now the same for the other three walls
                 }
                 else if (element instanceof FluffyPong_Img.WallTopHole) {
-                    /* if (!movedFluffy[0]) {  //muss hier erneut erfolgen, da ansonsten Fehlermeldungen der Position kommen
+                    if (!FluffyPong_Img.movedFluffy[0]) { //muss hier erneut erfolgen, da ansonsten Fehlermeldungen der Position kommen
                         return;
-                    } */
+                    }
                     if (element.position.y + (FluffyPong_Img.borderWidth / 4) > (FluffyPong_Img.movedFluffy[0].position.y)) {
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallTopColor) {
                             FluffyPong_Img.swipe = false;
@@ -105,9 +105,9 @@ var FluffyPong_Img;
                     }
                 }
                 else if (element instanceof FluffyPong_Img.WallRightHole) {
-                    /* if (!movedFluffy[0]) {
+                    if (!FluffyPong_Img.movedFluffy[0]) {
                         return;
-                    } */
+                    }
                     if (element.position.x + (FluffyPong_Img.borderWidth / 4) < (FluffyPong_Img.movedFluffy[0].position.x + FluffyPong_Img.fluffyWidth)) {
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallRightColor) {
                             FluffyPong_Img.swipe = false;
@@ -122,9 +122,9 @@ var FluffyPong_Img;
                     }
                 }
                 else if (element instanceof FluffyPong_Img.WallBottomHole) {
-                    /* if (!movedFluffy[0]) {
+                    if (!FluffyPong_Img.movedFluffy[0]) {
                         return;
-                    } */
+                    }
                     if (element.position.y + (FluffyPong_Img.borderWidth / 4) < (FluffyPong_Img.movedFluffy[0].position.y + FluffyPong_Img.fluffyHeight)) {
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallBottomColor) {
                             FluffyPong_Img.swipe = false;
