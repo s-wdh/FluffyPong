@@ -175,7 +175,7 @@ export namespace FluffyPong {
                     const playerData: Ranking = <Ranking>JSON.parse(<string>data);
                     //save the incoming ranking data of every player in rankingHelp array
                     rankingHelp.push(playerData); 
-                    if (rankingHelp.length == clientSockets.length && timer == 0) {
+                    if (rankingHelp.length == clientSockets.length) {
                         //when server finally has the ranking of every player
                         for (let element of rankingHelp) {
                             fluffyAmounts.push(element.fluffyAmount);
