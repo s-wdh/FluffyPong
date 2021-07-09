@@ -60,20 +60,23 @@ var FluffyPong;
     //check if the fluffy was swiped through a hole in one of the walls or just somewhere else on the canvas
     //send the Fluffy to the server if it went through the hole with the sendFluffy function
     function fluffyTroughWall() {
-        if (FluffyPong.movedFluffy.length < 0) {
+        if (!FluffyPong.movedFluffy[0]) {
             return;
         }
         else {
-            //check if the fluffy was swiped inside of a hole
             for (let element of FluffyPong.wallHoles) {
-                //if yes, then check if the fluffy has the same color than the wall
                 if (element instanceof FluffyPong.WallLeftHole) {
-                    //if yes, send the fluffy to the server and delete it in this players fluffies array
+                    if (!FluffyPong.movedFluffy[0]) {
+                        return;
+                    }
+                    //check if the fluffy was swiped inside of a hole
                     if (element.position.x + FluffyPong.borderWidth > (FluffyPong.movedFluffy[0].position.x)) {
+                        FluffyPong.swipe = false;
+                        //if yes, then check if the fluffy has the same color than the wall
                         if (FluffyPong.movedFluffy[0].color == FluffyPong.wallLeftColor) {
+                            //if yes, send the fluffy to the server and delete it in this players fluffies array
                             console.log("passed the left wall");
                             FluffyPong.sendFluffy(FluffyPong.movedFluffy[0].position.y, "right");
-                            FluffyPong.swipe = false;
                             FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
                             FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
                         }
@@ -84,11 +87,14 @@ var FluffyPong;
                     //and now the same for the other three walls
                 }
                 else if (element instanceof FluffyPong.WallTopHole) {
+                    if (!FluffyPong.movedFluffy[0]) { //muss hier erneut erfolgen, da ansonsten Fehlermeldungen der Position kommen
+                        return;
+                    }
                     if (element.position.y + FluffyPong.borderWidth > (FluffyPong.movedFluffy[0].position.y)) {
+                        FluffyPong.swipe = false;
                         if (FluffyPong.movedFluffy[0].color == FluffyPong.wallTopColor) {
                             console.log("passed the top wall");
                             FluffyPong.sendFluffy(FluffyPong.movedFluffy[0].position.x, "bottom");
-                            FluffyPong.swipe = false;
                             FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
                             FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
                         }
@@ -98,11 +104,14 @@ var FluffyPong;
                     }
                 }
                 else if (element instanceof FluffyPong.WallRightHole) {
+                    if (!FluffyPong.movedFluffy[0]) {
+                        return;
+                    }
                     if (element.position.x < (FluffyPong.movedFluffy[0].position.x)) {
+                        FluffyPong.swipe = false;
                         if (FluffyPong.movedFluffy[0].color == FluffyPong.wallRightColor) {
                             console.log("passed the right wall");
                             FluffyPong.sendFluffy(FluffyPong.movedFluffy[0].position.y, "left");
-                            FluffyPong.swipe = false;
                             FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
                             FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
                         }
@@ -112,11 +121,14 @@ var FluffyPong;
                     }
                 }
                 else if (element instanceof FluffyPong.WallBottomHole) {
+                    if (!FluffyPong.movedFluffy[0]) {
+                        return;
+                    }
                     if (element.position.y < (FluffyPong.movedFluffy[0].position.y)) {
+                        FluffyPong.swipe = false;
                         if (FluffyPong.movedFluffy[0].color == FluffyPong.wallBottomColor) {
                             console.log("passed the bottom wall");
                             FluffyPong.sendFluffy(FluffyPong.movedFluffy[0].position.x, "top");
-                            FluffyPong.swipe = false;
                             FluffyPong.fluffies.splice(FluffyPong.fluffies.indexOf(FluffyPong.movedFluffy[0]), 1);
                             FluffyPong.movedFluffy.splice(0, FluffyPong.movedFluffy.length);
                         }
