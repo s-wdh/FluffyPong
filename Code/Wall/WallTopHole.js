@@ -10,7 +10,7 @@ var FluffyPong;
             //Border Top Hole
             FluffyPong.crc2.beginPath();
             FluffyPong.crc2.fillStyle = "#999999";
-            FluffyPong.holeTopWidth = FluffyPong.fluffyWidth + Math.random() * (FluffyPong.fluffyWidth / 2);
+            FluffyPong.holeTopWidth = FluffyPong.fluffyWidth + Math.random() * (FluffyPong.fluffyWidth / 2) + 2;
             FluffyPong.holeTopPosition = FluffyPong.borderWidth + Math.floor(Math.random() * (FluffyPong.canvasWidth - FluffyPong.holeTopWidth - (FluffyPong.borderWidth * 2)));
             FluffyPong.crc2.fillRect(FluffyPong.holeTopPosition, this.position.y, FluffyPong.holeTopWidth, FluffyPong.borderWidth);
             FluffyPong.crc2.closePath();

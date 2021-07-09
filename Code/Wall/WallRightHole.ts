@@ -14,11 +14,11 @@ namespace FluffyPong {
             //Border Right Hole
             crc2.beginPath();
             crc2.fillStyle = "#999999";
-            holeRightHeight1 = fluffyHeight + Math.random() * (fluffyHeight / 2);
+            holeRightHeight1 = fluffyHeight + Math.random() * (fluffyHeight / 2) + 2;
             //first hole should be in the upper half of the canvas
             holeRightPosition1 = borderWidth + Math.floor(Math.random() * ((canvasHeight / 2) - holeRightHeight1 - (borderWidth * 2)));
             crc2.fillRect(this.position.x, holeRightPosition1, borderWidth, holeRightHeight1);
-            holeRightHeight2 = fluffyHeight + Math.random() * (fluffyHeight / 2);
+            holeRightHeight2 = fluffyHeight + Math.random() * (fluffyHeight / 2) + 2;
             //second hole should be below hole 1
             holeRightPosition2 = (canvasHeight / 2) + Math.floor(Math.random() * ((canvasHeight / 2) - holeRightHeight2 - borderWidth));
             crc2.fillRect(this.position.x, holeRightPosition2, borderWidth, holeRightHeight2);
