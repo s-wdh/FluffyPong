@@ -70,8 +70,10 @@ var FluffyPong;
             }
             //ranking generated from the server arrives
             case "ranking": {
-                const ranking = JSON.parse(data);
-                createRankingTable(ranking);
+                if (namesent == true) {
+                    const ranking = JSON.parse(data);
+                    createRankingTable(ranking);
+                }
                 break;
             }
             //timer arrives, timer function is started and end of round is set to send the ranking to the sever then

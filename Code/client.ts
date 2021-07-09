@@ -102,8 +102,10 @@ namespace FluffyPong {
 
             //ranking generated from the server arrives
             case "ranking": {
-                const ranking: Ranking[] = <Ranking[]>JSON.parse(<string>data);
-                createRankingTable(ranking);
+                if (namesent == true) {
+                    const ranking: Ranking[] = <Ranking[]>JSON.parse(<string>data);
+                    createRankingTable(ranking);
+                }
                 break;
             }
 
@@ -130,7 +132,7 @@ namespace FluffyPong {
         let div: HTMLDivElement = <HTMLDivElement>document.getElementById("alert");
         div.style.opacity = "1";
 
-        close.addEventListener("click", function closeAlert(): void {    
+        close.addEventListener("click", function closeAlert(): void {
             div.style.opacity = "0";
         });
 
