@@ -59,8 +59,8 @@ var FluffyPong;
                 case "fluffy": {
                     const fluffy = JSON.parse(data);
                     let socketPosition = clientSockets.indexOf(socket);
-                    console.log(socketPosition);
-                    console.log("fluffy direction:" + fluffy.direction);
+                    //console.log(socketPosition);
+                    //console.log("fluffy direction:" + fluffy.direction);
                     let indexNewPlayer;
                     let newPlayer;
                     switch (fluffy.direction) {
@@ -194,7 +194,7 @@ var FluffyPong;
         for (let socketElement of clientSockets) {
             clientSockets.splice(clientSockets.indexOf(socketElement));
             playerInfos.delete(socketElement);
-            console.log(clientSockets.length, playerInfos.entries.length);
+            //console.log(clientSockets.length, playerInfos.entries.length);
         }
     }
 })(FluffyPong = exports.FluffyPong || (exports.FluffyPong = {})); //namespace

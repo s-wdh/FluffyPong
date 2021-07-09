@@ -85,7 +85,7 @@ var FluffyPong;
     //draw the walls and the holes in the walls onto the canvas
     function createWalls() {
         FluffyPong.borderWidth = FluffyPong.canvasHeight / 100 * 5; //calculate the width of the border as 5% of the heigth of the canvas
-        console.log("borderwidth:", FluffyPong.borderWidth);
+        //console.log("borderwidth:", borderWidth);
         for (let index = 0; index < 4; index++) {
             switch (index) {
                 case 0: {

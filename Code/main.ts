@@ -104,7 +104,7 @@ namespace FluffyPong {
     //draw the walls and the holes in the walls onto the canvas
     function createWalls(): void {
         borderWidth = canvasHeight / 100 * 5;           //calculate the width of the border as 5% of the heigth of the canvas
-        console.log("borderwidth:", borderWidth);
+        //console.log("borderwidth:", borderWidth);
         for (let index: number = 0; index < 4; index++) {
             switch (index) {
                 case 0: {

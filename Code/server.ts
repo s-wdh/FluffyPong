@@ -92,8 +92,8 @@ export namespace FluffyPong {
                 case "fluffy": {
                     const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
                     let socketPosition: number = clientSockets.indexOf(socket);
-                    console.log(socketPosition);
-                    console.log("fluffy direction:" + fluffy.direction);
+                    //console.log(socketPosition);
+                    //console.log("fluffy direction:" + fluffy.direction);
 
                     let indexNewPlayer: number;
                     let newPlayer: WebSocket;
@@ -231,7 +231,7 @@ export namespace FluffyPong {
         for (let socketElement of clientSockets) {
             clientSockets.splice(clientSockets.indexOf(socketElement));
             playerInfos.delete(socketElement);
-            console.log(clientSockets.length, playerInfos.entries.length);
+            //console.log(clientSockets.length, playerInfos.entries.length);
         }
     }
 
