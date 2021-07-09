@@ -85,7 +85,7 @@ namespace FluffyPong_Img {
                             fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                             movedFluffy.splice(0, movedFluffy.length);
                         } else { //if no, make the fluffy jump back inside the wall
-                            movedFluffy[0].position.x = borderWidth + (fluffyWidth / 2);
+                            movedFluffy[0].position.x = borderWidth + 1;
                         }
                     }
                     //and now the same for the other three walls
@@ -102,7 +102,7 @@ namespace FluffyPong_Img {
                             fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                             movedFluffy.splice(0, movedFluffy.length);
                         } else {
-                            movedFluffy[0].position.y = borderWidth + (fluffyHeight / 2);
+                            movedFluffy[0].position.y = borderWidth + 1;
                         }
                     }
                 } else if (element instanceof WallRightHole) {
@@ -118,7 +118,7 @@ namespace FluffyPong_Img {
                             fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                             movedFluffy.splice(0, movedFluffy.length);
                         } else {
-                            movedFluffy[0].position.x = canvasWidth - borderWidth - (fluffyWidth / 2);
+                            movedFluffy[0].position.x = canvasWidth - borderWidth - fluffyWidth;
                         }
                     }
                 } else if (element instanceof WallBottomHole) {
@@ -134,7 +134,7 @@ namespace FluffyPong_Img {
                             fluffies.splice(fluffies.indexOf(movedFluffy[0]), 1);
                             movedFluffy.splice(0, movedFluffy.length);
                         } else {
-                            movedFluffy[0].position.y = canvasHeight - borderWidth - (fluffyHeight / 2);
+                            movedFluffy[0].position.y = canvasHeight - borderWidth - fluffyHeight;
                         }
                     }
                 } else {  //if something went wrong with the holes

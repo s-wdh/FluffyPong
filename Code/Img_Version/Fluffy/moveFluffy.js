@@ -82,7 +82,7 @@ var FluffyPong_Img;
                             FluffyPong_Img.movedFluffy.splice(0, FluffyPong_Img.movedFluffy.length);
                         }
                         else { //if no, make the fluffy jump back inside the wall
-                            FluffyPong_Img.movedFluffy[0].position.x = FluffyPong_Img.borderWidth + (FluffyPong_Img.fluffyWidth / 2);
+                            FluffyPong_Img.movedFluffy[0].position.x = FluffyPong_Img.borderWidth + 1;
                         }
                     }
                     //and now the same for the other three walls
@@ -100,7 +100,7 @@ var FluffyPong_Img;
                             FluffyPong_Img.movedFluffy.splice(0, FluffyPong_Img.movedFluffy.length);
                         }
                         else {
-                            FluffyPong_Img.movedFluffy[0].position.y = FluffyPong_Img.borderWidth + (FluffyPong_Img.fluffyHeight / 2);
+                            FluffyPong_Img.movedFluffy[0].position.y = FluffyPong_Img.borderWidth + 1;
                         }
                     }
                 }
@@ -117,7 +117,7 @@ var FluffyPong_Img;
                             FluffyPong_Img.movedFluffy.splice(0, FluffyPong_Img.movedFluffy.length);
                         }
                         else {
-                            FluffyPong_Img.movedFluffy[0].position.x = FluffyPong_Img.canvasWidth - FluffyPong_Img.borderWidth - (FluffyPong_Img.fluffyWidth / 2);
+                            FluffyPong_Img.movedFluffy[0].position.x = FluffyPong_Img.canvasWidth - FluffyPong_Img.borderWidth - FluffyPong_Img.fluffyWidth;
                         }
                     }
                 }
@@ -134,7 +134,7 @@ var FluffyPong_Img;
                             FluffyPong_Img.movedFluffy.splice(0, FluffyPong_Img.movedFluffy.length);
                         }
                         else {
-                            FluffyPong_Img.movedFluffy[0].position.y = FluffyPong_Img.canvasHeight - FluffyPong_Img.borderWidth - (FluffyPong_Img.fluffyHeight / 2);
+                            FluffyPong_Img.movedFluffy[0].position.y = FluffyPong_Img.canvasHeight - FluffyPong_Img.borderWidth - FluffyPong_Img.fluffyHeight;
                         }
                     }
                 }
