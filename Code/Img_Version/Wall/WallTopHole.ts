@@ -12,7 +12,7 @@ namespace FluffyPong_Img {
             //Border Top Hole
             crc2.beginPath();
             crc2.fillStyle = "#999999";
-            holeTopWidth = fluffyWidth + Math.random() * (fluffyWidth / 2) + 2;
+            holeTopWidth = (fluffyWidth * 1.5) + Math.random() * (fluffyWidth / 2);
             holeTopPosition = borderWidth + Math.floor(Math.random() * (canvasWidth - holeTopWidth - (borderWidth * 2)));
             crc2.fillRect(holeTopPosition, this.position.y, holeTopWidth, borderWidth);
             crc2.closePath();
