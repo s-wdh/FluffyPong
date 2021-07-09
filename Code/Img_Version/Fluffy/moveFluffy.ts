@@ -70,9 +70,9 @@ namespace FluffyPong_Img {
         } else {
             for (let element of wallHoles) {
                 if (element instanceof WallLeftHole) {
-                    if (!movedFluffy[0]) {
+                    /* if (!movedFluffy[0]) {
                         return;
-                    }
+                    } */
                     //check if the fluffy was swiped inside of a hole
                     if (element.position.x + (borderWidth / 4) > (movedFluffy[0].position.x)) {
                         //if yes, then check if the fluffy has the same color than the wall
@@ -90,9 +90,9 @@ namespace FluffyPong_Img {
                     }
                     //and now the same for the other three walls
                 } else if (element instanceof WallTopHole) {
-                    if (!movedFluffy[0]) {  //muss hier erneut erfolgen, da ansonsten Fehlermeldungen der Position kommen
+                    /* if (!movedFluffy[0]) {  //muss hier erneut erfolgen, da ansonsten Fehlermeldungen der Position kommen
                         return;
-                    }
+                    } */
                     if (element.position.y + (borderWidth / 4) > (movedFluffy[0].position.y)) {
                         if (movedFluffy[0].color == wallTopColor) {
                             swipe = false;
@@ -106,9 +106,9 @@ namespace FluffyPong_Img {
                         }
                     }
                 } else if (element instanceof WallRightHole) {
-                    if (!movedFluffy[0]) {
+                    /* if (!movedFluffy[0]) {
                         return;
-                    }
+                    } */
                     if (element.position.x + (borderWidth / 4) < (movedFluffy[0].position.x + fluffyWidth)) {
                         if (movedFluffy[0].color == wallRightColor) {
                             swipe = false;
@@ -122,9 +122,9 @@ namespace FluffyPong_Img {
                         }
                     }
                 } else if (element instanceof WallBottomHole) {
-                    if (!movedFluffy[0]) {
+                    /* if (!movedFluffy[0]) {
                         return;
-                    }
+                    } */
                     if (element.position.y + (borderWidth / 4) < (movedFluffy[0].position.y + fluffyHeight)) {
                         if (movedFluffy[0].color == wallBottomColor) {
                             swipe = false;
