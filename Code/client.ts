@@ -70,33 +70,35 @@ namespace FluffyPong {
 
             //fluffy arrives at player and has to be drawn at the correct position onto the canvas
             case "fluffy": {
-                const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
-                let x: number = (canvasWidth / 2);
-                let y: number = (canvasHeight / 2);
-                //console.log("fluffy");
-                switch (fluffy.direction) {
-                    case "top":
-                        x = fluffy.position;
-                        y = fluffyHeight;
-                        break;
-                    case "right":
-                        x = (canvasWidth - fluffyWidth);
-                        y = fluffy.position;
-                        break;
-                    case "bottom":
-                        x = fluffy.position;
-                        y = (canvasHeight - fluffyHeight);
-                        break;
-                    case "left":
-                        x = fluffyWidth;
-                        y = fluffy.position;
-                        break;
+                if (namesent == true) {
+                    const fluffy: Fluffy = <Fluffy>JSON.parse(<string>data);
+                    let x: number = (canvasWidth / 2);
+                    let y: number = (canvasHeight / 2);
+                    //console.log("fluffy");
+                    switch (fluffy.direction) {
+                        case "top":
+                            x = fluffy.position;
+                            y = fluffyHeight;
+                            break;
+                        case "right":
+                            x = (canvasWidth - fluffyWidth);
+                            y = fluffy.position;
+                            break;
+                        case "bottom":
+                            x = fluffy.position;
+                            y = (canvasHeight - fluffyHeight);
+                            break;
+                        case "left":
+                            x = fluffyWidth;
+                            y = fluffy.position;
+                            break;
+                    }
+                    let position: Vector = new Vector(x, y);
+                    let newFluffy: FluffyElement = new FluffyElement(position);
+                    newFluffy.generateColor();
+                    newFluffy.draw();
+                    fluffies.unshift(newFluffy);
                 }
-                let position: Vector = new Vector(x, y);
-                let newFluffy: FluffyElement = new FluffyElement(position);
-                newFluffy.generateColor();
-                newFluffy.draw();
-                fluffies.unshift(newFluffy);
                 break;
             }
 

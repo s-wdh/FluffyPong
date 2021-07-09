@@ -39,33 +39,35 @@ var FluffyPong;
             }
             //fluffy arrives at player and has to be drawn at the correct position onto the canvas
             case "fluffy": {
-                const fluffy = JSON.parse(data);
-                let x = (FluffyPong.canvasWidth / 2);
-                let y = (FluffyPong.canvasHeight / 2);
-                //console.log("fluffy");
-                switch (fluffy.direction) {
-                    case "top":
-                        x = fluffy.position;
-                        y = FluffyPong.fluffyHeight;
-                        break;
-                    case "right":
-                        x = (FluffyPong.canvasWidth - FluffyPong.fluffyWidth);
-                        y = fluffy.position;
-                        break;
-                    case "bottom":
-                        x = fluffy.position;
-                        y = (FluffyPong.canvasHeight - FluffyPong.fluffyHeight);
-                        break;
-                    case "left":
-                        x = FluffyPong.fluffyWidth;
-                        y = fluffy.position;
-                        break;
+                if (namesent == true) {
+                    const fluffy = JSON.parse(data);
+                    let x = (FluffyPong.canvasWidth / 2);
+                    let y = (FluffyPong.canvasHeight / 2);
+                    //console.log("fluffy");
+                    switch (fluffy.direction) {
+                        case "top":
+                            x = fluffy.position;
+                            y = FluffyPong.fluffyHeight;
+                            break;
+                        case "right":
+                            x = (FluffyPong.canvasWidth - FluffyPong.fluffyWidth);
+                            y = fluffy.position;
+                            break;
+                        case "bottom":
+                            x = fluffy.position;
+                            y = (FluffyPong.canvasHeight - FluffyPong.fluffyHeight);
+                            break;
+                        case "left":
+                            x = FluffyPong.fluffyWidth;
+                            y = fluffy.position;
+                            break;
+                    }
+                    let position = new FluffyPong.Vector(x, y);
+                    let newFluffy = new FluffyPong.FluffyElement(position);
+                    newFluffy.generateColor();
+                    newFluffy.draw();
+                    FluffyPong.fluffies.unshift(newFluffy);
                 }
-                let position = new FluffyPong.Vector(x, y);
-                let newFluffy = new FluffyPong.FluffyElement(position);
-                newFluffy.generateColor();
-                newFluffy.draw();
-                FluffyPong.fluffies.unshift(newFluffy);
                 break;
             }
             //ranking generated from the server arrives
