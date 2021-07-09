@@ -43,7 +43,7 @@ var FluffyPong_Img;
                 _event.changedTouches[0].pageY :
                 _event.pageY;
             FluffyPong_Img.fluffyDirection = new FluffyPong_Img.Vector((x - (FluffyPong_Img.fluffyWidth / 2)), (y - (FluffyPong_Img.fluffyHeight / 2)));
-            if (!FluffyPong_Img.movedFluffy[0]) {
+            if (FluffyPong_Img.movedFluffy.length < 1) {
                 return;
             }
             FluffyPong_Img.movedFluffy[0].move(FluffyPong_Img.fluffyDirection);
@@ -55,12 +55,13 @@ var FluffyPong_Img;
     //function for the end of the swipe
     function moveFluffyEnd(_event) {
         FluffyPong_Img.swipe = false;
+        FluffyPong_Img.movedFluffy.splice(0, FluffyPong_Img.movedFluffy.length);
     }
     FluffyPong_Img.moveFluffyEnd = moveFluffyEnd;
     //check if the fluffy was swiped through a hole in one of the walls or just somewhere else on the canvas
     //send the Fluffy to the server if it went through the hole with the sendFluffy function
     function fluffyTroughWall() {
-        if (!FluffyPong_Img.movedFluffy[0]) {
+        if (FluffyPong_Img.movedFluffy.length < 1) {
             return;
         }
         else {
@@ -71,9 +72,9 @@ var FluffyPong_Img;
                     }
                     //check if the fluffy was swiped inside of a hole
                     if (element.position.x + (FluffyPong_Img.borderWidth / 4) > (FluffyPong_Img.movedFluffy[0].position.x)) {
-                        FluffyPong_Img.swipe = false;
                         //if yes, then check if the fluffy has the same color than the wall
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallLeftColor) {
+                            FluffyPong_Img.swipe = false;
                             //if yes, send the fluffy to the server and delete it in this players fluffies array
                             console.log("passed the left wall");
                             FluffyPong_Img.sendFluffy(FluffyPong_Img.movedFluffy[0].position.y, "right");
@@ -91,8 +92,8 @@ var FluffyPong_Img;
                         return;
                     }
                     if (element.position.y + (FluffyPong_Img.borderWidth / 4) > (FluffyPong_Img.movedFluffy[0].position.y)) {
-                        FluffyPong_Img.swipe = false;
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallTopColor) {
+                            FluffyPong_Img.swipe = false;
                             console.log("passed the top wall");
                             FluffyPong_Img.sendFluffy(FluffyPong_Img.movedFluffy[0].position.x, "bottom");
                             FluffyPong_Img.fluffies.splice(FluffyPong_Img.fluffies.indexOf(FluffyPong_Img.movedFluffy[0]), 1);
@@ -108,8 +109,8 @@ var FluffyPong_Img;
                         return;
                     }
                     if (element.position.x + (FluffyPong_Img.borderWidth / 4) < (FluffyPong_Img.movedFluffy[0].position.x + FluffyPong_Img.fluffyWidth)) {
-                        FluffyPong_Img.swipe = false;
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallRightColor) {
+                            FluffyPong_Img.swipe = false;
                             console.log("passed the right wall");
                             FluffyPong_Img.sendFluffy(FluffyPong_Img.movedFluffy[0].position.y, "left");
                             FluffyPong_Img.fluffies.splice(FluffyPong_Img.fluffies.indexOf(FluffyPong_Img.movedFluffy[0]), 1);
@@ -125,8 +126,8 @@ var FluffyPong_Img;
                         return;
                     }
                     if (element.position.y + (FluffyPong_Img.borderWidth / 4) < (FluffyPong_Img.movedFluffy[0].position.y + FluffyPong_Img.fluffyHeight)) {
-                        FluffyPong_Img.swipe = false;
                         if (FluffyPong_Img.movedFluffy[0].color == FluffyPong_Img.wallBottomColor) {
+                            FluffyPong_Img.swipe = false;
                             console.log("passed the bottom wall");
                             FluffyPong_Img.sendFluffy(FluffyPong_Img.movedFluffy[0].position.x, "top");
                             FluffyPong_Img.fluffies.splice(FluffyPong_Img.fluffies.indexOf(FluffyPong_Img.movedFluffy[0]), 1);
