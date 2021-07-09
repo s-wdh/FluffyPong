@@ -118,7 +118,7 @@ button {
 
 #alert {
     position: absolute;
-    top: 20%;
+    top: 10px;
     padding: 20px;
     background-color: #999999;
     color: white;
