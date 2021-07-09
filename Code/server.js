@@ -140,7 +140,7 @@ var FluffyPong;
                     const playerData = JSON.parse(data);
                     //save the incoming ranking data of every player in rankingHelp array
                     rankingHelp.push(playerData);
-                    if (rankingHelp.length == clientSockets.length && rankingHelp.length > 0) {
+                    if (rankingHelp.length == clientSockets.length && timer == 0) {
                         //when server finally has the ranking of every player
                         for (let element of rankingHelp) {
                             fluffyAmounts.push(element.fluffyAmount);
