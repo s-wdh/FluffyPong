@@ -1,0 +1,188 @@
+body {
+    color: #000000;
+    width: 100%;
+    height: 100%;
+}
+
+#startdiv {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    background-color: #cccccc;
+    color: #ffffff;
+    z-index: 1;
+}
+
+#playername {
+    position: relative;
+    top: 50%;
+    left: 20%;
+    background-color: #999999;
+    border-style: none;
+    border-width: 0px;
+    border-radius: 1px;
+    color: #ffffff;
+    height: 25px;
+}
+
+#playername::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+    opacity: 1; /* Firefox */
+}
+  
+#playername:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+}
+  
+#playername::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+}
+
+button {
+    position: absolute;
+    top: 80%;
+    border-style: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #ffffb3;
+    color: #999999;
+    font-weight: bold;
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media only screen and (max-width: 400px) {
+    #startdiv {
+        width: 100%;
+    }
+    h1 {
+        text-align: center;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-variant: small-caps;
+        line-height: 0;
+    }
+    #logo {
+        position:absolute;
+        left: 10%;
+        width: 80%;
+        clip-path: ellipse(45% 35% at 50% 50%);
+    }
+    #playername {
+        left: 2%;
+        width: 96%;
+    }
+    #start {
+        left: 28%;
+    }
+    #help {
+        left: 60%;
+    }
+}
+@media only screen and (min-width: 404px) {
+    #startdiv {
+        width: 410px;
+    }
+    h1 {
+        position: relative;
+        text-align: center;
+        max-width: 400px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-variant: small-caps;
+    }
+    #logo {
+        position:absolute;
+        left: 40px;
+        width: 320px;
+        clip-path: ellipse(45% 35% at 50% 50%);
+    }
+    #playername {
+        left: 2px;
+        width: 400px;
+    }
+    #start {
+        left: 130px;
+    }
+    #help {
+        left: 230px;
+    }
+}
+
+#alert {
+    position: absolute;
+    top: 10px;
+    padding: 20px;
+    background-color: #999999;
+    color: white;
+    line-height: 1.5;
+    opacity: 0;
+    width: 87.5%;
+    max-width: 350px;
+    min-height: 150px;
+    padding: 20px;
+    z-index: 2;
+}
+  
+#closebtn {
+    margin-left: 15px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 30px;
+    line-height: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+#closebtn:hover {
+    color: black;
+}
+
+#images {
+    display: none;
+}
+
+canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#timer {
+    color: #000000;
+    position: absolute;
+    left: 50px;
+    top: 0px;
+}
+
+#rankingDiv {
+    position: absolute;
+}
+
+th, td {
+    border-style: solid;
+    border-width: 2px;
+    background-color: rgba(204, 204, 204, 0.5);
+}
+
+.table {
+    column-width: auto;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000000;
+    color: #000000;
+}
+
+.newRound {
+    color: #000000;
+    margin: 5px;
+}
