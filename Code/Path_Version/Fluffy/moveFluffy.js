@@ -72,9 +72,9 @@ var FluffyPong_Path;
                     }
                     //check if the fluffy was swiped inside of a hole
                     if (element.position.x + FluffyPong_Path.borderWidth > (FluffyPong_Path.movedFluffy[0].position.x)) {
-                        FluffyPong_Path.swipe = false;
                         //if yes, then check if the fluffy has the same color than the wall
                         if (FluffyPong_Path.movedFluffy[0].color == FluffyPong_Path.wallLeftColor) {
+                            FluffyPong_Path.swipe = false;
                             //if yes, send the fluffy to the server and delete it in this players fluffies array
                             console.log("passed the left wall");
                             FluffyPong_Path.sendFluffy(FluffyPong_Path.movedFluffy[0].position.y, "right");
@@ -92,8 +92,8 @@ var FluffyPong_Path;
                         return;
                     }
                     if (element.position.y + FluffyPong_Path.borderWidth > (FluffyPong_Path.movedFluffy[0].position.y)) {
-                        FluffyPong_Path.swipe = false;
                         if (FluffyPong_Path.movedFluffy[0].color == FluffyPong_Path.wallTopColor) {
+                            FluffyPong_Path.swipe = false;
                             console.log("passed the top wall");
                             FluffyPong_Path.sendFluffy(FluffyPong_Path.movedFluffy[0].position.x, "bottom");
                             FluffyPong_Path.fluffies.splice(FluffyPong_Path.fluffies.indexOf(FluffyPong_Path.movedFluffy[0]), 1);
@@ -109,8 +109,8 @@ var FluffyPong_Path;
                         return;
                     }
                     if (element.position.x < (FluffyPong_Path.movedFluffy[0].position.x)) {
-                        FluffyPong_Path.swipe = false;
                         if (FluffyPong_Path.movedFluffy[0].color == FluffyPong_Path.wallRightColor) {
+                            FluffyPong_Path.swipe = false;
                             console.log("passed the right wall");
                             FluffyPong_Path.sendFluffy(FluffyPong_Path.movedFluffy[0].position.y, "left");
                             FluffyPong_Path.fluffies.splice(FluffyPong_Path.fluffies.indexOf(FluffyPong_Path.movedFluffy[0]), 1);
@@ -126,8 +126,8 @@ var FluffyPong_Path;
                         return;
                     }
                     if (element.position.y < (FluffyPong_Path.movedFluffy[0].position.y)) {
-                        FluffyPong_Path.swipe = false;
                         if (FluffyPong_Path.movedFluffy[0].color == FluffyPong_Path.wallBottomColor) {
+                            FluffyPong_Path.swipe = false;
                             console.log("passed the bottom wall");
                             FluffyPong_Path.sendFluffy(FluffyPong_Path.movedFluffy[0].position.x, "top");
                             FluffyPong_Path.fluffies.splice(FluffyPong_Path.fluffies.indexOf(FluffyPong_Path.movedFluffy[0]), 1);
