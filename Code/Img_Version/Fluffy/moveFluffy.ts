@@ -26,6 +26,7 @@ namespace FluffyPong_Img {
                     if (oldPosition.y > element.position.y && oldPosition.y < (element.position.y + fluffyHeight)) {
                         movedFluffy.unshift(element);
                         _event.stopPropagation();
+                        break;
                     }
                 }
             }

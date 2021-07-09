@@ -60,6 +60,7 @@ namespace FluffyPong_Path {
     //function for the end of the swipe
     export function moveFluffyEnd(_event: TouchEvent | MouseEvent): void {
         swipe = false;
+        movedFluffy.splice(0, movedFluffy.length);
     }
 
     //check if the fluffy was swiped through a hole in one of the walls or just somewhere else on the canvas

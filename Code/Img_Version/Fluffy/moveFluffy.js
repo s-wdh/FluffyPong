@@ -22,6 +22,7 @@ var FluffyPong_Img;
                     if (FluffyPong_Img.oldPosition.y > element.position.y && FluffyPong_Img.oldPosition.y < (element.position.y + FluffyPong_Img.fluffyHeight)) {
                         FluffyPong_Img.movedFluffy.unshift(element);
                         _event.stopPropagation();
+                        break;
                     }
                 }
             }

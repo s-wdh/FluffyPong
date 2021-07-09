@@ -55,6 +55,7 @@ var FluffyPong_Path;
     //function for the end of the swipe
     function moveFluffyEnd(_event) {
         FluffyPong_Path.swipe = false;
+        FluffyPong_Path.movedFluffy.splice(0, FluffyPong_Path.movedFluffy.length);
     }
     FluffyPong_Path.moveFluffyEnd = moveFluffyEnd;
     //check if the fluffy was swiped through a hole in one of the walls or just somewhere else on the canvas
